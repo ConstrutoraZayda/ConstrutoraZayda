@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Zayda Construtora — Empreendimentos residenciais · Barra de São João, RJ</title>
+<link rel="stylesheet" href="zayda-styles.css" />
+<script src="image-slot.js"></script>
+</head>
+<body>
+
+<!-- ====== CUSTOM CURSOR ====== -->
+<div class="cursor-dot" id="cursor"></div>
+
+<!-- ====== HEADER ====== -->
+<header class="nav" id="nav">
+  <a class="brand" data-route="inicio" href="#inicio">
+    <img src="Logo/Sem título (1).png" alt="Zayda Construtora" class="brand-logo">
+  </a>
+  <nav class="nav-links">
+    <a data-route="empreendimentos" href="#empreendimentos" data-link>Empreendimentos</a>
+    <a data-route="simulador" href="#simulador" data-link>Simulador</a>
+    <a data-route="sobre" href="#sobre" data-link>Sobre</a>
+    <a data-route="atendimento" href="#atendimento" data-link>Atendimento</a>
+  </nav>
+  <div class="nav-cta">
+    <button class="pill" id="openContact">Quero meu imóvel →</button>
+    <button class="menu" id="openMenu">Menu</button>
+  </div>
+</header>
+
+<!-- ====== MENU OVERLAY (mobile) ====== -->
+<div class="menu-overlay" id="menuOverlay">
+  <div class="close-row">
+    <button class="pill" id="closeMenu" style="color:var(--bg);border-color:var(--bg);padding:9px 16px;border-radius:999px;border:1px solid currentColor;">Fechar</button>
+  </div>
+  <nav class="links-big">
+    <a data-route="inicio" data-link href="#inicio">Início</a>
+    <a data-route="empreendimentos" data-link href="#empreendimentos">Empreendimentos</a>
+    <a data-route="simulador" data-link href="#simulador">Simulador</a>
+    <a data-route="sobre" data-link href="#sobre">Sobre</a>
+    <a data-route="esg" data-link href="#esg">Sustentabilidade</a>
+    <a data-route="carreira" data-link href="#carreira">Carreira</a>
+    <a data-route="blog" data-link href="#blog">Blog</a>
+    <a data-route="atendimento" data-link href="#atendimento">Atendimento</a>
+  </nav>
+  <div class="footer-row">
+    <span>Barra de São João · RJ</span>
+    <span>© 2026</span>
+  </div>
+</div>
+
+<!-- ====== PAGE TRANSITION VEIL ====== -->
+<div class="transition-veil" id="veil">
+  <span class="veil-mark serif">Z</span>
+</div>
+
+<!-- ====== WORK PREVIEW (hover) — disabled (using image-slots) ====== -->
+<div class="work-preview" id="workPreview" style="display:none;"></div>
+
+<!-- ====== PAGES ====== -->
+<main class="page-stack">
+
+<!-- ========== INÍCIO ========== -->
+<div class="page active" data-page="inicio">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-media">
+      <image-slot id="slot-1" placeholder="Residencial Praia da Lagoa" style="width:100%;height:100%;display:block;"></image-slot>
+    </div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div></div>
+      <div>
+        <div class="hero-top-row reveal-up" style="--d: 280ms;">
+          <div class="hero-tag">
+            <span class="idx">(em destaque)</span>
+            <span class="title">Praia da Lagoa</span>
+            <span class="meta">2026 · Lançamento</span>
+            <a class="link" href="#empreendimento" data-route="empreendimento" data-link>Ver empreendimento <span>→</span></a>
+          </div>
+        </div>
+        <h1 class="hero-headline reveal-up" style="--d: 100ms;">
+          <span class="row-1">Construímos</span>
+          <span class="row-2"><span class="it">o lar</span> de quem</span>
+          <span class="row-2">mora no litoral.</span>
+        </h1>
+
+        <!-- Hero search -->
+        <form class="hero-search reveal-up" id="heroSearch" style="--d: 380ms;">
+          <div class="hs-field">
+            <label>Localização</label>
+            <select name="local">
+              <option value="">Todos os bairros</option>
+              <option>Centro</option>
+              <option>Praia</option>
+              <option>Beira-Rio</option>
+              <option>Pescão</option>
+              <option>Costa Azul</option>
+            </select>
+          </div>
+          <div class="hs-field">
+            <label>Tipologia</label>
+            <select name="tipo">
+              <option value="">Apartamentos e casas</option>
+              <option>2 quartos</option>
+              <option>3 quartos</option>
+              <option>Cobertura</option>
+              <option>Casa</option>
+            </select>
+          </div>
+          <div class="hs-field">
+            <label>Etapa</label>
+            <select name="etapa">
+              <option value="">Todas as etapas</option>
+              <option value="lancamento">Lançamento</option>
+              <option value="obra">Em obra</option>
+              <option value="entregue">Pronto pra morar</option>
+            </select>
+          </div>
+          <button type="submit" class="hs-go">Buscar <span>→</span></button>
+        </form>
+
+        <div class="hero-bottom-row reveal-up" style="--d: 580ms;">
+          <span>Construtora · Barra de São João, RJ · est. 2014</span>
+          <span class="scroll">Role <span class="hide-mobile">para conhecer</span></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATEMENT BLOCKS -->
+  <section class="statements">
+    <div class="col">
+      <div class="idx-row">
+        <span class="idx">(00)</span>
+        <span class="label">Quem somos</span>
+      </div>
+      <p class="statement">
+        Somos uma construtora <span class="italic">local</span>, dedicada a empreendimentos residenciais entre a lagoa e o mar de Barra de São João.
+      </p>
+    </div>
+    <div class="col">
+      <div class="idx-row">
+        <span class="idx">(01)</span>
+        <span class="label">Como pensamos</span>
+      </div>
+      <p class="statement">
+        Cada obra começa com uma conversa, segue com cronograma à mostra, e termina com <span class="italic">chave entregue na mão</span>.
+      </p>
+    </div>
+  </section>
+
+  <!-- APPROACH -->
+  <section class="approach">
+    <div class="approach-head">
+      <span class="label">(Nossa abordagem)</span>
+      <h2 class="section r">Projeto e obra<br/>tratados com a mesma <span class="italic serif">presença</span>.</h2>
+    </div>
+    <div class="approach-grid">
+      <div class="approach-media r"><image-slot id="slot-2" placeholder="Equipe Zayda em obra" style="width:100%;height:100%;display:block;"></image-slot></div>
+      <div class="approach-copy r">
+        <p>A gente começa pequeno: uma conversa com o cliente, uma visita ao terreno, um café demorado. Daí em diante, a planta, a obra e o pós-entrega ficam todos com a mesma equipe.</p>
+        <p>Não terceirizamos a construção. Engenheiros, mestres de obra e equipe de acabamento são nossos — moram aqui, conhecem o vento que vem do mar, o solo da lagoa, o ritmo do verão. Por isso, cada empreendimento sai um pouco diferente: feito sob a luz e o clima de Barra de São João, no jeito de quem entende o lugar.</p>
+        <a class="read-more" href="#sobre" data-route="sobre" data-link>Conhecer a Zayda <span>→</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <section class="stats">
+    <div class="stats-head">
+      <span class="label">(Números que importam)</span>
+      <h2 class="section">Doze anos<br/><span class="italic serif">no mesmo lugar</span>.</h2>
+    </div>
+    <div class="stats-grid">
+      <div class="stat r">
+        <span class="stat-idx idx">(01)</span>
+        <div class="stat-num serif">12</div>
+        <div class="stat-label">anos de construtora</div>
+        <div class="stat-meta">Fundada em 2014 por Junior Alcineu, engenheiro civil.</div>
+      </div>
+      <div class="stat r">
+        <span class="stat-idx idx">(02)</span>
+        <div class="stat-num serif">220<span class="plus">+</span></div>
+        <div class="stat-label">unidades entregues</div>
+        <div class="stat-meta">Em 8 empreendimentos concluídos até hoje.</div>
+      </div>
+      <div class="stat r">
+        <span class="stat-idx idx">(03)</span>
+        <div class="stat-num serif">28</div>
+        <div class="stat-label">no time</div>
+        <div class="stat-meta">Engenheiros, mestres e equipe de acabamento — todos da região.</div>
+      </div>
+      <div class="stat r">
+        <span class="stat-idx idx">(04)</span>
+        <div class="stat-num serif">5<span class="plus serif">anos</span></div>
+        <div class="stat-label">de assistência</div>
+        <div class="stat-meta">Pós-obra resolvido em até 72h, sem intermediário.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORKS -->
+  <section class="works" id="works">
+    <div class="works-head">
+      <div class="left">
+        <span class="label">(Em destaque)</span>
+        <h2 class="r">Obras</h2>
+      </div>
+      <div class="meta">
+        <span class="idx">(06)</span>
+        <span>Obras assinadas</span>
+      </div>
+    </div>
+
+    <div class="works-list">
+      <a class="work-item" data-img="" href="#empreendimento" data-route="empreendimento" data-link data-emp="praia-da-lagoa">
+        <span class="idx">(00)</span>
+        <span class="name">Praia da Lagoa</span>
+        <span class="year">2026</span>
+        <span class="status">Lançamento</span>
+      </a>
+      <a class="work-item" data-img="" href="#empreendimento" data-route="empreendimento" data-link data-emp="mares">
+        <span class="idx">(01)</span>
+        <span class="name">Marés</span>
+        <span class="year">2025</span>
+        <span class="status">Em obra</span>
+      </a>
+      <a class="work-item" data-img="" href="#empreendimento" data-route="empreendimento" data-link data-emp="vila-do-sol">
+        <span class="idx">(02)</span>
+        <span class="name">Vila do Sol</span>
+        <span class="year">2024</span>
+        <span class="status">Entregue</span>
+      </a>
+      <a class="work-item" data-img="" href="#empreendimento" data-route="empreendimento" data-link data-emp="aldeia">
+        <span class="idx">(03)</span>
+        <span class="name">Aldeia</span>
+        <span class="year">2023</span>
+        <span class="status">Entregue</span>
+      </a>
+      <a class="work-item" data-img="" href="#empreendimento" data-route="empreendimento" data-link data-emp="atoba">
+        <span class="idx">(04)</span>
+        <span class="name">Atobá</span>
+        <span class="year">2025</span>
+        <span class="status">Em obra</span>
+      </a>
+      <a class="work-item" data-img="" href="#empreendimento" data-route="empreendimento" data-link data-emp="manguezal">
+        <span class="idx">(05)</span>
+        <span class="name">Manguezal</span>
+        <span class="year">2022</span>
+        <span class="status">Entregue</span>
+      </a>
+    </div>
+
+    <div class="works-footer">
+      <a class="link" href="#empreendimentos" data-route="empreendimentos" data-link>Todos os empreendimentos <span>→</span></a>
+    </div>
+  </section>
+
+  <!-- PROCESS TEASER -->
+  <section class="process">
+    <div class="process-grid">
+      <div class="process-image r"><image-slot id="slot-3" placeholder="Planta arquitetônica" style="width:100%;height:100%;display:block;"></image-slot></div>
+      <div class="process-copy r">
+        <span class="label">(Como trabalhamos)</span>
+        <h2 class="section">Seis etapas, do primeiro café à entrega das chaves.</h2>
+        <p class="process-blurb">Cada empreendimento da Zayda passa por seis etapas claras — pensadas para você acompanhar a obra de perto, com cronograma, planilha e fotos atualizadas semanalmente.</p>
+
+        <div class="process-stages">
+          <div class="process-stage"><span class="idx">(01)</span><span class="name">Escuta e viabilidade</span><span class="arrow">→</span></div>
+          <div class="process-stage"><span class="idx">(02)</span><span class="name">Estudo preliminar</span><span class="arrow">→</span></div>
+          <div class="process-stage"><span class="idx">(03)</span><span class="name">Projeto executivo</span><span class="arrow">→</span></div>
+          <div class="process-stage"><span class="idx">(04)</span><span class="name">Aprovação e licenças</span><span class="arrow">→</span></div>
+          <div class="process-stage"><span class="idx">(05)</span><span class="name">Construção</span><span class="arrow">→</span></div>
+          <div class="process-stage"><span class="idx">(06)</span><span class="name">Entrega e pós-obra</span><span class="arrow">→</span></div>
+        </div>
+
+        <a class="read-more" href="#sobre" data-route="sobre" data-link>Conhecer o processo <span>→</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIAL -->
+  <section class="testimonial">
+    <div class="testimonial-grid">
+      <div class="testimonial-media r">
+        <image-slot id="slot-4" placeholder="Cliente Zayda" style="width:100%;height:100%;display:block;"></image-slot>
+      </div>
+      <div class="testimonial-copy r">
+        <div class="testimonial-label">
+          <span class="idx">(00)</span>
+          <span class="label">No olhar de quem mora</span>
+        </div>
+        <p class="testimonial-quote">
+          “Compramos na planta e acompanhamos a obra do começo ao fim. O Junior atendia no WhatsApp como vizinho — não como vendedor. Quando recebemos as chaves, tudo estava do jeito que combinamos. <span class="italic">Inclusive o prazo.</span>”
+        </p>
+        <div class="testimonial-attrib">
+          <div>
+            <div class="name">Marina Cavalcante</div>
+            <div class="meta">Condomínio Vila do Sol · Barra de São João (2024)</div>
+          </div>
+          <a class="link" href="#empreendimento" data-route="empreendimento" data-link data-emp="vila-do-sol">Ver empreendimento</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <h2 class="cta-headline">Pronto pra desenhar<br/><span class="italic">o seu lar</span> à beira do mar?</h2>
+    <div class="cta-button">
+      <button class="btn-big" id="ctaContact">Iniciar projeto <span>→</span></button>
+    </div>
+  </section>
+
+  <div class="marquee">
+    <div class="marquee-track">
+      <span>Feito em Barra de São João <span class="star">✦</span> Construído com presença <span class="star">✦</span> Entregue no prazo <span class="star">✦</span></span>
+      <span>Feito em Barra de São João <span class="star">✦</span> Construído com presença <span class="star">✦</span> Entregue no prazo <span class="star">✦</span></span>
+    </div>
+  </div>
+
+  <div class="cta-image">
+    <image-slot id="slot-5" placeholder="Vista de empreendimento Zayda" style="width:100%;height:100%;display:block;"></image-slot>
+  </div>
+
+</div>
+
+<!-- ========== EMPREENDIMENTOS (listagem) ========== -->
+<div class="page" data-page="empreendimentos">
+  <div class="page-head">
+    <div>
+      <span class="label" style="display:block;margin-bottom:24px;">(Portfólio · 2014—2026)</span>
+      <h1>Empreendimentos</h1>
+    </div>
+    <div class="meta">
+      <span class="idx" id="empCount">(08)</span>
+      <span>Empreendimentos</span>
+    </div>
+  </div>
+
+  <div class="filters">
+    <button class="chip active" data-filter="all">Todas</button>
+    <button class="chip" data-filter="lancamento">Lançamentos</button>
+    <button class="chip" data-filter="obra">Em obra</button>
+    <button class="chip" data-filter="entregue">Entregues</button>
+  </div>
+
+  <div class="obras-grid" id="empGrid">
+    <a class="obra r" data-status="lancamento" data-emp="praia-da-lagoa" data-local="Beira-Rio" data-tipo="3 quartos" href="#empreendimento" data-route="empreendimento" data-link>
+      <div class="obra-media"><image-slot id="slot-6" placeholder="Praia da Lagoa" style="width:100%;height:100%;display:block;"></image-slot><span class="obra-pill">Lançamento</span></div>
+      <div class="obra-foot">
+        <div><div class="name">Praia da Lagoa</div><div class="meta">Av. Beira Rio · 32 unidades · 2 e 3 quartos<br/><span class="price">A partir de R$ 480 mil</span></div></div>
+        <div class="year">2026</div>
+      </div>
+    </a>
+    <a class="obra r" data-status="obra" data-emp="mares" data-local="Praia" data-tipo="2 quartos" href="#empreendimento" data-route="empreendimento" data-link>
+      <div class="obra-media"><image-slot id="slot-7" placeholder="Marés" style="width:100%;height:100%;display:block;"></image-slot><span class="obra-pill">Em obra</span></div>
+      <div class="obra-foot">
+        <div><div class="name">Marés</div><div class="meta">Rua das Palmeiras · 24 unidades<br/><span class="price">A partir de R$ 420 mil</span></div></div>
+        <div class="year">2025</div>
+      </div>
+    </a>
+    <a class="obra r" data-status="entregue" data-emp="vila-do-sol" data-local="Centro" data-tipo="2 quartos" href="#empreendimento" data-route="empreendimento" data-link>
+      <div class="obra-media"><image-slot id="slot-8" placeholder="Vila do Sol" style="width:100%;height:100%;display:block;"></image-slot><span class="obra-pill">Pronto pra morar</span></div>
+      <div class="obra-foot">
+        <div><div class="name">Vila do Sol</div><div class="meta">Estrada do Sana · 48 unidades<br/><span class="price">A partir de R$ 380 mil</span></div></div>
+        <div class="year">2024</div>
+      </div>
+    </a>
+    <a class="obra r" data-status="entregue" data-emp="aldeia" data-local="Costa Azul" data-tipo="3 quartos" href="#empreendimento" data-route="empreendimento" data-link>
+      <div class="obra-media"><image-slot id="slot-9" placeholder="Aldeia" style="width:100%;height:100%;display:block;"></image-slot><span class="obra-pill">Pronto pra morar</span></div>
+      <div class="obra-foot">
+        <div><div class="name">Aldeia</div><div class="meta">Rua Itacolomi · 18 unidades<br/><span class="price">A partir de R$ 520 mil</span></div></div>
+        <div class="year">2023</div>
+      </div>
+    </a>
+    <a class="obra r" data-status="obra" data-emp="atoba" data-local="Pescão" data-tipo="2 quartos" href="#empreendimento" data-route="empreendimento" data-link>
+      <div class="obra-media"><image-slot id="slot-10" placeholder="Atobá" style="width:100%;height:100%;display:block;"></image-slot><span class="obra-pill">Em obra</span></div>
+      <div class="obra-foot">
+        <div><div class="name">Atobá</div><div class="meta">Av. dos Pescadores · 16 unidades<br/><span class="price">A partir de R$ 460 mil</span></div></div>
+        <div class="year">2025</div>
+      </div>
+    </a>
+    <a class="obra r" data-status="entregue" data-emp="manguezal" data-local="Beira-Rio" data-tipo="2 quartos" href="#empreendimento" data-route="empreendimento" data-link>
+      <div class="obra-media"><image-slot id="slot-11" placeholder="Manguezal" style="width:100%;height:100%;display:block;"></image-slot><span class="obra-pill">Pronto pra morar</span></div>
+      <div class="obra-foot">
+        <div><div class="name">Manguezal</div><div class="meta">Rua do Mangue · 28 unidades<br/><span class="price">A partir de R$ 360 mil</span></div></div>
+        <div class="year">2022</div>
+      </div>
+    </a>
+    <a class="obra r" data-status="entregue" data-emp="costa-verde" data-local="Praia" data-tipo="3 quartos" href="#empreendimento" data-route="empreendimento" data-link>
+      <div class="obra-media"><image-slot id="slot-12" placeholder="Costa Verde" style="width:100%;height:100%;display:block;"></image-slot><span class="obra-pill">Pronto pra morar</span></div>
+      <div class="obra-foot">
+        <div><div class="name">Costa Verde</div><div class="meta">Av. Atlântica · 22 unidades<br/><span class="price">A partir de R$ 490 mil</span></div></div>
+        <div class="year">2021</div>
+      </div>
+    </a>
+    <a class="obra r" data-status="entregue" data-emp="ipanema-do-norte" data-local="Costa Azul" data-tipo="2 quartos" href="#empreendimento" data-route="empreendimento" data-link>
+      <div class="obra-media"><image-slot id="slot-13" placeholder="Ipanema do Norte" style="width:100%;height:100%;display:block;"></image-slot><span class="obra-pill">Pronto pra morar</span></div>
+      <div class="obra-foot">
+        <div><div class="name">Ipanema do Norte</div><div class="meta">Rua dos Coqueiros · 14 unidades<br/><span class="price">A partir de R$ 410 mil</span></div></div>
+        <div class="year">2020</div>
+      </div>
+    </a>
+  </div>
+  <div id="empEmpty" class="emp-empty" style="display:none;">
+    <p class="statement">Nenhum empreendimento encontrado com esses filtros.</p>
+    <button class="btn-ghost" id="empReset">Limpar filtros</button>
+  </div>
+</div>
+
+<!-- ========== SOBRE ========== -->
+<div class="page" data-page="sobre">
+  <section class="studio-intro">
+    <span class="label">(Sobre a Zayda · est. 2014)</span>
+    <p class="lead">Uma construtora <span class="italic serif">de bairro</span>, fundada para erguer prédios pequenos com a qualidade dos grandes.</p>
+  </section>
+
+  <section class="studio-body">
+    <div class="col-img r"><image-slot id="slot-14" placeholder="Equipe Zayda" style="width:100%;height:100%;display:block;"></image-slot></div>
+    <div class="col-text r">
+      <p>A Zayda nasceu em 2014, em Barra de São João, quando o Junior Alcineu — engenheiro civil — decidiu que valia a pena construir devagar. Doze anos depois, somos uma equipe de 28 pessoas que projeta, constrói e entrega empreendimentos residenciais entre a lagoa, o rio e o mar.</p>
+      <p>A gente acredita que uma boa construtora não precisa fazer muito; precisa fazer bem feito. Por isso seguimos com um ritmo de duas a três obras por ano, com equipe própria, fornecedores fixos e cronograma assinado em contrato. Nada de promessa de marketing — só obra que entrega o que combinou.</p>
+      <p>Nosso lugar é o litoral fluminense. Conhecemos o vento, o sal, o tipo de areia, a hora certa de concretar. Esse é o nosso ofício, e é o que entregamos a cada novo morador.</p>
+    </div>
+  </section>
+
+  <section class="studio-values">
+    <div class="studio-values-head">
+      <h2 class="section">O que nos move,<br/>na obra e fora dela.</h2>
+      <span class="idx">(04 princípios)</span>
+    </div>
+    <div class="studio-values-grid">
+      <div class="value-card r"><span class="idx">(01)</span><h3>Presença</h3><p>Engenheiro responsável na obra todo dia. Sem terceirizar a fiscalização.</p></div>
+      <div class="value-card r"><span class="idx">(02)</span><h3>Transparência</h3><p>Planilha de custos aberta antes da assinatura. Cronograma público no site do cliente.</p></div>
+      <div class="value-card r"><span class="idx">(03)</span><h3>Permanência</h3><p>Assistência técnica de 5 anos. Atendimento direto, sem intermediário.</p></div>
+      <div class="value-card r"><span class="idx">(04)</span><h3>Lugar</h3><p>Fornecedores e mão de obra da região. Construído por quem mora aqui.</p></div>
+    </div>
+  </section>
+</div>
+
+<!-- ========== EMPREENDIMENTO (detalhe) ========== -->
+<div class="page" data-page="empreendimento">
+
+  <section class="emp-hero">
+    <div class="emp-hero-media">
+      <image-slot id="slot-emp-hero" placeholder="Foto principal do empreendimento" style="width:100%;height:100%;display:block;"></image-slot>
+    </div>
+    <div class="hero-overlay"></div>
+    <div class="emp-hero-content">
+      <div class="emp-hero-top">
+        <a class="crumb" href="#empreendimentos" data-route="empreendimentos" data-link>← Empreendimentos</a>
+        <span class="emp-status-pill" id="empStatus">Lançamento</span>
+      </div>
+      <div class="emp-hero-title">
+        <span class="label" id="empLabel">(00 · 2026 · Beira-Rio)</span>
+        <h1 class="emp-name" id="empName">Praia da Lagoa</h1>
+        <p class="emp-tag" id="empTag">Trinta e duas unidades de dois e três quartos, de frente para a lagoa.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="emp-specs">
+    <div class="spec"><span class="label">Localização</span><span class="v" id="specLocal">Av. Beira Rio, 320 · Barra de São João</span></div>
+    <div class="spec"><span class="label">Unidades</span><span class="v" id="specUnits">32 apartamentos</span></div>
+    <div class="spec"><span class="label">Tipologias</span><span class="v" id="specTipo">2 e 3 quartos · 64–98 m²</span></div>
+    <div class="spec"><span class="label">Vagas</span><span class="v" id="specVagas">1 vaga por unidade</span></div>
+    <div class="spec"><span class="label">Entrega</span><span class="v" id="specEntrega">Jan 2027</span></div>
+    <div class="spec"><span class="label">A partir de</span><span class="v price" id="specPrice">R$ 480 mil</span></div>
+  </section>
+
+  <section class="emp-body">
+    <div class="emp-body-grid">
+      <div class="emp-text r">
+        <span class="label">(Sobre o empreendimento)</span>
+        <h2 class="section">A vida aqui<br/>tem janela <span class="italic serif">pra lagoa</span>.</h2>
+        <p>O Praia da Lagoa nasce do encontro entre dois espelhos d'água: a Lagoa de Jacarepiá, de um lado, e o mar de Barra de São João, do outro. São quatro andares baixos, varandas profundas, esquadrias de alumínio anodizado e revestimento em címencia que envelhece com o salitre — nunca contra ele.</p>
+        <p>Cada apartamento tem orientação solar estudada para o verão fluminense. As áreas comuns incluem piscina natural, churrasqueira coletiva, brinquedoteca e uma horta comunitária mantida por uma cooperativa local.</p>
+        <a class="read-more" href="#simulador" data-route="simulador" data-link>Simular financiamento <span>→</span></a>
+      </div>
+      <div class="emp-gallery r">
+        <div class="emp-g-cell big"><image-slot id="slot-emp-g1" placeholder="Fachada" style="width:100%;height:100%;display:block;"></image-slot></div>
+        <div class="emp-g-cell"><image-slot id="slot-emp-g2" placeholder="Sala" style="width:100%;height:100%;display:block;"></image-slot></div>
+        <div class="emp-g-cell"><image-slot id="slot-emp-g3" placeholder="Varanda" style="width:100%;height:100%;display:block;"></image-slot></div>
+        <div class="emp-g-cell"><image-slot id="slot-emp-g4" placeholder="Área comum" style="width:100%;height:100%;display:block;"></image-slot></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="emp-amen">
+    <div class="emp-amen-head">
+      <span class="label">(O que cabe aqui dentro)</span>
+      <h2 class="section">Doze áreas comuns,<br/>todas com algum tipo de árvore.</h2>
+    </div>
+    <div class="emp-amen-grid">
+      <div class="amen r"><span class="idx">(01)</span><span class="name">Piscina natural</span></div>
+      <div class="amen r"><span class="idx">(02)</span><span class="name">Hidromassagem</span></div>
+      <div class="amen r"><span class="idx">(03)</span><span class="name">Churrasqueira coletiva</span></div>
+      <div class="amen r"><span class="idx">(04)</span><span class="name">Brinquedoteca</span></div>
+      <div class="amen r"><span class="idx">(05)</span><span class="name">Horta comunitária</span></div>
+      <div class="amen r"><span class="idx">(06)</span><span class="name">Espaço gourmet</span></div>
+      <div class="amen r"><span class="idx">(07)</span><span class="name">Sala de leitura</span></div>
+      <div class="amen r"><span class="idx">(08)</span><span class="name">Bicicletrio coberto</span></div>
+      <div class="amen r"><span class="idx">(09)</span><span class="name">Pet place</span></div>
+      <div class="amen r"><span class="idx">(10)</span><span class="name">Coworking</span></div>
+      <div class="amen r"><span class="idx">(11)</span><span class="name">Lavandería compartilhada</span></div>
+      <div class="amen r"><span class="idx">(12)</span><span class="name">Praça interna</span></div>
+    </div>
+  </section>
+
+  <section class="emp-plant">
+    <div class="emp-plant-grid">
+      <div class="emp-plant-img r"><image-slot id="slot-emp-plant" placeholder="Planta do apartamento" style="width:100%;height:100%;display:block;background:var(--paper);"></image-slot></div>
+      <div class="emp-plant-copy r">
+        <span class="label">(Planta)</span>
+        <h2 class="section">3 quartos<br/>(1 suíte) · 98 m²</h2>
+        <ul class="emp-plant-list">
+          <li><span class="v">Sala ampliada</span> <span class="m">26 m²</span></li>
+          <li><span class="v">Suíte com closet</span> <span class="m">14 m²</span></li>
+          <li><span class="v">Dois quartos</span> <span class="m">11 m² cada</span></li>
+          <li><span class="v">Varanda gourmet</span> <span class="m">9 m²</span></li>
+          <li><span class="v">Cozinha + lavanderia</span> <span class="m">12 m²</span></li>
+          <li><span class="v">Lavabo + banheiro social</span> <span class="m">·</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="emp-loc">
+    <div class="emp-loc-head">
+      <span class="label">(Onde fica)</span>
+      <h2 class="section">A trezentos metros da praia,<br/>e a vinte da padaria.</h2>
+    </div>
+    <div class="emp-loc-grid">
+      <div class="emp-map r">
+        <image-slot id="slot-emp-map" placeholder="Mapa" style="width:100%;height:100%;display:block;background:var(--bg-2);"></image-slot>
+        <div class="emp-map-pin"><span class="dot"></span> Av. Beira Rio, 320</div>
+      </div>
+      <ul class="emp-poi r">
+        <li><span class="d">300 m</span><span class="p">Praia da Lagoa</span></li>
+        <li><span class="d">450 m</span><span class="p">Padaria do Zé</span></li>
+        <li><span class="d">800 m</span><span class="p">Mercado Central</span></li>
+        <li><span class="d">1,2 km</span><span class="p">Escola Municipal Maria Joana</span></li>
+        <li><span class="d">1,8 km</span><span class="p">Hospital Geral</span></li>
+        <li><span class="d">2,4 km</span><span class="p">Centro da cidade</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="emp-sim-teaser">
+    <div class="emp-sim-head">
+      <span class="label">(Cabe no seu bolso?)</span>
+      <h2 class="section">Simule em <span class="italic serif">trinta segundos</span>.</h2>
+    </div>
+    <div class="emp-sim-cta">
+      <button class="btn-big" data-route="simulador" data-link>Abrir simulador completo <span>→</span></button>
+      <span class="mid" style="margin-left:24px;font-size:13px;">Casa Verde e Amarela · a partir de 7,16% a.a.</span>
+    </div>
+  </section>
+
+  <section class="cta-section" style="padding-top:clamp(80px,10vw,160px);">
+    <h2 class="cta-headline">Quer conhecer <span class="italic">de perto</span>?<br/>Marcamos uma visita.</h2>
+    <div class="cta-button">
+      <button class="btn-big" data-cta="empreendimento">Falar com consultor <span>→</span></button>
+    </div>
+  </section>
+</div>
+
+<!-- ========== SIMULADOR ========== -->
+<div class="page" data-page="simulador">
+  <section class="page-head">
+    <div>
+      <span class="label" style="display:block;margin-bottom:24px;">(Simulador de financiamento)</span>
+      <h1>Simulador</h1>
+    </div>
+    <div class="meta">
+      <span class="idx">(SAC · SFH)</span>
+      <span>Aproximado, não vincula proposta</span>
+    </div>
+  </section>
+
+  <section class="sim-wrap">
+    <div class="sim-grid">
+      <div class="sim-inputs">
+        <div class="sim-field">
+          <div class="sim-field-head"><label>Valor do imóvel</label><span class="v" id="simValTxt">R$ 480.000</span></div>
+          <input type="range" min="200000" max="2500000" step="10000" value="480000" id="simVal"/>
+          <div class="sim-range"><span>R$ 200 mil</span><span>R$ 2,5 mi</span></div>
+        </div>
+        <div class="sim-field">
+          <div class="sim-field-head"><label>Entrada</label><span class="v" id="simEntTxt">R$ 144.000 (30%)</span></div>
+          <input type="range" min="20" max="80" step="1" value="30" id="simEnt"/>
+          <div class="sim-range"><span>20%</span><span>80%</span></div>
+        </div>
+        <div class="sim-field">
+          <div class="sim-field-head"><label>Prazo</label><span class="v" id="simPrzTxt">30 anos</span></div>
+          <input type="range" min="5" max="35" step="1" value="30" id="simPrz"/>
+          <div class="sim-range"><span>5 anos</span><span>35 anos</span></div>
+        </div>
+        <div class="sim-field">
+          <div class="sim-field-head"><label>Renda mensal familiar</label><span class="v" id="simRdTxt">R$ 12.000</span></div>
+          <input type="range" min="3000" max="40000" step="500" value="12000" id="simRd"/>
+          <div class="sim-range"><span>R$ 3 mil</span><span>R$ 40 mil</span></div>
+        </div>
+        <div class="sim-system">
+          <span class="label">Sistema de amortização</span>
+          <div class="sim-toggle" data-toggle="sys">
+            <button class="active" data-sys="sac">SAC</button>
+            <button data-sys="price">PRICE</button>
+          </div>
+          <span class="label" style="margin-top:20px;">Taxa de juros</span>
+          <div class="sim-toggle" data-toggle="rate">
+            <button class="active" data-rate="9">9,00% a.a.</button>
+            <button data-rate="7.16">7,16% (Casa Verde)</button>
+            <button data-rate="10.5">10,5% (mercado)</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="sim-output">
+        <div class="sim-out-head">
+          <span class="label">(Resultado)</span>
+          <span class="idx" id="simSysLabel">(Sistema SAC)</span>
+        </div>
+        <div class="sim-fin">
+          <span class="sim-fin-label label">Valor financiado</span>
+          <span class="sim-fin-val serif" id="simFinanciado">R$ 336.000</span>
+        </div>
+        <div class="sim-parcelas">
+          <div class="sim-pa">
+            <span class="label" id="simPa1Label">Primeira parcela</span>
+            <span class="v serif" id="simPa1">R$ 3.453</span>
+          </div>
+          <div class="sim-pa">
+            <span class="label" id="simPa2Label">Última parcela</span>
+            <span class="v serif" id="simPa2">R$ 944</span>
+          </div>
+        </div>
+        <div class="sim-bar">
+          <div class="sim-bar-track">
+            <div class="sim-bar-fill" id="simBarFill" style="width:65%;"></div>
+          </div>
+          <div class="sim-bar-legend">
+            <span><span class="sw a"></span> Principal <span id="simPrincipalTxt">R$ 336.000</span></span>
+            <span><span class="sw b"></span> Juros <span id="simJurosTxt">R$ 184.000</span></span>
+          </div>
+        </div>
+        <div class="sim-summary">
+          <div class="sim-row"><span>Total pago em <span id="simPrzOut">30 anos</span></span><span class="serif" id="simTotal">R$ 520.000</span></div>
+          <div class="sim-row"><span>Comprometimento da renda</span><span class="serif" id="simCompr">28,8%</span></div>
+          <div class="sim-row sim-warn" id="simWarn" style="display:none;"><span>⚠︎ Acima de 30% da renda. Considere aumentar a entrada ou o prazo.</span></div>
+        </div>
+        <button class="btn-big sim-cta" id="simContact">Falar com consultor sobre essas condições <span>→</span></button>
+      </div>
+    </div>
+  </section>
+
+  <section class="sim-foot">
+    <p class="mid" style="max-width:60ch;">* Simulação estimada. Não representa proposta de crédito. As taxas reais variam conforme banco, perfil do comprador, programa habitacional e análise de crédito. O time financeiro da Zayda te ajuda a buscar a melhor condição.</p>
+  </section>
+</div>
+
+<!-- ========== PROCESSO ========== -->
+<div class="page" data-page="processo">
+  <section class="page-head">
+    <div>
+      <span class="label" style="display:block;margin-bottom:24px;">(Como a obra acontece)</span>
+      <h1>Processo</h1>
+    </div>
+    <div class="meta">
+      <span class="idx">(06 etapas)</span>
+      <span>Do café à chave</span>
+    </div>
+  </section>
+
+  <section class="processo-detail">
+    <div class="stages">
+      <div class="processo-step r">
+        <span class="stage-idx">(01)</span>
+        <h3 class="stage-name">Escuta e viabilidade</h3>
+        <p class="stage-desc">Tudo começa com uma conversa. Quem é você, o que você procura, em que pé está o orçamento. Visitamos o terreno, fazemos o estudo de viabilidade e devolvemos uma proposta clara em até 10 dias úteis.</p>
+      </div>
+      <div class="processo-step r">
+        <span class="stage-idx">(02)</span>
+        <h3 class="stage-name">Estudo preliminar</h3>
+        <p class="stage-desc">Desenhamos a primeira versão das plantas, definimos o partido arquitetônico e levantamos os volumes. Você acompanha a evolução em três rodadas de ajuste, sem custo adicional.</p>
+      </div>
+      <div class="processo-step r">
+        <span class="stage-idx">(03)</span>
+        <h3 class="stage-name">Projeto executivo</h3>
+        <p class="stage-desc">Detalhamos tudo: hidráulica, elétrica, estrutura, acabamentos. Você recebe a memória descritiva completa e a planilha aberta de orçamento — fornecedor por fornecedor, item por item.</p>
+      </div>
+      <div class="processo-step r">
+        <span class="stage-idx">(04)</span>
+        <h3 class="stage-name">Aprovação e licenças</h3>
+        <p class="stage-desc">Cuidamos da papelada na prefeitura, no corpo de bombeiros e no cartório. Você não precisa correr atrás de carimbo nenhum — a gente entrega o alvará na sua mão.</p>
+      </div>
+      <div class="processo-step r">
+        <span class="stage-idx">(05)</span>
+        <h3 class="stage-name">Construção</h3>
+        <p class="stage-desc">Obra acontece com equipe própria, mestre fixo e engenheiro responsável presente diariamente. Você recebe fotos semanais, medição mensal e tem acesso a uma plataforma com o cronograma em tempo real.</p>
+      </div>
+      <div class="processo-step r">
+        <span class="stage-idx">(06)</span>
+        <h3 class="stage-name">Entrega e pós-obra</h3>
+        <p class="stage-desc">Vistoria conjunta, checklist assinado e chave na mão. Nos cinco anos seguintes, qualquer problema — vazamento, fissura, regulagem de porta — é resolvido pela nossa equipe técnica em até 72 horas.</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ========== ESG / SUSTENTABILIDADE ========== -->
+<div class="page" data-page="esg">
+  <section class="page-head">
+    <div>
+      <span class="label" style="display:block;margin-bottom:24px;">(Construção & permanncia)</span>
+      <h1>Sustentabilidade</h1>
+    </div>
+    <div class="meta">
+      <span class="idx">(03 pilares)</span>
+      <span>Ambiental · Social · Governança</span>
+    </div>
+  </section>
+
+  <section class="studio-body">
+    <div class="col-img r"><image-slot id="slot-esg-1" placeholder="Mata atlântica preservada" style="width:100%;height:100%;display:block;"></image-slot></div>
+    <div class="col-text r">
+      <p>O litoral fluminense é nosso chão. Cada obra que erguemos passa pela perguntinha que orienta tudo aqui: <em>vai estar melhor depois que a gente sair?</em></p>
+      <p>Sustentabilidade na Zayda não é selo verde de marketing. É reflorestamento de mata ciliária nos terrenos lindeiros, captação de chuva em todos os empreendimentos, mão de obra contratada na região e relatrio anual de impacto publicado aqui mesmo, no site, para qualquer um ler.</p>
+      <p>Em 2025, fechamos o ano com <strong>92% de resíduos de obra destinados a reciclagem</strong>, <strong>340 mudas plantadas</strong> e <strong>zero acidentes graves</strong>.</p>
+    </div>
+  </section>
+
+  <section class="studio-values">
+    <div class="studio-values-head">
+      <h2 class="section">Três pilares,<br/>quatorze compromissos.</h2>
+      <span class="idx">(2026)</span>
+    </div>
+    <div class="studio-values-grid">
+      <div class="value-card r"><span class="idx">(A)</span><h3>Ambiental</h3><p>Captação de chuva, painis fotovoltaicos em áreas comuns, madeira certificada FSC e revestimentos atxicos.</p></div>
+      <div class="value-card r"><span class="idx">(B)</span><h3>Social</h3><p>70% dos contratados moram em raio de 30 km. Programa de aprendizagem com a escola técnica local.</p></div>
+      <div class="value-card r"><span class="idx">(C)</span><h3>Governança</h3><p>Orçamento aberto antes da assinatura. Código de ética revisado anualmente em assembleia.</p></div>
+      <div class="value-card r"><span class="idx">(D)</span><h3>Pertencimento</h3><p>Cada empreendimento entregue planta uma árvore nativa por morador na mata ciliária do Rio São João.</p></div>
+    </div>
+  </section>
+
+  <section class="stats" style="border-top:1px solid var(--line);">
+    <div class="stats-head">
+      <span class="label">(Números 2025)</span>
+      <h2 class="section">Impacto medido,<br/><span class="italic serif">verificado</span>, publicado.</h2>
+    </div>
+    <div class="stats-grid">
+      <div class="stat r"><span class="stat-idx idx">(A)</span><div class="stat-num serif">92<span class="plus">%</span></div><div class="stat-label">resíduos reciclados</div><div class="stat-meta">Cooperação com a Reciclamar, cooperativa de Casemiro de Abreu.</div></div>
+      <div class="stat r"><span class="stat-idx idx">(B)</span><div class="stat-num serif">340</div><div class="stat-label">mudas plantadas</div><div class="stat-meta">Mata ciliária do Rio São João e Lagoa de Jacarepi.</div></div>
+      <div class="stat r"><span class="stat-idx idx">(C)</span><div class="stat-num serif">38<span class="plus">%</span></div><div class="stat-label">menos água na obra</div><div class="stat-meta">Reuso de água de chuva nos canteiros e estruturas.</div></div>
+      <div class="stat r"><span class="stat-idx idx">(D)</span><div class="stat-num serif">0</div><div class="stat-label">acidentes graves</div><div class="stat-meta">Trs anos seguidos. Time de segurança com mestre fixo.</div></div>
+    </div>
+  </section>
+
+  <section class="cta-section">
+    <h2 class="cta-headline">Leia o <span class="italic">relatrio</span><br/>de impacto 2025.</h2>
+    <div class="cta-button"><button class="btn-big">Baixar PDF (4,2 MB) <span>↓</span></button></div>
+  </section>
+</div>
+
+<!-- ========== CARREIRA ========== -->
+<div class="page" data-page="carreira">
+  <section class="studio-intro">
+    <span class="label">(Trabalhe com a gente)</span>
+    <p class="lead">A gente cresce devagar.<br/><span class="italic serif">Procuramos quem cresce junto.</span></p>
+  </section>
+
+  <section class="studio-body">
+    <div class="col-img r"><image-slot id="slot-car-1" placeholder="Time Zayda em campo" style="width:100%;height:100%;display:block;"></image-slot></div>
+    <div class="col-text r">
+      <p>Hoje somos 28 pessoas, distribuídas entre projetos, canteiro e administrativo. Três quartos da equipe começou como aprendiz, estágio ou indicação de algum morador.</p>
+      <p>Aqui você não vai encontrar foosball, kombucha de gengibre nem horário físico no relógio. Vai encontrar gente que conhece a obra de ponta a ponta, plano de carreira escrito e a chance de assinar projeto com o próprio nome no segundo ano de casa.</p>
+      <p>Tem vagas abertas e o programa de estágio abre todo mêrço. Se você trabalha com obra, projeto ou administração e quer botar a mão em um lugar pequeno, com gente boa, manda um e-mail mesmo que não tenha vaga sua hoje.</p>
+    </div>
+  </section>
+
+  <section class="vagas">
+    <div class="works-head">
+      <div class="left"><span class="label">(Vagas abertas)</span><h2 class="r">Quatro vagas</h2></div>
+      <div class="meta"><span class="idx">(2026)</span><span>Atualizadas há 3 dias</span></div>
+    </div>
+    <div class="vagas-list">
+      <div class="vaga r" data-vaga="engenheiro">
+        <span class="idx">(01)</span>
+        <div class="vaga-name"><div class="name serif">Engenheiro de obra pleno</div><div class="meta">Canteiro · Praia da Lagoa</div></div>
+        <span class="tag">CLT</span>
+        <span class="tag">Presencial</span>
+        <button class="chev">→</button>
+      </div>
+      <div class="vaga r" data-vaga="arquiteta">
+        <span class="idx">(02)</span>
+        <div class="vaga-name"><div class="name serif">Arquiteta(o) projetista</div><div class="meta">Estúdio · Centro</div></div>
+        <span class="tag">CLT</span>
+        <span class="tag">Híbrido</span>
+        <button class="chev">→</button>
+      </div>
+      <div class="vaga r" data-vaga="mestre">
+        <span class="idx">(03)</span>
+        <div class="vaga-name"><div class="name serif">Mestre de obra</div><div class="meta">Canteiro · Marés</div></div>
+        <span class="tag">CLT</span>
+        <span class="tag">Presencial</span>
+        <button class="chev">→</button>
+      </div>
+      <div class="vaga r" data-vaga="financeiro">
+        <span class="idx">(04)</span>
+        <div class="vaga-name"><div class="name serif">Analista financeiro</div><div class="meta">Administrativo · Centro</div></div>
+        <span class="tag">CLT</span>
+        <span class="tag">Híbrido</span>
+        <button class="chev">→</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section">
+    <h2 class="cta-headline">Não achou sua vaga aqui?<br/><span class="italic">Manda mesmo assim.</span></h2>
+    <div class="cta-button"><button class="btn-big" data-cta="carreira">Enviar currículo <span>→</span></button></div>
+  </section>
+</div>
+
+<!-- ========== BLOG ========== -->
+<div class="page" data-page="blog">
+  <section class="page-head">
+    <div>
+      <span class="label" style="display:block;margin-bottom:24px;">(Histórias, processo, lugar)</span>
+      <h1>Blog</h1>
+    </div>
+    <div class="meta">
+      <span class="idx">(36 textos)</span>
+      <span>Publicado a cada quinta</span>
+    </div>
+  </section>
+
+  <section class="blog-grid">
+    <a class="post r big" href="#">
+      <div class="post-media"><image-slot id="slot-blog-1" placeholder="Foto da capa" style="width:100%;height:100%;display:block;"></image-slot></div>
+      <div class="post-foot">
+        <span class="label">(Em destaque · Bastidores)</span>
+        <h3 class="serif">A semana em que a obra parou pra não assustar o jacaré.</h3>
+        <div class="post-meta"><span>12 mai 2026</span><span>5 min de leitura</span></div>
+      </div>
+    </a>
+    <a class="post r" href="#">
+      <div class="post-media"><image-slot id="slot-blog-2" placeholder="Foto" style="width:100%;height:100%;display:block;"></image-slot></div>
+      <div class="post-foot">
+        <span class="label">(Mercado)</span>
+        <h3 class="serif">Casa Verde e Amarela em 2026: o que muda na prática.</h3>
+        <div class="post-meta"><span>05 mai 2026</span><span>7 min</span></div>
+      </div>
+    </a>
+    <a class="post r" href="#">
+      <div class="post-media"><image-slot id="slot-blog-3" placeholder="Foto" style="width:100%;height:100%;display:block;"></image-slot></div>
+      <div class="post-foot">
+        <span class="label">(Processo)</span>
+        <h3 class="serif">Por que a gente entrega cronograma assinado em contrato.</h3>
+        <div class="post-meta"><span>28 abr 2026</span><span>4 min</span></div>
+      </div>
+    </a>
+    <a class="post r" href="#">
+      <div class="post-media"><image-slot id="slot-blog-4" placeholder="Foto" style="width:100%;height:100%;display:block;"></image-slot></div>
+      <div class="post-foot">
+        <span class="label">(Lugar)</span>
+        <h3 class="serif">Como o vento da praia molda a fachada de um prédio.</h3>
+        <div class="post-meta"><span>21 abr 2026</span><span>6 min</span></div>
+      </div>
+    </a>
+    <a class="post r" href="#">
+      <div class="post-media"><image-slot id="slot-blog-5" placeholder="Foto" style="width:100%;height:100%;display:block;"></image-slot></div>
+      <div class="post-foot">
+        <span class="label">(Morália)</span>
+        <h3 class="serif">Visita ao Vila do Sol, dois anos depois.</h3>
+        <div class="post-meta"><span>15 abr 2026</span><span>9 min</span></div>
+      </div>
+    </a>
+    <a class="post r" href="#">
+      <div class="post-media"><image-slot id="slot-blog-6" placeholder="Foto" style="width:100%;height:100%;display:block;"></image-slot></div>
+      <div class="post-foot">
+        <span class="label">(Sustentabilidade)</span>
+        <h3 class="serif">340 mudas e contando: o programa de mata ciliária.</h3>
+        <div class="post-meta"><span>08 abr 2026</span><span>5 min</span></div>
+      </div>
+    </a>
+  </section>
+
+  <section class="blog-cta">
+    <span class="label">(Newsletter mensal)</span>
+    <h2 class="section">Um e-mail por mêr,<br/>com o que tá acontecendo na obra.</h2>
+    <form class="news-form" onsubmit="event.preventDefault();this.querySelector('input').value='';alert('Inscrito!');">
+      <input type="email" placeholder="voce@email.com" required/>
+      <button>Assinar →</button>
+    </form>
+  </section>
+</div>
+
+<!-- ========== INVESTIDORES ========== -->
+<div class="page" data-page="investidores">
+  <section class="studio-intro">
+    <span class="label">(Relações com investidores)</span>
+    <p class="lead">Pequeno por escolha.<br/><span class="italic serif">Slido por disciplina.</span></p>
+  </section>
+
+  <section class="stats" style="border-top:1px solid var(--line);">
+    <div class="stats-head">
+      <span class="label">(Resultados 2025 · auditado)</span>
+      <h2 class="section">Caixa positivo,<br/>doze anos seguidos.</h2>
+    </div>
+    <div class="stats-grid">
+      <div class="stat r"><span class="stat-idx idx">(01)</span><div class="stat-num serif">R$ 84mi</div><div class="stat-label">VGV 2025</div><div class="stat-meta">Valor geral de vendas, com 3 lançamentos e 2 entregas.</div></div>
+      <div class="stat r"><span class="stat-idx idx">(02)</span><div class="stat-num serif">22<span class="plus">%</span></div><div class="stat-label">margem EBITDA</div><div class="stat-meta">Compatvel com média setorial regional (CBIC).</div></div>
+      <div class="stat r"><span class="stat-idx idx">(03)</span><div class="stat-num serif">0,4x</div><div class="stat-label">dívida líquida / EBITDA</div><div class="stat-meta">Indicador conservador para construtoras de pequeno porte.</div></div>
+      <div class="stat r"><span class="stat-idx idx">(04)</span><div class="stat-num serif">98<span class="plus">%</span></div><div class="stat-label">unidades comercializadas</div><div class="stat-meta">Antes da entrega das chaves — média dos 3 últimos lançamentos.</div></div>
+    </div>
+  </section>
+
+  <section class="reports">
+    <div class="works-head">
+      <div class="left"><span class="label">(Relatrios e demonstrativos)</span><h2 class="r">Documentos</h2></div>
+      <div class="meta"><span class="idx">(12)</span><span>Auditados</span></div>
+    </div>
+    <div class="reports-list">
+      <a class="report r" href="#"><span class="idx">(01)</span><span class="name serif">Relatório anual 2025</span><span class="year">PDF · 4,2 MB</span><span class="chev">↓</span></a>
+      <a class="report r" href="#"><span class="idx">(02)</span><span class="name serif">Demonstrativo financeiro 4T25</span><span class="year">PDF · 1,1 MB</span><span class="chev">↓</span></a>
+      <a class="report r" href="#"><span class="idx">(03)</span><span class="name serif">Demonstrativo financeiro 3T25</span><span class="year">PDF · 1,0 MB</span><span class="chev">↓</span></a>
+      <a class="report r" href="#"><span class="idx">(04)</span><span class="name serif">Apresentação institucional</span><span class="year">PDF · 8,7 MB</span><span class="chev">↓</span></a>
+      <a class="report r" href="#"><span class="idx">(05)</span><span class="name serif">Política de governança</span><span class="year">PDF · 320 KB</span><span class="chev">↓</span></a>
+      <a class="report r" href="#"><span class="idx">(06)</span><span class="name serif">Código de ética</span><span class="year">PDF · 280 KB</span><span class="chev">↓</span></a>
+    </div>
+  </section>
+
+  <section class="cta-section">
+    <h2 class="cta-headline">Conversa direta com<br/><span class="italic">a equipe de RI</span>.</h2>
+    <div class="cta-button"><button class="btn-big" data-cta="ri">Falar com RI <span>→</span></button></div>
+  </section>
+</div>
+
+<!-- ========== ATENDIMENTO ========== -->
+<div class="page" data-page="atendimento">
+  <section class="page-head">
+    <div>
+      <span class="label" style="display:block;margin-bottom:24px;">(A gente te responde mesmo)</span>
+      <h1>Atendimento</h1>
+    </div>
+    <div class="meta">
+      <span class="idx">(seg—sex)</span>
+      <span id="atDeskHours">8h às 18h</span>
+    </div>
+  </section>
+
+  <section class="channels">
+    <a class="channel r" href="https://wa.me/5522999990000" target="_blank">
+      <span class="idx">(01)</span>
+      <div class="ch-body"><div class="name serif">WhatsApp</div><div class="v">(22) 9 9999-0000</div><div class="meta">Resposta em até 1h, em horário comercial.</div></div>
+      <span class="chev">→</span>
+    </a>
+    <a class="channel r" href="mailto:contato@zayda.com.br">
+      <span class="idx">(02)</span>
+      <div class="ch-body"><div class="name serif">E-mail</div><div class="v">contato@zayda.com.br</div><div class="meta">Para orçamentos, propostas e parcerias.</div></div>
+      <span class="chev">→</span>
+    </a>
+    <a class="channel r" href="tel:+5522999990000">
+      <span class="idx">(03)</span>
+      <div class="ch-body"><div class="name serif">Telefone</div><div class="v">(22) 2645-0000</div><div class="meta">Linha do escritrio, durante o expediente.</div></div>
+      <span class="chev">→</span>
+    </a>
+    <a class="channel r" href="#">
+      <span class="idx">(04)</span>
+      <div class="ch-body"><div class="name serif">Presencial</div><div class="v">Rua das Palmeiras, 120 · Centro</div><div class="meta">Café sempre passando. É só avisar.</div></div>
+      <span class="chev">→</span>
+    </a>
+  </section>
+
+  <section class="faq">
+    <div class="faq-head">
+      <span class="label">(Perguntas frequentes)</span>
+      <h2 class="section">O que a gente mais escuta.</h2>
+    </div>
+    <div class="faq-list">
+      <details class="r"><summary><span class="idx">(01)</span><span class="q serif">Qual o valor mínimo para comprar na planta?</span><span class="plus">+</span></summary><p>As unidades começam em R$ 360 mil. A entrada normalmente fica entre 20% e 30%, e o financiamento sai por banco prprio do comprador ou pelo programa Casa Verde e Amarela, dependendo do perfil.</p></details>
+      <details class="r"><summary><span class="idx">(02)</span><span class="q serif">A Zayda atende fora de Barra de São João?</span><span class="plus">+</span></summary><p>Hoje nossa atuação cobre Barra de São João, Casemiro de Abreu e Rio das Ostras. Para projetos especiais fora desse raio, faça contato — avaliamos caso a caso.</p></details>
+      <details class="r"><summary><span class="idx">(03)</span><span class="q serif">Em quanto tempo vocês respondem?</span><span class="plus">+</span></summary><p>WhatsApp até 1 hora em horário comercial. E-mail até 24h. Para orçamentos completos, o prazo é de até 10 dias úteis após visita ao terreno.</p></details>
+      <details class="r"><summary><span class="idx">(04)</span><span class="q serif">Como funciona a assistência pós-obra?</span><span class="plus">+</span></summary><p>São cinco anos de assistência técnica. Vazamentos, fissuras, regulagens, esquadrias, infiltrações — tudo resolvido por equipe própria, em até 72h. Você abre o chamado pelo nosso app de cliente.</p></details>
+      <details class="r"><summary><span class="idx">(05)</span><span class="q serif">Posso visitar o canteiro de obras?</span><span class="plus">+</span></summary><p>Sim. Compradores têm visita guiada quinzenal ao canteiro, com o engenheiro responsável. Interessados em adquirir podem agendar um tour pelo decorado.</p></details>
+      <details class="r"><summary><span class="idx">(06)</span><span class="q serif">A planta pode ser personalizada?</span><span class="plus">+</span></summary><p>Sim, dentro de algumas restrições estruturais. Quanto antes você sinaliza, mais flexível é a customização. Comprou na planta? Você tem até 60% da obra para definir layout interno.</p></details>
+    </div>
+  </section>
+
+  <section class="cta-section">
+    <h2 class="cta-headline">Ainda com dúvida?<br/><span class="italic">A gente bate um papo.</span></h2>
+    <div class="cta-button"><button class="btn-big" data-cta="atendimento">Iniciar conversa <span>→</span></button></div>
+  </section>
+</div>
+
+</main>
+
+<!-- ====== FOOTER ====== -->
+<footer>
+  <div class="footer-grid">
+    <div class="brand-block">
+      <div class="word">Zayda<span class="it serif">.</span></div>
+      <p class="ack">Construtora local, dedicada a empreendimentos residenciais no litoral fluminense. Construindo entre a lagoa e o mar desde 2014.</p>
+      <div class="footer-cta-row">
+        <button class="pill" id="openContactFooter">Quero meu imóvel →</button>
+      </div>
+    </div>
+    <div>
+      <h4>Navegar</h4>
+      <ul>
+        <li><a href="#empreendimentos" data-route="empreendimentos" data-link>Empreendimentos</a></li>
+        <li><a href="#simulador" data-route="simulador" data-link>Simulador</a></li>
+        <li><a href="#sobre" data-route="sobre" data-link>Sobre a Zayda</a></li>
+        <li><a href="#processo" data-route="processo" data-link>Processo</a></li>
+        <li><a href="#atendimento" data-route="atendimento" data-link>Atendimento</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Empresa</h4>
+      <ul>
+        <li><a href="#esg" data-route="esg" data-link>Sustentabilidade</a></li>
+        <li><a href="#carreira" data-route="carreira" data-link>Trabalhe conosco</a></li>
+        <li><a href="#investidores" data-route="investidores" data-link>Investidores</a></li>
+        <li><a href="#blog" data-route="blog" data-link>Blog</a></li>
+        <li><a href="#">Imprensa</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Fale com a gente</h4>
+      <ul>
+        <li><a href="https://wa.me/5522999990000" target="_blank">WhatsApp · (22) 9 9999-0000</a></li>
+        <li><a href="mailto:contato@zayda.com.br">contato@zayda.com.br</a></li>
+        <li><a href="#">Rua das Palmeiras, 120<br/>Barra de São João — RJ</a></li>
+      </ul>
+      <h4 style="margin-top:24px;">Siga</h4>
+      <ul class="socials-inline">
+        <li><a href="#">Instagram</a></li>
+        <li><a href="#">LinkedIn</a></li>
+        <li><a href="#">YouTube</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Zayda Construtora · CNPJ 00.000.000/0001-00</span>
+    <span class="clock" id="clock"><span class="dot"></span><span id="clockTxt">--:-- RJ, estamos atendendo</span></span>
+    <span>Feito em Barra de São João</span>
+  </div>
+</footer>
+
+<!-- ====== CONTACT MODAL ====== -->
+<div class="modal" id="modal">
+  <div class="modal-head">
+    <span class="title">Iniciar projeto<span class="serif italic">.</span></span>
+    <span class="step-idx" id="stepIdx">(01/05)</span>
+    <button class="close" id="closeModal">Fechar</button>
+  </div>
+  <div class="modal-body">
+    <div class="modal-side">
+      <image-slot id="slot-23" placeholder="imagem" style="width:100%;height:100%;display:block;"></image-slot>
+    </div>
+    <div class="modal-form">
+      <form id="contactForm">
+        <!-- Step 1 -->
+        <div class="modal-step active" data-step="1">
+          <h3 class="serif">Seus dados, pra gente começar.</h3>
+          <div class="field"><label>Nome</label><input type="text" name="nome" required placeholder="Como você se chama?"/></div>
+          <div class="field"><label>E-mail</label><input type="email" name="email" required placeholder="voce@email.com"/></div>
+          <div class="field"><label>WhatsApp</label><input type="tel" name="phone" placeholder="(22) 9 9999-0000"/></div>
+        </div>
+        <!-- Step 2 -->
+        <div class="modal-step" data-step="2">
+          <h3 class="serif">Que tipo de projeto você procura?</h3>
+          <div class="options" data-radio="tipo">
+            <button type="button" class="opt">Comprar na planta</button>
+            <button type="button" class="opt">Unidade pronta</button>
+            <button type="button" class="opt">Lote / terreno + obra</button>
+            <button type="button" class="opt">Investimento (locação)</button>
+          </div>
+        </div>
+        <!-- Step 3 -->
+        <div class="modal-step" data-step="3">
+          <h3 class="serif">Em que empreendimento você tem interesse?</h3>
+          <div class="options" data-radio="empreendimento">
+            <button type="button" class="opt">Praia da Lagoa (lançamento)</button>
+            <button type="button" class="opt">Marés (em obra)</button>
+            <button type="button" class="opt">Atobá (em obra)</button>
+            <button type="button" class="opt">Ainda estou olhando</button>
+          </div>
+        </div>
+        <!-- Step 4 -->
+        <div class="modal-step" data-step="4">
+          <h3 class="serif">Qual a faixa de investimento?</h3>
+          <p class="help">A gente trabalha com unidades a partir de R$ 380mil. Selecione abaixo a faixa em que se enquadra.</p>
+          <div class="options" data-radio="orcamento">
+            <button type="button" class="opt">Até R$ 500 mil</button>
+            <button type="button" class="opt">R$ 500 mil — 800 mil</button>
+            <button type="button" class="opt">R$ 800 mil — 1,2 mi</button>
+            <button type="button" class="opt">R$ 1,2 mi+</button>
+          </div>
+        </div>
+        <!-- Step 5 -->
+        <div class="modal-step" data-step="5">
+          <h3 class="serif">Algo mais que a gente precise saber?</h3>
+          <div class="field"><label>Conte um pouco sobre o que você imagina</label><textarea name="brief" placeholder="Quantos quartos, prazo, prioridades, dúvidas — fique à vontade."></textarea></div>
+          <div class="field">
+            <label>Como você ouviu falar da gente?</label>
+            <select name="origem">
+              <option>Indicação</option>
+              <option>Instagram</option>
+              <option>Google</option>
+              <option>Já é cliente</option>
+              <option>Outro</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="back" id="backBtn" disabled>← Voltar</button>
+          <button type="button" class="next" id="nextBtn">Próximo →</button>
+        </div>
+      </form>
+
+      <div class="modal-success" id="success">
+        <span class="idx">(enviado)</span>
+        <h3 class="serif">Recebemos sua mensagem. Em até 24h o Junior responde no seu WhatsApp.</h3>
+        <p class="mid">Enquanto isso, sinta-se à vontade pra dar uma volta pelos <a href="#empreendimentos" data-route="empreendimentos" data-link style="text-decoration:underline;">empreendimentos</a>.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="zayda-app.js"></script>
+</body>
+</html>
