@@ -21,88 +21,127 @@
     <div class="nav-item" data-menu="empreendimentos">
       <a data-route="empreendimentos" href="#empreendimentos" data-link>Empreendimentos</a>
     </div>
-    <div class="nav-item" data-menu="simulador">
-      <a data-route="simulador" href="#simulador" data-link>Simulador</a>
+    <div class="nav-item" data-menu="blog">
+      <a data-route="blog" href="#blog" data-link>Blog</a>
     </div>
     <div class="nav-item" data-menu="sobre">
-      <a data-route="sobre" href="#sobre" data-link>Sobre</a>
+      <a data-route="sobre" href="#sobre" data-link>Expertise</a>
     </div>
     <div class="nav-item" data-menu="atendimento">
-      <a data-route="atendimento" href="#atendimento" data-link>Atendimento</a>
+      <a data-route="atendimento" href="#atendimento" data-link>Pessoas</a>
     </div>
   </nav>
   <div class="nav-cta">
     <button class="pill" id="openContact">Quero meu imóvel →</button>
-    <button class="menu" id="openMenu">Menu</button>
+    <button class="menu" id="openMenu" aria-label="Menu">
+      <svg width="22" height="14" viewBox="0 0 22 14" fill="none" aria-hidden="true">
+        <line x1="0" y1="2" x2="22" y2="2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        <line x1="0" y1="12" x2="22" y2="12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+      </svg>
+    </button>
   </div>
 </header>
 
-<!-- ====== MEGA-MENU DROPDOWNS (fora do header para evitar stacking context do backdrop-filter) ====== -->
-<div class="nav-dropdown" data-panel="empreendimentos">
+<!-- ====== MEGA-MENU DROPDOWNS ====== -->
+<div class="nav-dropdown" data-panel="empreendimentos" data-default-preview="empreendimentos-default" data-default-caption="Portfólio Zayda · 8 empreendimentos">
   <div class="nd-inner">
     <div class="nd-col">
       <span class="nd-label">Em lançamento &amp; obra</span>
-      <a class="nd-link" href="#empreendimento" data-route="empreendimento" data-link data-emp="praia-da-lagoa">Praia da Lagoa<span class="nd-meta">2026 · Beira-Rio · Lançamento</span></a>
-      <a class="nd-link" href="#empreendimento" data-route="empreendimento" data-link data-emp="mares">Marés<span class="nd-meta">2025 · Praia · Em obra</span></a>
-      <a class="nd-link" href="#empreendimento" data-route="empreendimento" data-link data-emp="atoba">Atobá<span class="nd-meta">2025 · Pescão · Em obra</span></a>
+      <a class="nd-link" data-preview="emp-praia" data-caption="Praia da Lagoa · Lançamento 2026" href="#empreendimento" data-route="empreendimento" data-link data-emp="praia-da-lagoa">Praia da Lagoa<span class="nd-meta">2026 · Beira-Rio · Lançamento</span></a>
+      <a class="nd-link" data-preview="emp-mares" data-caption="Marés · Em obra · 2025" href="#empreendimento" data-route="empreendimento" data-link data-emp="mares">Marés<span class="nd-meta">2025 · Praia · Em obra</span></a>
+      <a class="nd-link" data-preview="emp-atoba" data-caption="Atobá · Em obra · 2025" href="#empreendimento" data-route="empreendimento" data-link data-emp="atoba">Atobá<span class="nd-meta">2025 · Pescão · Em obra</span></a>
     </div>
     <div class="nd-col">
       <span class="nd-label">Entregues</span>
-      <a class="nd-link" href="#empreendimento" data-route="empreendimento" data-link data-emp="vila-do-sol">Vila do Sol<span class="nd-meta">2024 · Centro</span></a>
-      <a class="nd-link" href="#empreendimento" data-route="empreendimento" data-link data-emp="aldeia">Aldeia<span class="nd-meta">2023 · Costa Azul</span></a>
-      <a class="nd-link" href="#empreendimento" data-route="empreendimento" data-link data-emp="manguezal">Manguezal<span class="nd-meta">2022 · Beira-Rio</span></a>
+      <a class="nd-link" data-preview="emp-vila" data-caption="Vila do Sol · Entregue 2024" href="#empreendimento" data-route="empreendimento" data-link data-emp="vila-do-sol">Vila do Sol<span class="nd-meta">2024 · Centro</span></a>
+      <a class="nd-link" data-preview="emp-aldeia" data-caption="Aldeia · Entregue 2023" href="#empreendimento" data-route="empreendimento" data-link data-emp="aldeia">Aldeia<span class="nd-meta">2023 · Costa Azul</span></a>
+      <a class="nd-link" data-preview="emp-mangue" data-caption="Manguezal · Entregue 2022" href="#empreendimento" data-route="empreendimento" data-link data-emp="manguezal">Manguezal<span class="nd-meta">2022 · Beira-Rio</span></a>
     </div>
     <div class="nd-col nd-cta-col">
-      <a class="nd-all" href="#empreendimentos" data-route="empreendimentos" data-link>Ver todos os empreendimentos →</a>
+      <a class="nd-all" href="#empreendimentos" data-route="empreendimentos" data-link>Ver todos →</a>
     </div>
   </div>
 </div>
 
-<div class="nav-dropdown" data-panel="simulador">
+<div class="nav-dropdown" data-panel="blog" data-default-preview="blog-default" data-default-caption="Zayda Journal · Toda quinta">
   <div class="nd-inner">
     <div class="nd-col">
-      <span class="nd-label">Financiamento</span>
-      <a class="nd-link" href="#simulador" data-route="simulador" data-link>Simular parcelas<span class="nd-meta">SAC ou PRICE · 4 variáveis</span></a>
-      <a class="nd-link" href="#simulador" data-route="simulador" data-link>Casa Verde e Amarela<span class="nd-meta">A partir de 7,16% a.a.</span></a>
-      <a class="nd-link" href="#simulador" data-route="simulador" data-link>Financiamento de mercado<span class="nd-meta">A partir de 10,5% a.a.</span></a>
+      <span class="nd-label">Categorias</span>
+      <a class="nd-link" data-preview="blo-bast" data-caption="Bastidores · Histórias do canteiro" href="#blog" data-route="blog" data-link>Bastidores<span class="nd-meta">Histórias do canteiro</span></a>
+      <a class="nd-link" data-preview="blo-merc" data-caption="Mercado · Análises e tendências" href="#blog" data-route="blog" data-link>Mercado<span class="nd-meta">Análises e tendências</span></a>
+      <a class="nd-link" data-preview="blo-proc" data-caption="Processo · 6 etapas da obra" href="#blog" data-route="blog" data-link>Processo<span class="nd-meta">Como construímos</span></a>
+      <a class="nd-link" data-preview="blo-luga" data-caption="Lugar · Litoral fluminense" href="#blog" data-route="blog" data-link>Lugar<span class="nd-meta">Litoral fluminense</span></a>
+      <a class="nd-link" data-preview="blo-esg" data-caption="Sustentabilidade · ESG 2025" href="#blog" data-route="blog" data-link>Sustentabilidade<span class="nd-meta">ESG e impacto</span></a>
     </div>
     <div class="nd-col nd-cta-col">
-      <a class="nd-all" href="#simulador" data-route="simulador" data-link>Abrir simulador →</a>
+      <a class="nd-all" href="#blog" data-route="blog" data-link>Ver todos os artigos →</a>
     </div>
   </div>
 </div>
 
-<div class="nav-dropdown" data-panel="sobre">
+<div class="nav-dropdown" data-panel="sobre" data-default-preview="sobre-default" data-default-caption="Zayda · Est. 2014">
   <div class="nd-inner">
     <div class="nd-col">
       <span class="nd-label">A Zayda</span>
-      <a class="nd-link" href="#sobre" data-route="sobre" data-link>Quem somos<span class="nd-meta">Est. 2014 · Barra de São João</span></a>
-      <a class="nd-link" href="#processo" data-route="processo" data-link>Nosso processo<span class="nd-meta">6 etapas, do café à entrega</span></a>
+      <a class="nd-link" data-preview="sob-quem" data-caption="Est. 2014 · Barra de São João" href="#sobre" data-route="sobre" data-link>Quem somos<span class="nd-meta">Est. 2014 · Barra de São João</span></a>
+      <a class="nd-link" data-preview="sob-proc" data-caption="6 etapas · Do café à chave" href="#processo" data-route="processo" data-link>Nosso processo<span class="nd-meta">6 etapas, do café à entrega</span></a>
     </div>
     <div class="nd-col">
       <span class="nd-label">Empresa</span>
-      <a class="nd-link" href="#esg" data-route="esg" data-link>Sustentabilidade<span class="nd-meta">ESG · Relatório 2025</span></a>
-      <a class="nd-link" href="#carreira" data-route="carreira" data-link>Trabalhe conosco<span class="nd-meta">4 vagas abertas</span></a>
-      <a class="nd-link" href="#blog" data-route="blog" data-link>Blog<span class="nd-meta">Histórias, processo e lugar</span></a>
-      <a class="nd-link" href="#investidores" data-route="investidores" data-link>Investidores<span class="nd-meta">VGV · EBITDA · Documentos</span></a>
+      <a class="nd-link" data-preview="sob-esg" data-caption="ESG · Impacto 2025" href="#esg" data-route="esg" data-link>Sustentabilidade<span class="nd-meta">ESG · Relatório 2025</span></a>
+      <a class="nd-link" data-preview="sob-carr" data-caption="4 vagas · Barra de São João" href="#carreira" data-route="carreira" data-link>Trabalhe conosco<span class="nd-meta">4 vagas abertas</span></a>
+      <a class="nd-link" data-preview="sob-inv" data-caption="R$ 84mi VGV · 22% EBITDA" href="#investidores" data-route="investidores" data-link>Investidores<span class="nd-meta">VGV · EBITDA · Documentos</span></a>
     </div>
   </div>
 </div>
 
-<div class="nav-dropdown" data-panel="atendimento">
+<div class="nav-dropdown" data-panel="atendimento" data-default-preview="atendimento-default" data-default-caption="Atendimento · seg–sex, 8h–18h">
   <div class="nd-inner">
     <div class="nd-col">
       <span class="nd-label">Fale conosco</span>
-      <a class="nd-link" href="https://wa.me/5522999990000" target="_blank">WhatsApp<span class="nd-meta">(22) 9 9999-0000 · resposta em até 1h</span></a>
-      <a class="nd-link" href="mailto:contato@zayda.com.br">E-mail<span class="nd-meta">contato@zayda.com.br</span></a>
-      <a class="nd-link" href="tel:+5522999990000">Telefone<span class="nd-meta">(22) 2645-0000 · seg–sex, 8h–18h</span></a>
+      <a class="nd-link" data-preview="ate-wpp" data-caption="WhatsApp · Resposta em até 1h" href="https://wa.me/5522999990000" target="_blank">WhatsApp<span class="nd-meta">(22) 9 9999-0000 · resposta em até 1h</span></a>
+      <a class="nd-link" data-preview="ate-mail" data-caption="contato@zayda.com.br" href="mailto:contato@zayda.com.br">E-mail<span class="nd-meta">contato@zayda.com.br</span></a>
+      <a class="nd-link" data-preview="ate-tel" data-caption="(22) 2645-0000 · seg–sex, 8h–18h" href="tel:+5522999990000">Telefone<span class="nd-meta">(22) 2645-0000 · seg–sex, 8h–18h</span></a>
     </div>
     <div class="nd-col">
       <span class="nd-label">Presencial &amp; suporte</span>
-      <a class="nd-link" href="#atendimento" data-route="atendimento" data-link>Visitar o escritório<span class="nd-meta">Rua das Palmeiras, 120 · Centro</span></a>
-      <a class="nd-link" href="#atendimento" data-route="atendimento" data-link>Perguntas frequentes<span class="nd-meta">6 respostas rápidas</span></a>
+      <a class="nd-link" data-preview="ate-escr" data-caption="Rua das Palmeiras, 120 · Centro" href="#atendimento" data-route="atendimento" data-link>Visitar o escritório<span class="nd-meta">Rua das Palmeiras, 120 · Centro</span></a>
+      <a class="nd-link" data-preview="ate-faq" data-caption="6 perguntas frequentes" href="#atendimento" data-route="atendimento" data-link>Perguntas frequentes<span class="nd-meta">6 respostas rápidas</span></a>
     </div>
   </div>
+</div>
+
+<!-- Preview que acompanha o cursor — único elemento global com todos os slides.
+     Arraste suas fotos em cada image-slot para preencher os previews. -->
+<div id="ndCursorPreview" class="ndcp" aria-hidden="true">
+  <div class="ndcp-stage">
+    <figure class="ndcp-slide" data-for="empreendimentos-default"><image-slot id="ndps-emp-0" placeholder="Portfólio Zayda" style="width:100%;height:100%;display:block;"></image-slot></figure>
+    <figure class="ndcp-slide" data-for="emp-praia"><image-slot id="ndps-emp-1" placeholder="Praia da Lagoa · Lançamento 2026" style="width:100%;height:100%;display:block;"></image-slot></figure>
+    <figure class="ndcp-slide" data-for="emp-mares"><image-slot id="ndps-emp-2" placeholder="Marés · Em obra 2025" style="width:100%;height:100%;display:block;"></image-slot></figure>
+    <figure class="ndcp-slide" data-for="emp-atoba"><image-slot id="ndps-emp-3" placeholder="Atobá · Em obra 2025" style="width:100%;height:100%;display:block;"></image-slot></figure>
+    <figure class="ndcp-slide" data-for="emp-vila"><image-slot id="ndps-emp-4" placeholder="Vila do Sol · Entregue 2024" style="width:100%;height:100%;display:block;"></image-slot></figure>
+    <figure class="ndcp-slide" data-for="emp-aldeia"><image-slot id="ndps-emp-5" placeholder="Aldeia · Entregue 2023" style="width:100%;height:100%;display:block;"></image-slot></figure>
+    <figure class="ndcp-slide" data-for="emp-mangue"><image-slot id="ndps-emp-6" placeholder="Manguezal · Entregue 2022" style="width:100%;height:100%;display:block;"></image-slot></figure>
+    <figure class="ndcp-slide" data-for="blog-default"><image-slot id="ndps-blo-0" placeholder="Zayda Journal" style="width:100%;height:100%;display:block;"></image-slot></figure>
+    <figure class="ndcp-slide" data-for="blo-bast"><image-slot id="ndps-blo-1" placeholder="Bastidores da obra" style="width:100%;height:100%;display:block;"></image-slot></figure>
+    <figure class="ndcp-slide" data-for="blo-merc"><image-slot id="ndps-blo-2" placeholder="Mercado imobiliário" style="width:100%;height:100%;display:block;"></image-slot></figure>
+    <figure class="ndcp-slide" data-for="blo-proc"><image-slot id="ndps-blo-3" placeholder="Processo da obra" style="width:100%;height:100%;display:block;"></image-slot></figure>
+    <figure class="ndcp-slide" data-for="blo-luga"><image-slot id="ndps-blo-4" placeholder="Barra de São João" style="width:100%;height:100%;display:block;"></image-slot></figure>
+    <figure class="ndcp-slide" data-for="blo-esg"><image-slot id="ndps-blo-5" placeholder="Sustentabilidade ESG" style="width:100%;height:100%;display:block;"></image-slot></figure>
+    <figure class="ndcp-slide" data-for="sobre-default"><image-slot id="ndps-sob-0" placeholder="Zayda Construtora" style="width:100%;height:100%;display:block;"></image-slot></figure>
+    <figure class="ndcp-slide" data-for="sob-quem"><image-slot id="ndps-sob-1" placeholder="Equipe Zayda" style="width:100%;height:100%;display:block;"></image-slot></figure>
+    <figure class="ndcp-slide" data-for="sob-proc"><image-slot id="ndps-sob-2" placeholder="Processo da obra" style="width:100%;height:100%;display:block;"></image-slot></figure>
+    <figure class="ndcp-slide" data-for="sob-esg"><image-slot id="ndps-sob-3" placeholder="ESG Zayda" style="width:100%;height:100%;display:block;"></image-slot></figure>
+    <figure class="ndcp-slide" data-for="sob-carr"><image-slot id="ndps-sob-4" placeholder="Time Zayda" style="width:100%;height:100%;display:block;"></image-slot></figure>
+    <figure class="ndcp-slide" data-for="sob-inv"><image-slot id="ndps-sob-5" placeholder="Resultados Zayda" style="width:100%;height:100%;display:block;"></image-slot></figure>
+    <figure class="ndcp-slide" data-for="atendimento-default"><image-slot id="ndps-ate-0" placeholder="Atendimento Zayda" style="width:100%;height:100%;display:block;"></image-slot></figure>
+    <figure class="ndcp-slide" data-for="ate-wpp"><image-slot id="ndps-ate-1" placeholder="WhatsApp Zayda" style="width:100%;height:100%;display:block;"></image-slot></figure>
+    <figure class="ndcp-slide" data-for="ate-mail"><image-slot id="ndps-ate-2" placeholder="E-mail Zayda" style="width:100%;height:100%;display:block;"></image-slot></figure>
+    <figure class="ndcp-slide" data-for="ate-tel"><image-slot id="ndps-ate-3" placeholder="Telefone Zayda" style="width:100%;height:100%;display:block;"></image-slot></figure>
+    <figure class="ndcp-slide" data-for="ate-escr"><image-slot id="ndps-ate-4" placeholder="Escritório Zayda" style="width:100%;height:100%;display:block;"></image-slot></figure>
+    <figure class="ndcp-slide" data-for="ate-faq"><image-slot id="ndps-ate-5" placeholder="FAQ Zayda" style="width:100%;height:100%;display:block;"></image-slot></figure>
+  </div>
+  <p class="ndcp-cap"></p>
 </div>
 
 <!-- Backdrop de desfoque -->
@@ -116,12 +155,12 @@
   <nav class="links-big">
     <a data-route="inicio" data-link href="#inicio">Início</a>
     <a data-route="empreendimentos" data-link href="#empreendimentos">Empreendimentos</a>
-    <a data-route="simulador" data-link href="#simulador">Simulador</a>
-    <a data-route="sobre" data-link href="#sobre">Sobre</a>
+    <a data-route="blog" data-link href="#blog">Blog</a>
+    <a data-route="sobre" data-link href="#sobre">Expertise</a>
     <a data-route="esg" data-link href="#esg">Sustentabilidade</a>
     <a data-route="carreira" data-link href="#carreira">Carreira</a>
-    <a data-route="blog" data-link href="#blog">Blog</a>
-    <a data-route="atendimento" data-link href="#atendimento">Atendimento</a>
+    <a data-route="simulador" data-link href="#simulador">Simulador</a>
+    <a data-route="atendimento" data-link href="#atendimento">Pessoas</a>
   </nav>
   <div class="footer-row">
     <span>Barra de São João · RJ</span>
@@ -174,6 +213,7 @@
       </div>
     </div>
   </section>
+
 
   <!-- STATEMENT BLOCKS -->
   <section class="statements">
@@ -359,6 +399,7 @@
       <button class="btn-big" id="ctaContact">Iniciar projeto <span>→</span></button>
     </div>
   </section>
+
 
 
 </div>
@@ -862,76 +903,159 @@
 
 <!-- ========== BLOG ========== -->
 <div class="page" data-page="blog">
-  <section class="page-head">
-    <div>
-      <span class="label" style="display:block;margin-bottom:24px;">(Histórias, processo, lugar)</span>
-      <h1>Blog</h1>
-    </div>
-    <div class="meta">
-      <span class="idx">(36 textos)</span>
-      <span>Publicado a cada quinta</span>
-    </div>
-  </section>
 
-  <section class="blog-grid">
-    <a class="post r big" href="#">
-      <div class="post-media"><image-slot id="slot-blog-1" placeholder="Foto da capa" style="width:100%;height:100%;display:block;"></image-slot></div>
-      <div class="post-foot">
-        <span class="label">(Em destaque · Bastidores)</span>
-        <h3 class="serif">A semana em que a obra parou pra não assustar o jacaré.</h3>
-        <div class="post-meta"><span>12 mai 2026</span><span>5 min de leitura</span></div>
+  <!-- ── Cabeçalho + filtros de categoria ── -->
+  <header class="jn-header">
+    <div class="jn-header-top">
+      <div>
+        <span class="label">Zayda Journal</span>
+        <h1 class="jn-title">Histórias, processo<br>e lugar.</h1>
       </div>
-    </a>
-    <a class="post r" href="#">
-      <div class="post-media"><image-slot id="slot-blog-2" placeholder="Foto" style="width:100%;height:100%;display:block;"></image-slot></div>
-      <div class="post-foot">
-        <span class="label">(Mercado)</span>
-        <h3 class="serif">Casa Verde e Amarela em 2026: o que muda na prática.</h3>
-        <div class="post-meta"><span>05 mai 2026</span><span>7 min</span></div>
+      <p class="jn-sub">Publicado toda quinta. Sem algoritmo, sem paywwall.</p>
+    </div>
+    <!-- Abas de categoria — clique para filtrar -->
+    <nav class="jn-cats" role="tablist">
+      <button class="jn-cat active" data-cat="all">Tudo</button>
+      <button class="jn-cat" data-cat="bastidores">Bastidores</button>
+      <button class="jn-cat" data-cat="mercado">Mercado</button>
+      <button class="jn-cat" data-cat="processo">Processo</button>
+      <button class="jn-cat" data-cat="lugar">Lugar</button>
+      <button class="jn-cat" data-cat="sustentabilidade">Sustentabilidade</button>
+    </nav>
+  </header>
+
+  <!-- ── Artigo em destaque ── -->
+  <!-- Substitua slot-blog-1 pela foto de capa do artigo principal -->
+  <section class="jn-featured">
+    <a class="jnf-post r" href="#" data-cat="bastidores">
+      <div class="jnf-media">
+        <image-slot id="slot-blog-1" placeholder="Foto de capa do artigo em destaque" style="width:100%;height:100%;display:block;"></image-slot>
       </div>
-    </a>
-    <a class="post r" href="#">
-      <div class="post-media"><image-slot id="slot-blog-3" placeholder="Foto" style="width:100%;height:100%;display:block;"></image-slot></div>
-      <div class="post-foot">
-        <span class="label">(Processo)</span>
-        <h3 class="serif">Por que a gente entrega cronograma assinado em contrato.</h3>
-        <div class="post-meta"><span>28 abr 2026</span><span>4 min</span></div>
-      </div>
-    </a>
-    <a class="post r" href="#">
-      <div class="post-media"><image-slot id="slot-blog-4" placeholder="Foto" style="width:100%;height:100%;display:block;"></image-slot></div>
-      <div class="post-foot">
-        <span class="label">(Lugar)</span>
-        <h3 class="serif">Como o vento da praia molda a fachada de um prédio.</h3>
-        <div class="post-meta"><span>21 abr 2026</span><span>6 min</span></div>
-      </div>
-    </a>
-    <a class="post r" href="#">
-      <div class="post-media"><image-slot id="slot-blog-5" placeholder="Foto" style="width:100%;height:100%;display:block;"></image-slot></div>
-      <div class="post-foot">
-        <span class="label">(Morália)</span>
-        <h3 class="serif">Visita ao Vila do Sol, dois anos depois.</h3>
-        <div class="post-meta"><span>15 abr 2026</span><span>9 min</span></div>
-      </div>
-    </a>
-    <a class="post r" href="#">
-      <div class="post-media"><image-slot id="slot-blog-6" placeholder="Foto" style="width:100%;height:100%;display:block;"></image-slot></div>
-      <div class="post-foot">
-        <span class="label">(Sustentabilidade)</span>
-        <h3 class="serif">340 mudas e contando: o programa de mata ciliária.</h3>
-        <div class="post-meta"><span>08 abr 2026</span><span>5 min</span></div>
+      <div class="jnf-body">
+        <div class="jnf-meta">
+          <span class="jn-tag">Bastidores</span>
+          <span class="jn-date">12 mai 2026</span>
+          <span class="jn-read">5 min de leitura</span>
+        </div>
+        <h2 class="jnf-title">A semana em que a obra parou pra não assustar o jacaré.</h2>
+        <p class="jnf-excerpt">Em março, nossa equipe no Praia da Lagoa descobriu um jacaré dormindo no canteiro. O que aconteceu nas próximas 72 horas diz muito sobre como a Zayda trabalha — e sobre Barra de São João.</p>
+        <span class="jn-more">Ler artigo completo <span>→</span></span>
       </div>
     </a>
   </section>
 
-  <section class="blog-cta">
-    <span class="label">(Newsletter mensal)</span>
-    <h2 class="section">Um e-mail por mêr,<br/>com o que tá acontecendo na obra.</h2>
-    <form class="news-form" onsubmit="event.preventDefault();this.querySelector('input').value='';alert('Inscrito!');">
-      <input type="email" placeholder="voce@email.com" required/>
-      <button>Assinar →</button>
-    </form>
+  <!-- ── Grade de artigos ── -->
+  <!-- Substitua cada slot-blog-N pela foto correspondente ao artigo -->
+  <section class="jn-grid-section">
+    <div class="jn-grid" id="jnGrid">
+
+      <a class="jn-post r" href="#" data-cat="mercado">
+        <div class="jn-post-media">
+          <image-slot id="slot-blog-2" placeholder="Foto" style="width:100%;height:100%;display:block;"></image-slot>
+        </div>
+        <div class="jn-post-body">
+          <div class="jn-post-meta">
+            <span class="jn-tag">Mercado</span>
+            <span class="jn-date">05 mai 2026</span>
+          </div>
+          <h3 class="jn-post-title">Casa Verde e Amarela em 2026: o que muda na prática para o comprador.</h3>
+          <span class="jn-read">7 min de leitura</span>
+        </div>
+      </a>
+
+      <a class="jn-post r" href="#" data-cat="processo">
+        <div class="jn-post-media">
+          <image-slot id="slot-blog-3" placeholder="Foto" style="width:100%;height:100%;display:block;"></image-slot>
+        </div>
+        <div class="jn-post-body">
+          <div class="jn-post-meta">
+            <span class="jn-tag">Processo</span>
+            <span class="jn-date">28 abr 2026</span>
+          </div>
+          <h3 class="jn-post-title">Por que a gente entrega cronograma assinado em contrato — e não em promessa.</h3>
+          <span class="jn-read">4 min de leitura</span>
+        </div>
+      </a>
+
+      <a class="jn-post r" href="#" data-cat="lugar">
+        <div class="jn-post-media">
+          <image-slot id="slot-blog-4" placeholder="Foto" style="width:100%;height:100%;display:block;"></image-slot>
+        </div>
+        <div class="jn-post-body">
+          <div class="jn-post-meta">
+            <span class="jn-tag">Lugar</span>
+            <span class="jn-date">21 abr 2026</span>
+          </div>
+          <h3 class="jn-post-title">Como o vento da praia molda a fachada de um prédio litorâneo.</h3>
+          <span class="jn-read">6 min de leitura</span>
+        </div>
+      </a>
+
+      <a class="jn-post r" href="#" data-cat="bastidores">
+        <div class="jn-post-media">
+          <image-slot id="slot-blog-5" placeholder="Foto" style="width:100%;height:100%;display:block;"></image-slot>
+        </div>
+        <div class="jn-post-body">
+          <div class="jn-post-meta">
+            <span class="jn-tag">Bastidores</span>
+            <span class="jn-date">15 abr 2026</span>
+          </div>
+          <h3 class="jn-post-title">Visita ao Vila do Sol, dois anos depois da entrega das chaves.</h3>
+          <span class="jn-read">9 min de leitura</span>
+        </div>
+      </a>
+
+      <a class="jn-post r" href="#" data-cat="sustentabilidade">
+        <div class="jn-post-media">
+          <image-slot id="slot-blog-6" placeholder="Foto" style="width:100%;height:100%;display:block;"></image-slot>
+        </div>
+        <div class="jn-post-body">
+          <div class="jn-post-meta">
+            <span class="jn-tag">Sustentabilidade</span>
+            <span class="jn-date">08 abr 2026</span>
+          </div>
+          <h3 class="jn-post-title">340 mudas e contando: o programa de reflorestamento da mata ciliária.</h3>
+          <span class="jn-read">5 min de leitura</span>
+        </div>
+      </a>
+
+      <a class="jn-post r" href="#" data-cat="mercado">
+        <div class="jn-post-media">
+          <image-slot id="slot-blog-7" placeholder="Foto" style="width:100%;height:100%;display:block;"></image-slot>
+        </div>
+        <div class="jn-post-body">
+          <div class="jn-post-meta">
+            <span class="jn-tag">Mercado</span>
+            <span class="jn-date">01 abr 2026</span>
+          </div>
+          <h3 class="jn-post-title">O litoral norte fluminense e a nova rota do mercado imobiliário.</h3>
+          <span class="jn-read">8 min de leitura</span>
+        </div>
+      </a>
+
+    </div>
+    <!-- Mensagem quando filtro não retorna resultados -->
+    <div class="jn-empty" id="jnEmpty" style="display:none;">
+      <p class="statement">Nenhum artigo nessa categoria ainda.</p>
+      <button class="btn-ghost" id="jnReset">Ver todos →</button>
+    </div>
   </section>
+
+  <!-- ── Newsletter ── -->
+  <section class="jn-newsletter">
+    <div class="jn-nl-inner">
+      <div class="jn-nl-text">
+        <span class="label">(Newsletter)</span>
+        <h2 class="section">Um e-mail por mês,<br>com o que tá acontecendo na obra.</h2>
+        <p class="jn-nl-sub">Sem spam. Só histórias reais de quem constrói no litoral.</p>
+      </div>
+      <form class="jn-nl-form" onsubmit="event.preventDefault();this.querySelector('input').value='';alert('Inscrito! Até quinta.');">
+        <input type="email" placeholder="voce@email.com" required/>
+        <button type="submit">Assinar →</button>
+      </form>
+    </div>
+  </section>
+
 </div>
 
 <!-- ========== INVESTIDORES ========== -->
@@ -1034,6 +1158,45 @@
 
 </main>
 
+<!-- ====== SOCIAL BAR — exibido em todas as páginas exceto a home ====== -->
+<div class="social-bar" id="socialBar">
+  <!-- Instagram -->
+  <a href="https://instagram.com/zaydaconstrutora" target="_blank" rel="noopener" aria-label="Instagram">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="2" y="2" width="20" height="20" rx="5"/>
+      <circle cx="12" cy="12" r="4.5"/>
+      <circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/>
+    </svg>
+  </a>
+  <!-- LinkedIn -->
+  <a href="https://linkedin.com/company/zaydaconstrutora" target="_blank" rel="noopener" aria-label="LinkedIn">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="2" y="2" width="20" height="20" rx="4"/>
+      <line x1="7" y1="10" x2="7" y2="17"/>
+      <line x1="7" y1="6.5" x2="7" y2="7.5"/>
+      <path d="M11 17v-3.5a2.5 2.5 0 015 0V17M11 10v7"/>
+    </svg>
+  </a>
+  <!-- X (ex-Twitter) -->
+  <a href="https://x.com/zaydaconstrutora" target="_blank" rel="noopener" aria-label="X">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.748l7.73-8.835L1.254 2.25H8.08l4.253 5.622 5.91-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+    </svg>
+  </a>
+  <!-- TikTok -->
+  <a href="https://tiktok.com/@zaydaconstrutora" target="_blank" rel="noopener" aria-label="TikTok">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.59a8.18 8.18 0 004.79 1.53V6.65a4.85 4.85 0 01-1.02.04z"/>
+    </svg>
+  </a>
+  <!-- YouTube -->
+  <a href="https://youtube.com/@zaydaconstrutora" target="_blank" rel="noopener" aria-label="YouTube">
+    <svg width="22" height="16" viewBox="0 0 24 17" fill="currentColor">
+      <path d="M23.5 2.69A3.02 3.02 0 0021.38.57C19.5.07 12 .07 12 .07S4.5.07 2.62.57A3.02 3.02 0 00.5 2.69C0 4.57 0 8.5 0 8.5s0 3.93.5 5.81a3.02 3.02 0 002.12 2.12C4.5 16.93 12 16.93 12 16.93s7.5 0 9.38-.5a3.02 3.02 0 002.12-2.12C24 12.43 24 8.5 24 8.5s0-3.93-.5-5.81zM9.55 12.07V4.93L15.82 8.5l-6.27 3.57z"/>
+    </svg>
+  </a>
+</div>
+
 <!-- ====== FOOTER ====== -->
 <footer>
   <div class="footer-grid">
@@ -1049,9 +1212,9 @@
       <ul>
         <li><a href="#empreendimentos" data-route="empreendimentos" data-link>Empreendimentos</a></li>
         <li><a href="#simulador" data-route="simulador" data-link>Simulador</a></li>
-        <li><a href="#sobre" data-route="sobre" data-link>Sobre a Zayda</a></li>
+        <li><a href="#sobre" data-route="sobre" data-link>Expertise</a></li>
         <li><a href="#processo" data-route="processo" data-link>Processo</a></li>
-        <li><a href="#atendimento" data-route="atendimento" data-link>Atendimento</a></li>
+        <li><a href="#atendimento" data-route="atendimento" data-link>Pessoas</a></li>
       </ul>
     </div>
     <div>

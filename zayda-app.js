@@ -36,6 +36,12 @@ async function goTo(route, push = true) {
   syncActiveNav(route);
   if (push) history.pushState({ route }, '', `#${route}`);
 
+  /* footer visível apenas na home; social bar nas demais */
+  const _footer    = document.querySelector('footer');
+  const _socialBar = document.getElementById('socialBar');
+  if (_footer)    _footer.classList.toggle('page-hidden', route !== 'inicio');
+  if (_socialBar) _socialBar.classList.toggle('active',   route !== 'inicio');
+
   await new Promise(r => setTimeout(r, 120));
 
   // 3) slide veil up out
@@ -70,7 +76,113 @@ if (initialRoute !== 'inicio') {
   document.querySelector('.page.active')?.classList.remove('active');
   document.querySelector(`.page[data-page="${initialRoute}"]`)?.classList.add('active');
   syncActiveNav(initialRoute);
+  /* estado inicial do footer e social bar para rota não-home */
+  document.querySelector('footer')?.classList.add('page-hidden');
+  document.getElementById('socialBar')?.classList.add('active');
 }
+
+/* ============================================================
+   BLOG — filtro de categoria
+============================================================ */
+document.querySelectorAll('.jn-cat').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.jn-cat').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const cat = btn.dataset.cat;
+    const posts = document.querySelectorAll('#jnGrid .jn-post');
+    let shown = 0;
+    posts.forEach(p => {
+      const match = cat === 'all' || p.dataset.cat === cat;
+      p.style.display = match ? '' : 'none';
+      if (match) shown++;
+    });
+    const empty = document.getElementById('jnEmpty');
+    if (empty) empty.style.display = shown === 0 ? '' : 'none';
+  });
+});
+document.getElementById('jnReset')?.addEventListener('click', () => {
+  document.querySelectorAll('.jn-cat').forEach(b => b.classList.toggle('active', b.dataset.cat === 'all'));
+  document.querySelectorAll('#jnGrid .jn-post').forEach(p => p.style.display = '');
+  const empty = document.getElementById('jnEmpty');
+  if (empty) empty.style.display = 'none';
+});
+
+/* ============================================================
+   MEGA-MENU: Preview cursor-following
+   O cartão de preview segue o cursor com lerp suave (rAF).
+   Ao hover de cada nd-link, troca o slide correspondente.
+============================================================ */
+(function () {
+  const ndcp      = document.getElementById('ndCursorPreview');
+  if (!ndcp) return;
+
+  const ndcpCap   = ndcp.querySelector('.ndcp-cap');
+  const allSlides = ndcp.querySelectorAll('.ndcp-slide');
+
+  let targetX = 0, targetY = 0;
+  let curX    = 0, curY    = 0;
+  let rafId   = null;
+  const LERP  = 0.14;           /* suavidade: 0 = instantâneo, 1 = parado */
+  const OFFSET_X =  28;         /* deslocamento à direita do cursor       */
+  const OFFSET_Y = -50;         /* deslocamento vertical (centro no cursor)*/
+
+  /* ── Animação de posição com interpolação linear ── */
+  function tick() {
+    curX += (targetX - curX) * LERP;
+    curY += (targetY - curY) * LERP;
+
+    const w  = ndcp.offsetWidth;
+    const h  = ndcp.offsetHeight;
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+    const x  = Math.min(curX + OFFSET_X, vw - w - 16);
+    const y  = Math.max(Math.min(curY + OFFSET_Y, vh - h - 16), 16);
+
+    ndcp.style.transform = `translate(${x}px, ${y}px)`;
+    rafId = requestAnimationFrame(tick);
+  }
+
+  /* ── Mostrar preview com slide específico ── */
+  function showPreview(key, caption) {
+    allSlides.forEach(s => s.classList.remove('active'));
+    const target = ndcp.querySelector(`.ndcp-slide[data-for="${key}"]`);
+    if (target) target.classList.add('active');
+    if (ndcpCap) ndcpCap.textContent = caption || '';
+
+    if (!ndcp.classList.contains('visible')) {
+      ndcp.classList.add('visible');
+      rafId = requestAnimationFrame(tick);
+    }
+  }
+
+  /* ── Ocultar preview ── */
+  function hidePreview() {
+    ndcp.classList.remove('visible');
+    cancelAnimationFrame(rafId);
+    rafId = null;
+  }
+
+  /* Rastrear cursor globalmente */
+  document.addEventListener('mousemove', e => {
+    targetX = e.clientX;
+    targetY = e.clientY;
+  });
+
+  /* Hover em cada nd-link → troca slide */
+  document.querySelectorAll('.nd-link[data-preview]').forEach(link => {
+    link.addEventListener('mouseenter', () =>
+      showPreview(link.dataset.preview, link.dataset.caption || ''));
+  });
+
+  /* Saiu do dropdown → oculta preview */
+  document.querySelectorAll('.nav-dropdown').forEach(panel => {
+    panel.addEventListener('mouseleave', hidePreview);
+  });
+
+  /* Expõe funções para uso no openNavPanel / closeNavPanels */
+  window._ndcpShow = showPreview;
+  window._ndcpHide = hidePreview;
+})();
 
 /* ============================================================
    MEGA-MENU (dropdown estilo Apple)
@@ -85,6 +197,13 @@ function openNavPanel(id) {
   navMenuItems.forEach(i => i.classList.toggle('active', i.dataset.menu === id));
   navPanels.forEach(p => p.classList.toggle('active', p.dataset.panel === id));
   navBackdrop.classList.add('show');
+  /* mostra o slide default do painel que abriu */
+  const activePanel = document.querySelector(`.nav-dropdown[data-panel="${id}"]`);
+  if (activePanel && window._ndcpShow) {
+    const key     = activePanel.dataset.defaultPreview || '';
+    const caption = activePanel.dataset.defaultCaption || '';
+    if (key) window._ndcpShow(key, caption);
+  }
 }
 
 function closeNavPanels(delay = 120) {
@@ -92,6 +211,7 @@ function closeNavPanels(delay = 120) {
     navMenuItems.forEach(i => i.classList.remove('active'));
     navPanels.forEach(p => p.classList.remove('active'));
     navBackdrop.classList.remove('show');
+    if (window._ndcpHide) window._ndcpHide();
   }, delay);
 }
 
