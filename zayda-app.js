@@ -602,3 +602,118 @@ const _init = (location.hash || '#inicio').slice(1);
 if (_init === 'empreendimento') {
   populateEmp(window._zaydaCurrentEmp || 'praia-da-lagoa');
 }
+
+/* ============================================================
+   GLOSSÁRIO TÁTIL — tooltip de textura que segue o cursor
+   Funciona em qualquer página: basta adicionar a classe
+   "tactile-word" e o atributo data-material-img="caminho.jpg"
+   em qualquer <span> ou <em> do HTML.
+============================================================ */
+(function () {
+  const tip    = document.getElementById('tactile-tip');
+  const tipImg = document.getElementById('tactile-tip-img');
+  if (!tip) return;
+
+  let tx = 0, ty = 0, cx = 0, cy = 0, raf = null;
+  const LERP = 0.11;
+  const OX = 22;   /* offset horizontal à direita do cursor */
+  const OY = -110; /* offset vertical — acima do cursor     */
+
+  function tick() {
+    cx += (tx - cx) * LERP;
+    cy += (ty - cy) * LERP;
+    const vw = window.innerWidth, vh = window.innerHeight;
+    const x = Math.min(cx + OX, vw - 150 - 16);
+    const y = Math.max(Math.min(cy + OY, vh - 100 - 16), 16);
+    tip.style.transform = `translate(${x}px,${y}px)`;
+    raf = requestAnimationFrame(tick);
+  }
+
+  document.addEventListener('mousemove', e => { tx = e.clientX; ty = e.clientY; });
+
+  document.querySelectorAll('.tactile-word[data-material-img]').forEach(word => {
+    word.addEventListener('mouseenter', () => {
+      tipImg.src = word.dataset.materialImg;
+      tip.classList.add('visible');
+      if (!raf) raf = requestAnimationFrame(tick);
+    });
+    word.addEventListener('mouseleave', () => {
+      tip.classList.remove('visible');
+      cancelAnimationFrame(raf);
+      raf = null;
+    });
+  });
+})();
+
+/* ============================================================
+   MARGINALIA — Side Drawer de Referências
+   Para adicionar uma nota: crie um botão no HTML com
+   class="ref-btn" data-ref="ref-N" e adicione o objeto
+   correspondente no REFS abaixo.
+============================================================ */
+(function () {
+  const drawer   = document.getElementById('side-drawer');
+  const overlay  = document.getElementById('side-drawer-overlay');
+  const closeBtn = document.getElementById('side-drawer-close');
+  const content  = document.getElementById('side-drawer-content');
+  if (!drawer) return;
+
+  /* ── Banco de referências — adicione ou edite aqui ──────── */
+  const REFS = {
+    'ref-1': {
+      num:   'Nota 01',
+      title: 'Roger Ulrich, 1984 — Science',
+      body:  'Ulrich, R.S. (1984). <em>"View Through a Window May Influence Recovery from Surgery."</em> Science, 224(4647), 420–421. O estudo acompanhou 46 pacientes cirúrgicos ao longo de 9 anos. Os pacientes com vista para a natureza precisaram de <strong>menos analgésicos potentes</strong> e receberam alta 7,96% mais cedo em média.'
+    },
+    'ref-2': {
+      num:   'Nota 02',
+      title: 'Travertino — Propriedades Térmicas',
+      body:  'Aproximadamente <strong>100.000 m³ de travertino</strong> foram utilizados na construção do Coliseu, extraídos das pedreiras de Tivoli. O travertino romano tem coeficiente de condutividade térmica entre 0,65 e 0,72 W/(m·K), tornando-o naturalmente regulador de temperatura em climas mediterrâneos e subtropicais.'
+    },
+    'ref-3': {
+      num:   'Nota 03',
+      title: 'Shou Sugi Ban — Yakisugi (焼き杉)',
+      body:  'Técnica desenvolvida no Japão durante o período Edo (1603–1868). A carbonização superficial cria uma camada de carbono que <strong>repele água, insetos e raios UV</strong>, aumentando a vida útil da madeira em até 5× comparada à madeira não tratada. Hoje especificada por escritórios em Oslo, São Paulo e Los Angeles como "inovação sustentável".'
+    },
+    'ref-4': {
+      num:   'Nota 04',
+      title: 'Grande Zimbábue — Séc. XI–XV',
+      body:  'Complexo edificado pelo povo Shona usando <strong>encaixe gravitacional de granito</strong>, sem argamassa de qualquer tipo. A Grande Muralha atinge 11 metros de altura e 5 metros de espessura em alguns pontos. A estrutura permanece estável após mais de 700 anos — superando em longevidade a maioria das construções modernas.'
+    },
+    'ref-5': {
+      num:   'Nota 05',
+      title: 'Cortisol, Ondas Alfa e Materiais Naturais',
+      body:  'Estudos de neuroimagem documentaram reduções de <strong>12–15% nos níveis de cortisol salivar</strong> após 20 minutos em ambientes com materiais naturais visíveis. A atividade das ondas alfa — indicadora de relaxamento cognitivo — aumentou em média 11% em interiores com madeira visível versus interiores de acabamento sintético equivalente.'
+    }
+  };
+  /* ──────────────────────────────────────────────────────── */
+
+  function openDrawer(refId) {
+    const ref = REFS[refId];
+    if (!ref) return;
+    content.innerHTML = `
+      <span class="sd-num">${ref.num}</span>
+      <h3 class="sd-title">${ref.title}</h3>
+      <p class="sd-body">${ref.body}</p>
+    `;
+    drawer.classList.add('active');
+    overlay.classList.add('active');
+    drawer.setAttribute('aria-hidden', 'false');
+  }
+
+  function closeDrawer() {
+    drawer.classList.remove('active');
+    overlay.classList.remove('active');
+    drawer.setAttribute('aria-hidden', 'true');
+  }
+
+  /* Delega o clique — funciona mesmo com conteúdo injetado dinamicamente */
+  document.addEventListener('click', e => {
+    const btn = e.target.closest('.ref-btn');
+    if (btn) { e.stopPropagation(); openDrawer(btn.dataset.ref); }
+  });
+
+  closeBtn.addEventListener('click', closeDrawer);
+  overlay.addEventListener('click', closeDrawer);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(); });
+})();
