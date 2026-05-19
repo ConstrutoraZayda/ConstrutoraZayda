@@ -392,7 +392,8 @@ const EMP_DATA = {
     tag:'Quarenta e oito unidades em três blocos baixos, com pátio central arborizado.',
     local:'Estrada do Sana, 1.200 · Barra de São João', units:'48 apartamentos',
     tipo:'2 quartos · 54–66 m²', vagas:'1 vaga por unidade', entrega:'Entregue em Mai 2024', price:'R$ 380 mil',
-    cloudinaryTag: 'rua-tucunaré-rosangela'
+    cloudinaryTag: 'rua-tucunaré-rosangela',
+    heroImg: 'https://res.cloudinary.com/dovqcebdt/image/upload/q_auto/f_auto/v1779214464/1-dji_fly_20250818_103402_69_1755526869376_photo_1_qihmg0.jpg'
   },
   'aldeia': {
     name: 'Aldeia', label:'(03 · 2023 · Costa Azul)', status:'Pronto pra morar',
@@ -423,6 +424,14 @@ const EMP_DATA = {
     tag:'Quatorze unidades em rua arborizada, a duas quadras do mar.',
     local:'Rua dos Coqueiros, 50 · Costa Azul', units:'14 apartamentos',
     tipo:'2 quartos · 60–74 m²', vagas:'1 vaga por unidade', entrega:'Entregue em Set 2020', price:'R$ 410 mil'
+  },
+  'rua-lambari-juliana': {
+    name: 'Rua Lambari', label:'(08 · 2025 · Centro)', status:'Pronto pra morar',
+    tag:'Unidades residenciais em uma das ruas mais tranquilas de Barra de São João.',
+    local:'Rua Lambari · Centro · Barra de São João', units:'A definir',
+    tipo:'2 quartos', vagas:'1 vaga por unidade', entrega:'A definir', price:'A consultar',
+    cloudinaryTag: 'rua-lambari-juliana',
+    heroImg: 'https://res.cloudinary.com/dovqcebdt/image/upload/q_auto/f_auto/v1779218018/1-dji_fly_20250904_153658_157_1757011027056_photo_fi39ey.jpg'
   }
 };
 
