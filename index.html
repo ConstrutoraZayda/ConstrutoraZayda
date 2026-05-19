@@ -89,7 +89,6 @@
     <div class="nd-col">
       <span class="nd-label">Empresa</span>
       <a class="nd-link" href="#esg" data-route="esg" data-link>Sustentabilidade<span class="nd-meta">ESG · Relatório 2025</span></a>
-      <a class="nd-link" href="#carreira" data-route="carreira" data-link>Trabalhe conosco<span class="nd-meta">4 vagas abertas</span></a>
       <a class="nd-link" href="#investidores" data-route="investidores" data-link>Investidores<span class="nd-meta">VGV · EBITDA · Documentos</span></a>
     </div>
   </div>
@@ -106,6 +105,7 @@
       <span class="nd-label">Presencial &amp; suporte</span>
       <a class="nd-link" href="#atendimento" data-route="atendimento" data-link>Visitar o escritório<span class="nd-meta">Rodovia Amaral Peixoto, 916 · Centro</span></a>
       <a class="nd-link" href="#atendimento" data-route="atendimento" data-link>Perguntas frequentes<span class="nd-meta">6 respostas rápidas</span></a>
+      <a class="nd-link" href="#carreira" data-route="carreira" data-link>Trabalhe conosco<span class="nd-meta">4 vagas abertas</span></a>
     </div>
   </div>
 </div>
@@ -843,61 +843,158 @@
 
 <!-- ========== CARREIRA ========== -->
 <div class="page" data-page="carreira">
-  <section class="studio-intro">
-    <span class="label">(Trabalhe com a gente)</span>
-    <p class="lead">A gente cresce devagar.<br/><span class="italic serif">Procuramos quem cresce junto.</span></p>
-  </section>
 
-  <section class="studio-body">
-    <div class="col-img r"><image-slot id="slot-car-1" placeholder="Time Zayda em campo" style="width:100%;height:100%;display:block;"></image-slot></div>
-    <div class="col-text r">
-      <p>Hoje somos 28 pessoas, distribuídas entre projetos, canteiro e administrativo. Três quartos da equipe começou como aprendiz, estágio ou indicação de algum morador.</p>
-      <p>Aqui você não vai encontrar foosball, kombucha de gengibre nem horário físico no relógio. Vai encontrar gente que conhece a obra de ponta a ponta, plano de carreira escrito e a chance de assinar projeto com o próprio nome no segundo ano de casa.</p>
-      <p>Tem vagas abertas e o programa de estágio abre todo mêrço. Se você trabalha com obra, projeto ou administração e quer botar a mão em um lugar pequeno, com gente boa, manda um e-mail mesmo que não tenha vaga sua hoje.</p>
+  <!-- ── Hero ── -->
+  <section class="car-hero">
+    <div class="car-hero-inner">
+      <span class="label">(Carreiras)</span>
+      <h1 class="car-hero-title">Carreiras na<br>Zayda Construtora.</h1>
+      <p class="car-hero-sub">Construímos com cuidado.<br>Contratamos da mesma forma.</p>
+      <button class="pill" onclick="document.getElementById('car-vagas').scrollIntoView({behavior:'smooth'})">Ver vagas abertas →</button>
+    </div>
+    <div class="car-hero-media">
+      <image-slot id="slot-car-1" placeholder="Time Zayda em campo" style="width:100%;height:100%;display:block;"></image-slot>
     </div>
   </section>
 
-  <section class="vagas">
-    <div class="works-head">
-      <div class="left"><span class="label">(Vagas abertas)</span><h2 class="r">Quatro vagas</h2></div>
-      <div class="meta"><span class="idx">(2026)</span><span>Atualizadas há 3 dias</span></div>
+  <!-- ── Por que a Zayda ── -->
+  <section class="car-why">
+    <div class="car-why-head">
+      <span class="label">(Por que a Zayda)</span>
+      <h2 class="section">Pequenos por escolha.<br><span class="italic serif">Sérios por natureza.</span></h2>
     </div>
-    <div class="vagas-list">
-      <div class="vaga r" data-vaga="engenheiro">
-        <span class="idx">(01)</span>
-        <div class="vaga-name"><div class="name serif">Engenheiro de obra pleno</div><div class="meta">Canteiro · Praia da Lagoa</div></div>
-        <span class="tag">CLT</span>
-        <span class="tag">Presencial</span>
-        <button class="chev">→</button>
+    <div class="car-why-grid">
+      <div class="car-why-card r">
+        <span class="car-why-idx">(01)</span>
+        <h3>Projetos reais desde o início.</h3>
+        <p>Você assina projeto com o próprio nome no segundo ano de casa. Sem ficar anos copiando carimbo.</p>
       </div>
-      <div class="vaga r" data-vaga="arquiteta">
-        <span class="idx">(02)</span>
-        <div class="vaga-name"><div class="name serif">Arquiteta(o) projetista</div><div class="meta">Estúdio · Centro</div></div>
-        <span class="tag">CLT</span>
-        <span class="tag">Híbrido</span>
-        <button class="chev">→</button>
+      <div class="car-why-card r">
+        <span class="car-why-idx">(02)</span>
+        <h3>Equipe pequena, impacto visível.</h3>
+        <p>Somos 28 pessoas. O que você faz aparece na obra, no prazo, no cliente. Sem se perder na estrutura.</p>
       </div>
-      <div class="vaga r" data-vaga="mestre">
-        <span class="idx">(03)</span>
-        <div class="vaga-name"><div class="name serif">Mestre de obra</div><div class="meta">Canteiro · Marés</div></div>
-        <span class="tag">CLT</span>
-        <span class="tag">Presencial</span>
-        <button class="chev">→</button>
+      <div class="car-why-card r">
+        <span class="car-why-idx">(03)</span>
+        <h3>Obra no litoral fluminense.</h3>
+        <p>Barra de São João, não São Paulo. Qualidade de vida junto com carreira técnica séria — isso é possível aqui.</p>
       </div>
-      <div class="vaga r" data-vaga="financeiro">
-        <span class="idx">(04)</span>
-        <div class="vaga-name"><div class="name serif">Analista financeiro</div><div class="meta">Administrativo · Centro</div></div>
-        <span class="tag">CLT</span>
-        <span class="tag">Híbrido</span>
-        <button class="chev">→</button>
+      <div class="car-why-card r">
+        <span class="car-why-idx">(04)</span>
+        <h3>Plano de carreira escrito.</h3>
+        <p>Faixa salarial, critérios de progressão e responsabilidades documentados. Não é promessa de boca.</p>
       </div>
     </div>
   </section>
 
-  <section class="cta-section">
-    <h2 class="cta-headline">Não achou sua vaga aqui?<br/><span class="italic">Manda mesmo assim.</span></h2>
-    <div class="cta-button"><button class="btn-big" data-cta="carreira">Enviar currículo <span>→</span></button></div>
+  <!-- ── Áreas de atuação ── -->
+  <section class="car-areas">
+    <div class="car-areas-head">
+      <span class="label">(Onde você pode atuar)</span>
+      <h2 class="section">Quatro áreas,<br>uma obra.</h2>
+    </div>
+    <div class="car-areas-grid">
+      <div class="car-area-card r">
+        <div class="car-area-media">
+          <image-slot id="slot-car-canteiro" placeholder="Canteiro de obra" style="width:100%;height:100%;display:block;"></image-slot>
+        </div>
+        <h3>Canteiro de obra</h3>
+        <p>Engenheiros, mestres, técnicos. O lugar onde o projeto se torna real, tijolo a tijolo.</p>
+      </div>
+      <div class="car-area-card r">
+        <div class="car-area-media">
+          <image-slot id="slot-car-projetos" placeholder="Projetos e arquitetura" style="width:100%;height:100%;display:block;"></image-slot>
+        </div>
+        <h3>Projetos &amp; Arquitetura</h3>
+        <p>Do conceito ao executivo. Trabalhamos com plantas que envelhecem bem — e as pessoas que as desenham também.</p>
+      </div>
+      <div class="car-area-card r">
+        <div class="car-area-media">
+          <image-slot id="slot-car-admin" placeholder="Administrativo" style="width:100%;height:100%;display:block;"></image-slot>
+        </div>
+        <h3>Administrativo</h3>
+        <p>Financeiro, contratos, jurídico. A estrutura que sustenta cada decisão tomada no canteiro.</p>
+      </div>
+      <div class="car-area-card r">
+        <div class="car-area-media">
+          <image-slot id="slot-car-estagio" placeholder="Estágio e jovem aprendiz" style="width:100%;height:100%;display:block;"></image-slot>
+        </div>
+        <h3>Estágio &amp; Aprendiz</h3>
+        <p>Entrada todo março. Três quartos da equipe atual começou exatamente por aqui.</p>
+      </div>
+    </div>
   </section>
+
+  <!-- ── Vagas abertas ── -->
+  <section class="car-vagas" id="car-vagas">
+    <div class="car-vagas-head">
+      <div>
+        <span class="label">(Vagas abertas)</span>
+        <h2 class="section">Quatro posições<br>disponíveis agora.</h2>
+      </div>
+      <span class="idx">(Atualizado em mai 2026)</span>
+    </div>
+    <div class="car-vagas-list">
+      <a class="car-vaga-card r" href="mailto:zaydaconstrutora@gmail.com?subject=Candidatura — Engenheiro de obra pleno">
+        <span class="car-vaga-dept">Canteiro</span>
+        <div class="car-vaga-info">
+          <span class="car-vaga-title">Engenheiro de obra pleno</span>
+          <span class="car-vaga-loc">Praia da Lagoa · Barra de São João</span>
+        </div>
+        <div class="car-vaga-tags">
+          <span class="jn-tag">CLT</span>
+          <span class="jn-tag">Presencial</span>
+        </div>
+        <span class="car-vaga-arrow">→</span>
+      </a>
+      <a class="car-vaga-card r" href="mailto:zaydaconstrutora@gmail.com?subject=Candidatura — Arquiteta(o) projetista">
+        <span class="car-vaga-dept">Projetos</span>
+        <div class="car-vaga-info">
+          <span class="car-vaga-title">Arquiteta(o) projetista</span>
+          <span class="car-vaga-loc">Estúdio · Centro, Barra de São João</span>
+        </div>
+        <div class="car-vaga-tags">
+          <span class="jn-tag">CLT</span>
+          <span class="jn-tag">Híbrido</span>
+        </div>
+        <span class="car-vaga-arrow">→</span>
+      </a>
+      <a class="car-vaga-card r" href="mailto:zaydaconstrutora@gmail.com?subject=Candidatura — Mestre de obra">
+        <span class="car-vaga-dept">Canteiro</span>
+        <div class="car-vaga-info">
+          <span class="car-vaga-title">Mestre de obra</span>
+          <span class="car-vaga-loc">Marés · Barra de São João</span>
+        </div>
+        <div class="car-vaga-tags">
+          <span class="jn-tag">CLT</span>
+          <span class="jn-tag">Presencial</span>
+        </div>
+        <span class="car-vaga-arrow">→</span>
+      </a>
+      <a class="car-vaga-card r" href="mailto:zaydaconstrutora@gmail.com?subject=Candidatura — Analista financeiro">
+        <span class="car-vaga-dept">Administrativo</span>
+        <div class="car-vaga-info">
+          <span class="car-vaga-title">Analista financeiro</span>
+          <span class="car-vaga-loc">Administrativo · Centro, Barra de São João</span>
+        </div>
+        <div class="car-vaga-tags">
+          <span class="jn-tag">CLT</span>
+          <span class="jn-tag">Híbrido</span>
+        </div>
+        <span class="car-vaga-arrow">→</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- ── CTA final ── -->
+  <section class="car-cta">
+    <div class="car-cta-inner r">
+      <h2>Não achou sua vaga?<br><span class="italic serif">Manda o currículo assim mesmo.</span></h2>
+      <p>Se você trabalha com obra, projeto ou administração e quer fazer parte de um lugar pequeno, com gente boa — manda um e-mail. A gente lê tudo.</p>
+      <a class="pill" href="mailto:zaydaconstrutora@gmail.com?subject=Candidatura espontânea">Enviar currículo →</a>
+    </div>
+  </section>
+
 </div>
 
 <!-- ========== BLOG ========== -->

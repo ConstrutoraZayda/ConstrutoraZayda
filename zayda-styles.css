@@ -2612,3 +2612,228 @@ footer.page-hidden { display: none; }
   .art-cover { border-radius: 4px; }
   .art-figure { margin-inline: -var(--pad); border-radius: 0; }
 }
+
+/* ============================================================
+   CARREIRAS NA ZAYDA
+============================================================ */
+
+/* ── Hero ───────────────────────────────────────────────────── */
+.car-hero {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 92vh;
+  padding-top: 68px;
+}
+.car-hero-inner {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(60px, 8vw, 120px) var(--pad);
+  gap: 28px;
+}
+.car-hero-title {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: clamp(44px, 5.5vw, 76px);
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  margin: 8px 0 0;
+}
+.car-hero-sub {
+  font-size: clamp(15px, 1.6vw, 18px);
+  color: var(--mid);
+  line-height: 1.65;
+}
+.car-hero-media {
+  overflow: hidden;
+  background: var(--bg-2);
+}
+
+/* ── Por que a Zayda ─────────────────────────────────────────── */
+.car-why {
+  padding: clamp(80px, 10vw, 140px) var(--pad);
+  border-top: 1px solid var(--line);
+}
+.car-why-head {
+  max-width: 520px;
+  margin-bottom: clamp(48px, 6vw, 72px);
+}
+.car-why-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(32px, 4vw, 48px) clamp(24px, 3vw, 40px);
+  border-top: 1px solid var(--line);
+  padding-top: clamp(32px, 4vw, 48px);
+}
+.car-why-card {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.car-why-idx {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  color: var(--mid);
+}
+.car-why-card h3 {
+  font-family: var(--font-serif);
+  font-size: clamp(17px, 1.6vw, 21px);
+  font-weight: 400;
+  line-height: 1.25;
+}
+.car-why-card p {
+  font-size: 14px;
+  line-height: 1.75;
+  color: var(--mid);
+}
+
+/* ── Áreas ──────────────────────────────────────────────────── */
+.car-areas {
+  padding: clamp(80px, 10vw, 140px) var(--pad);
+  border-top: 1px solid var(--line);
+  background: var(--bg-2);
+}
+.car-areas-head {
+  margin-bottom: clamp(48px, 6vw, 72px);
+}
+.car-areas-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(16px, 2vw, 28px);
+}
+.car-area-card {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.car-area-media {
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  background: var(--bg);
+  border-radius: 8px;
+}
+.car-area-media image-slot { transition: transform 600ms var(--ease); }
+.car-area-card:hover .car-area-media image-slot { transform: scale(1.04); }
+.car-area-card h3 {
+  font-family: var(--font-serif);
+  font-size: clamp(17px, 1.6vw, 20px);
+  font-weight: 400;
+}
+.car-area-card p {
+  font-size: 13px;
+  line-height: 1.75;
+  color: var(--mid);
+}
+
+/* ── Vagas abertas ──────────────────────────────────────────── */
+.car-vagas {
+  padding: clamp(80px, 10vw, 140px) var(--pad);
+  border-top: 1px solid var(--line);
+}
+.car-vagas-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: clamp(40px, 5vw, 64px);
+}
+.car-vagas-list {
+  display: flex;
+  flex-direction: column;
+}
+.car-vaga-card {
+  display: grid;
+  grid-template-columns: 120px 1fr auto 28px;
+  align-items: center;
+  gap: 32px;
+  padding: 22px 0;
+  border-bottom: 1px solid var(--line);
+  text-decoration: none;
+  color: var(--ink);
+  transition: gap 200ms var(--ease);
+}
+.car-vaga-card:first-child { border-top: 1px solid var(--line); }
+.car-vaga-card:hover { gap: 36px; }
+.car-vaga-dept {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--mid);
+}
+.car-vaga-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.car-vaga-title {
+  font-family: var(--font-serif);
+  font-size: clamp(17px, 1.8vw, 22px);
+  font-weight: 400;
+  line-height: 1.2;
+}
+.car-vaga-loc {
+  font-size: 12px;
+  color: var(--mid);
+  font-family: var(--font-mono);
+  letter-spacing: 0.04em;
+}
+.car-vaga-tags {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+.car-vaga-arrow {
+  font-size: 18px;
+  color: var(--mid);
+  transition: transform 200ms var(--ease), color 200ms;
+  text-align: right;
+}
+.car-vaga-card:hover .car-vaga-arrow {
+  transform: translateX(4px);
+  color: var(--ink);
+}
+
+/* ── CTA final ──────────────────────────────────────────────── */
+.car-cta {
+  border-top: 1px solid var(--line);
+  padding: clamp(80px, 10vw, 140px) var(--pad);
+  display: flex;
+  justify-content: center;
+}
+.car-cta-inner {
+  max-width: 580px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+}
+.car-cta-inner h2 {
+  font-family: var(--font-serif);
+  font-size: clamp(32px, 4vw, 52px);
+  font-weight: 400;
+  line-height: 1.1;
+}
+.car-cta-inner p {
+  font-size: 15px;
+  line-height: 1.75;
+  color: var(--mid);
+}
+
+/* ── Responsivo ─────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .car-why-grid   { grid-template-columns: 1fr 1fr; }
+  .car-areas-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 768px) {
+  .car-hero { grid-template-columns: 1fr; min-height: auto; }
+  .car-hero-media { aspect-ratio: 4 / 3; }
+  .car-vaga-card { grid-template-columns: 1fr auto; gap: 16px; }
+  .car-vaga-dept { display: none; }
+  .car-vaga-tags { justify-content: flex-start; }
+  .car-why-grid   { grid-template-columns: 1fr; }
+  .car-areas-grid { grid-template-columns: 1fr 1fr; }
+}
