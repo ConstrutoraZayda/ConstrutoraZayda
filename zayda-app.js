@@ -368,10 +368,11 @@ document.getElementById('empReset')?.addEventListener('click', () => {
 ============================================================ */
 const EMP_DATA = {
   'praia-da-lagoa': {
-    name: 'Praia da Lagoa', label:'(00 · 2026 · Beira-Rio)', status:'Lançamento',
-    tag:'Trinta e duas unidades de dois e três quartos, de frente para a lagoa.',
-    local:'Av. Beira Rio, 320 · Barra de São João', units:'32 apartamentos',
-    tipo:'2 e 3 quartos · 64–98 m²', vagas:'1 vaga por unidade', entrega:'Jan 2027', price:'R$ 480 mil'
+    name: 'Praia da Lagoa', label:'(00 · 2026 · Centro)', status:'Lançamento',
+    tag:'Três quartos com suíte, cozinha integrada e varanda — a duzentos metros da Prainha.',
+    local:'Rua São João · Centro · Barra de São João', units:'32 apartamentos',
+    tipo:'3 quartos · 1 suíte · cozinha integrada', vagas:'1 vaga por unidade', entrega:'1 ano após contrato', price:'R$ 480 mil',
+    cloudinaryTag: 'rua-sao-joao'   /* tag do álbum no Cloudinary */
   },
   'mares': {
     name: 'Marés', label:'(01 · 2025 · Praia)', status:'Em obra',
@@ -431,6 +432,64 @@ function populateEmp(key) {
   setText('specVagas', d.vagas);
   setText('specEntrega', d.entrega);
   setText('specPrice', d.price);
+  loadCloudinaryGallery(d.cloudinaryTag || null);
+}
+
+/* ============================================================
+   GALERIA CLOUDINARY
+   Cloud: dovqcebdt  |  Transformações: f_auto,q_auto
+   Para adicionar galeria a outro projeto: inclua
+   cloudinaryTag: 'nome-do-album' no objeto EMP_DATA.
+============================================================ */
+const CLOUD_NAME = 'dovqcebdt';
+
+function loadCloudinaryGallery(tag) {
+  const section = document.getElementById('empCloudSection');
+  const grid    = document.getElementById('empCloudGrid');
+  if (!section || !grid) return;
+
+  /* Sem tag: esconde a seção e limpa o grid */
+  if (!tag) {
+    section.style.display = 'none';
+    grid.innerHTML = '';
+    return;
+  }
+
+  /* Exibe seção e mostra skeletons durante o fetch */
+  section.style.display = '';
+  grid.innerHTML = Array(6).fill(0).map(() =>
+    `<div class="emp-cloud-skeleton"></div>`
+  ).join('');
+
+  /* Cloudinary Resource List API — ative em Settings › Security */
+  const listUrl = `https://res.cloudinary.com/${CLOUD_NAME}/image/list/${tag}.json`;
+
+  fetch(listUrl)
+    .then(r => {
+      if (!r.ok) throw new Error('Verifique se "Resource List" está ativa no Cloudinary.');
+      return r.json();
+    })
+    .then(data => {
+      if (!data.resources || !data.resources.length) {
+        section.style.display = 'none';
+        grid.innerHTML = '';
+        return;
+      }
+      /* Monta cada item com URL otimizada: f_auto,q_auto */
+      grid.innerHTML = data.resources.map(img => {
+        const url = `https://res.cloudinary.com/${CLOUD_NAME}/image/upload/f_auto,q_auto/${img.public_id}`;
+        const alt = img.public_id.split('/').pop().replace(/[-_]/g, ' ');
+        return `
+          <div class="emp-cloud-item r">
+            <img src="${url}" alt="${alt}" loading="lazy">
+          </div>`;
+      }).join('');
+    })
+    .catch(err => {
+      console.error('[Cloudinary]', err);
+      section.style.display = 'none';
+      grid.innerHTML = '';
+    });
 }
 
 // intercept clicks on cards with data-emp BEFORE route handler runs
@@ -881,3 +940,17 @@ if (_init === 'empreendimento') {
   overlay.addEventListener('click', closeDrawer);
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(); });
 })();
+
+/* ============================================================
+   POI FILTER — Onde fica (Turísticos / Importantes)
+============================================================ */
+document.addEventListener('click', e => {
+  const tog = e.target.closest('.poi-tog');
+  if (!tog) return;
+  const group = tog.dataset.poi;
+  tog.closest('.poi-filter').querySelectorAll('.poi-tog').forEach(b => b.classList.remove('active'));
+  tog.classList.add('active');
+  document.querySelectorAll('.poi-list').forEach(l => {
+    l.style.display = l.id === `poi-${group}` ? '' : 'none';
+  });
+});
