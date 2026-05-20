@@ -440,6 +440,14 @@ const EMP_DATA = {
     tipo:'2 quartos', vagas:'1 vaga por unidade', entrega:'A definir', price:'A consultar',
     cloudinaryTag: 'rua-lambari-célia',
     heroImg: 'https://res.cloudinary.com/dovqcebdt/image/upload/q_auto/f_auto/v1779291711/IMG_0148_bupo8n.jpg'
+  },
+  'rua-lambari-andreia': {
+    name: 'Rua Lambari — Andréia', label:'(10 · 2025 · Centro)', status:'Pronto pra morar',
+    tag:'Unidades residenciais em uma das ruas mais tranquilas de Barra de São João.',
+    local:'Rua Lambari · Centro · Barra de São João', units:'A definir',
+    tipo:'2 quartos', vagas:'1 vaga por unidade', entrega:'A definir', price:'A consultar',
+    cloudinaryTag: 'rua-lambari-andreia',
+    heroImg: 'https://res.cloudinary.com/dovqcebdt/image/upload/q_auto/f_auto/v1779294999/IMG_1850_1_qmpqlz.jpg'
   }
 };
 
