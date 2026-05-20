@@ -5,8 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Zayda Construtora — Empreendimentos residenciais · Barra de São João, RJ</title>
 <link rel="stylesheet" href="zayda-styles.css" />
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-<script src="image-slot.js"></script>
+
+<!-- Preconnect: reduz latência nas primeiras requisições Cloudinary e tiles -->
+<link rel="preconnect" href="https://res.cloudinary.com" crossorigin>
+<link rel="dns-prefetch" href="https://res.cloudinary.com">
+<link rel="dns-prefetch" href="https://basemaps.cartocdn.com">
+<link rel="dns-prefetch" href="https://unpkg.com">
+
+<!-- image-slot.js: defer — não bloqueia o render -->
+<script src="image-slot.js" defer></script>
 </head>
 <body>
 
@@ -2931,8 +2938,6 @@
   </div>
 </div>
 
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
 <!-- ── Glossário Tátil — tooltip de textura que segue o cursor ── -->
 <div id="tactile-tip" aria-hidden="true">
   <img id="tactile-tip-img" src="" alt="" draggable="false">
@@ -2956,6 +2961,6 @@
   <p class="lb-counter" id="lbCounter"></p>
 </div>
 
-<script src="zayda-app.js"></script>
+<script src="zayda-app.js" defer></script>
 </body>
 </html>

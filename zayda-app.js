@@ -755,8 +755,6 @@ if (_init === 'empreendimento') {
    Coordenadas: [latitude, longitude]
 ============================================================ */
 (function () {
-  if (typeof L === 'undefined') return; // Leaflet não carregou
-
   const sobrePage = document.querySelector('[data-page="sobre"]');
   if (!sobrePage) return;
 
@@ -866,40 +864,54 @@ if (_init === 'empreendimento') {
     zaydaMap.flyTo(MAP_CENTER, MAP_ZOOM, { duration: 0.9 });
   }
 
-  /* Inicializa o mapa (chamado apenas uma vez, lazily) */
-  function initMap() {
-    if (zaydaMap) {
-      zaydaMap.invalidateSize(); // corrige tiles ao exibir novamente
-      return;
-    }
-
-    zaydaMap = L.map('zaydaMap', {
-      center:           MAP_CENTER,
-      zoom:             MAP_ZOOM,
-      zoomControl:      false,   // vamos reposicionar
-      scrollWheelZoom:  false,   // evita capturar scroll da página
+  /* Carrega Leaflet sob demanda — 0 bytes até o usuário abrir "Expertise" */
+  function loadLeaflet() {
+    return new Promise((resolve, reject) => {
+      if (window.L) { resolve(); return; }
+      if (!document.getElementById('leaflet-css')) {
+        const link = document.createElement('link');
+        link.id   = 'leaflet-css';
+        link.rel  = 'stylesheet';
+        link.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
+        document.head.appendChild(link);
+      }
+      const s   = document.createElement('script');
+      s.src     = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+      s.onload  = resolve;
+      s.onerror = () => reject(new Error('Leaflet CDN indisponível'));
+      document.head.appendChild(s);
     });
+  }
 
-    /* Tiles CartoDB Positron — visual minimalista, sem API key */
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-      attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> © <a href="https://carto.com/attributions">CARTO</a>',
-      subdomains:  'abcd',
-      maxZoom:     19,
-    }).addTo(zaydaMap);
+  /* Inicializa o mapa — lazy + async, só após Leaflet ser carregado */
+  function initMap() {
+    if (zaydaMap) { zaydaMap.invalidateSize(); return; }
+    loadLeaflet().then(() => {
+      if (zaydaMap) return; // outra chamada ganhou a corrida
 
-    /* Controles de zoom reposicionados no canto inferior direito */
-    L.control.zoom({ position: 'bottomright' }).addTo(zaydaMap);
+      zaydaMap = L.map('zaydaMap', {
+        center:          MAP_CENTER,
+        zoom:            MAP_ZOOM,
+        zoomControl:     false,
+        scrollWheelZoom: false,
+      });
 
-    /* Ativa scroll wheel após clicar no mapa (UX: evita scroll acidental) */
-    zaydaMap.on('click', () => zaydaMap.scrollWheelZoom.enable());
-    zaydaMap.on('mouseout', () => zaydaMap.scrollWheelZoom.disable());
+      L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+        attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> © <a href="https://carto.com/attributions">CARTO</a>',
+        subdomains:  'abcd',
+        maxZoom:     19,
+      }).addTo(zaydaMap);
 
-    /* Estado inicial: imóveis */
-    switchGroup('imoveis');
+      L.control.zoom({ position: 'bottomright' }).addTo(zaydaMap);
 
-    /* Botões do widget bento box */
-    document.getElementById('togImoveis').addEventListener('click', () => switchGroup('imoveis'));
-    document.getElementById('togRoteiro').addEventListener('click', () => switchGroup('roteiro'));
+      zaydaMap.on('click',    () => zaydaMap.scrollWheelZoom.enable());
+      zaydaMap.on('mouseout', () => zaydaMap.scrollWheelZoom.disable());
+
+      switchGroup('imoveis');
+
+      document.getElementById('togImoveis').addEventListener('click', () => switchGroup('imoveis'));
+      document.getElementById('togRoteiro').addEventListener('click', () => switchGroup('roteiro'));
+    }).catch(err => console.warn('[Leaflet]', err));
   }
 
   /* Inicialização lazy: só quando a página "sobre" ficar ativa */
