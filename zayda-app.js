@@ -448,6 +448,14 @@ const EMP_DATA = {
     tipo:'2 quartos', vagas:'1 vaga por unidade', entrega:'A definir', price:'A consultar',
     cloudinaryTag: 'rua-lambari-andreia',
     heroImg: 'https://res.cloudinary.com/dovqcebdt/image/upload/q_auto/f_auto/v1779294999/IMG_1850_1_qmpqlz.jpg'
+  },
+  'rua-lambari-carla': {
+    name: 'Rua Lambari — Carla', label:'(11 · 2025 · Centro)', status:'Pronto pra morar',
+    tag:'Unidades residenciais em uma das ruas mais tranquilas de Barra de São João.',
+    local:'Rua Lambari · Centro · Barra de São João', units:'A definir',
+    tipo:'2 quartos', vagas:'1 vaga por unidade', entrega:'A definir', price:'A consultar',
+    cloudinaryTag: 'rua-lambari-carla',
+    heroImg: 'https://res.cloudinary.com/dovqcebdt/image/upload/q_auto/f_auto/v1779303180/IMG_4185_ew9ihu.jpg'
   }
 };
 
@@ -1087,9 +1095,10 @@ if (_init === 'empreendimento') {
    um <video> autoplay no card do blog no lugar do image-slot.
 ============================================================ */
 (function () {
-  const slotCard   = document.getElementById('slot-blog-concreto');
-  const slotCover  = document.getElementById('slot-artigo-concreto');
-  if (!slotCard && !slotCover) return;
+  const slotCard     = document.getElementById('slot-blog-concreto');
+  const slotCover    = document.getElementById('slot-artigo-concreto');
+  const slotFeatured = document.getElementById('slot-bp-concreto');
+  if (!slotCard && !slotCover && !slotFeatured) return;
 
   fetch('https://res.cloudinary.com/dovqcebdt/video/list/blog-video-mit.json')
     .then(r => r.ok ? r.json() : Promise.reject('Resource List inativa'))
@@ -1110,8 +1119,9 @@ if (_init === 'empreendimento') {
         return vid;
       }
 
-      if (slotCard)  slotCard.replaceWith(makeVid());
-      if (slotCover) slotCover.replaceWith(makeVid());
+      if (slotCard)     slotCard.replaceWith(makeVid());
+      if (slotCover)    slotCover.replaceWith(makeVid());
+      if (slotFeatured) slotFeatured.replaceWith(makeVid());
     })
     .catch(err => console.warn('[Blog video]', err));
 })();
