@@ -314,8 +314,46 @@ function updateStep() {
   nextBtn.textContent = stepN === total ? 'Enviar →' : 'Próximo →';
 }
 
+/* Validação do Step 1 */
+function validateStep1() {
+  const nome  = document.getElementById('fNome');
+  const email = document.getElementById('fEmail');
+  const phone = document.getElementById('phoneInput');
+  const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+  let ok = true;
+
+  function check(input, errId, condition) {
+    const err = document.getElementById(errId);
+    if (condition) {
+      input.classList.add('invalid');
+      err.classList.add('visible');
+      ok = false;
+    } else {
+      input.classList.remove('invalid');
+      err.classList.remove('visible');
+    }
+  }
+
+  check(nome,  'errNome',  !nome.value.trim() || nome.value.trim().length < 2);
+  check(email, 'errEmail', !EMAIL_RE.test(email.value.trim()));
+  check(phone, 'errPhone', phone.value && phone.value.replace(/\D/g,'').length < 10);
+
+  return ok;
+}
+
+/* Limpa erro ao digitar */
+['fNome','fEmail','phoneInput'].forEach(id => {
+  document.getElementById(id)?.addEventListener('input', () => {
+    const el = document.getElementById(id);
+    el.classList.remove('invalid');
+    const errMap = { fNome:'errNome', fEmail:'errEmail', phoneInput:'errPhone' };
+    document.getElementById(errMap[id])?.classList.remove('visible');
+  });
+});
+
 backBtn.addEventListener('click', () => { if (stepN > 1) { stepN--; updateStep(); } });
 nextBtn.addEventListener('click', () => {
+  if (stepN === 1 && !validateStep1()) return;
   if (stepN === total) {
     formInner.style.display = 'none';
     success.classList.add('show');
