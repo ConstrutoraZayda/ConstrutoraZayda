@@ -1370,6 +1370,168 @@ if (_init === 'empreendimento') {
     .catch(err => console.warn('[Blog video]', err));
 })();
 
+/* ── Rotação diária do artigo em destaque no blog ────────────
+   Troca 1× por dia. Para adicionar artigo: inclua um objeto
+   no array FEATURED_POSTS.
+──────────────────────────────────────────────────────────── */
+(function () {
+  const POSTS = [
+    { route:'artigo-materiais',        cat:'Bastidores', date:'12 mai 2026', read:'13 min', title:'Pedra. Madeira. Luz. O que cinco mil anos de arquitetura tentam nos dizer.',  img:'Materials/firstpostblog.webp' },
+    { route:'artigo-bem-estar',        cat:'Processo',   date:'19 mai 2026', read:'12 min', title:'Bem-Estar Não É Um Cômodo.',                                                   img:'https://res.cloudinary.com/dovqcebdt/image/upload/q_auto/f_auto/v1779219813/ec7a05240187127.693942248159b_fat1nk.webp' },
+    { route:'artigo-impermeabilizacao',cat:'Processo',   date:'02 jun 2026', read:'13 min', title:'O Que Acontece com Sua Obra Quando Chove.',                                    img:'https://res.cloudinary.com/dovqcebdt/image/upload/q_auto/f_auto/v1779288159/3e1011226538547.68375be87851c_tknnxq.webp' },
+    { route:'artigo-luz',              cat:'Processo',   date:'09 jun 2026', read:'14 min', title:'Sua Casa Sabe Que Horas São?',                                                 img:'https://res.cloudinary.com/dovqcebdt/image/upload/q_auto/f_auto/v1779288889/6f1ff9236946593.68f6bff40df3d_o11lwi.webp' },
+    { route:'artigo-cozinha',          cat:'Processo',   date:'16 jun 2026', read:'12 min', title:'A Cozinha Virou Outra Coisa.',                                                  img:'https://res.cloudinary.com/dovqcebdt/image/upload/q_auto/f_auto/v1779293264/dbaf04248279303.69ee25a666e7d_e46wsc.webp' },
+    { route:'artigo-metros',           cat:'Mercado',    date:'23 jun 2026', read:'13 min', title:'Por Que os Imóveis Mais Caros do Mundo São Menores.',                           img:'https://res.cloudinary.com/dovqcebdt/image/upload/q_auto/f_auto/v1779300854/15__Tuca_Rein%C3%A9s_trvbmq.jpg' },
+    { route:'artigo-giverny',          cat:'Lugar',      date:'07 jul 2026', read:'11 min', title:'O Jardim Que Ele Construiu Antes de Pintar.',                                   img:'https://res.cloudinary.com/dovqcebdt/image/upload/f_auto,q_auto/v1779388716/the_japanese_footbridge_1992.9.1_gaozko.jpg' },
+  ];
+
+  const link = document.querySelector('.jnf-post');
+  if (!link) return;
+
+  const post = POSTS[Math.floor(Date.now() / 86400000) % POSTS.length];
+  link.href = '#' + post.route;
+  link.dataset.route = post.route;
+
+  const img = link.querySelector('.jnf-media img');
+  if (img) { img.src = post.img; img.alt = post.title; }
+  const q = s => link.querySelector(s);
+  if (q('.jn-tag'))   q('.jn-tag').textContent   = post.cat;
+  if (q('.jn-date'))  q('.jn-date').textContent  = post.date;
+  if (q('.jn-read'))  q('.jn-read').textContent  = post.read + ' de leitura';
+  if (q('.jnf-title'))q('.jnf-title').textContent = post.title;
+})();
+
+/* ============================================================
+   INTERACTIVE FRAME — Giverny
+   · Timer 5s → expansão gradual da capa para ~tela cheia
+   · offsetHeight força reflow entre "de" e "para" → transição
+   · Pins e tooltip injetados por JS
+============================================================ */
+(function () {
+  const cover    = document.getElementById('givernyCover');
+  const wrap     = document.getElementById('givernyWrap');
+  const img      = document.getElementById('givernyImg');
+  const backdrop = document.getElementById('givernyBackdrop');
+  if (!cover || !wrap || !img || !backdrop) return;
+
+  const T_OPEN  = 'top 1.1s cubic-bezier(0.16,1,0.3,1), left 1.1s cubic-bezier(0.16,1,0.3,1), width 1.1s cubic-bezier(0.16,1,0.3,1), height 1.1s cubic-bezier(0.16,1,0.3,1)';
+  const T_CLOSE = 'top 0.65s cubic-bezier(0.4,0,0.2,1), left 0.65s cubic-bezier(0.4,0,0.2,1), width 0.65s cubic-bezier(0.4,0,0.2,1), height 0.65s cubic-bezier(0.4,0,0.2,1)';
+
+  const PINS = [
+    { top:'42%', left:'50%', label:'A ponte como moldura',  text:'O arco não leva a lugar nenhum — ele transforma o que está além em um quadro dentro do quadro. Monet usou a geometria da madeira para enquadrar o caos orgânico da vegetação.' },
+    { top:'73%', left:'32%', label:'Os nenúfares e a água', text:'As pinceladas verticais recusam qualquer horizonte claro: é impossível separar o céu do lago. A água não reflete — dissolve. Duas superfícies tornam-se uma só.' },
+    { top:'20%', left:'68%', label:'O peso do verde',       text:'A folhagem não representa folhas — representa a experiência de estar sob elas. O verde não é uma cor aqui; é uma temperatura, um volume, um peso sobre quem passa.' },
+  ];
+
+  /* Injeção de tooltip e pins */
+  const tooltip = document.createElement('div');
+  tooltip.className = 'frame-tooltip';
+  tooltip.innerHTML = '<p class="ft-label"></p><p class="ft-body"></p>';
+  cover.appendChild(tooltip);
+
+  PINS.forEach(pin => {
+    const btn = document.createElement('button');
+    btn.className = 'hotspot-pin';
+    btn.style.top  = pin.top;
+    btn.style.left = pin.left;
+    btn.setAttribute('aria-label', pin.label);
+    cover.appendChild(btn);
+    btn.addEventListener('pointerenter', e => {
+      e.stopPropagation();
+      img.style.transformOrigin = `${parseFloat(pin.left)}% ${parseFloat(pin.top)}%`;
+      img.style.transform = 'scale(2.5)';
+      tooltip.querySelector('.ft-label').textContent = pin.label;
+      tooltip.querySelector('.ft-body').textContent  = pin.text;
+      tooltip.classList.add('visible');
+    });
+    btn.addEventListener('pointerleave', () => {
+      img.style.transform = img.style.transformOrigin = '';
+      tooltip.classList.remove('visible');
+    });
+  });
+
+  let expanded = false;
+  cover.style.cursor = 'zoom-in';
+
+  function expand() {
+    if (expanded) return;
+    expanded = true;
+
+    const r = cover.getBoundingClientRect();
+    wrap.style.height = r.height + 'px'; /* preserva espaço no layout */
+
+    /* Fixa na posição atual — SEM transição ainda */
+    Object.assign(cover.style, {
+      position: 'fixed',
+      top:      r.top    + 'px',
+      left:     r.left   + 'px',
+      width:    r.width  + 'px',
+      height:   r.height + 'px',
+      zIndex:   '500',
+      overflow: 'hidden',
+      borderRadius: '0',
+      transition: 'none'
+    });
+
+    /* offsetHeight força reflow — captura o estado inicial antes de animar */
+    cover.offsetHeight; // eslint-disable-line no-unused-expressions
+
+    cover.style.transition = T_OPEN;
+    cover.style.top    = '7.5vh';
+    cover.style.left   = '5vw';
+    cover.style.width  = '90vw';
+    cover.style.height = '85vh';
+    backdrop.classList.add('active');
+    cover.classList.add('gvny-expanded');
+  }
+
+  function collapse() {
+    if (!expanded) return;
+    expanded = false; /* imediato — evita duplo disparo */
+
+    img.style.transform = img.style.transformOrigin = '';
+    tooltip.classList.remove('visible');
+    cover.classList.remove('gvny-expanded');
+    backdrop.classList.remove('active');
+
+    const r = wrap.getBoundingClientRect();
+    cover.style.transition = T_CLOSE;
+    cover.style.top    = r.top    + 'px';
+    cover.style.left   = r.left   + 'px';
+    cover.style.width  = r.width  + 'px';
+    cover.style.height = r.height + 'px';
+
+    setTimeout(() => {
+      cover.removeAttribute('style');
+      wrap.style.height = '';
+      cover.style.cursor = 'zoom-in';
+    }, 700);
+  }
+
+  /* Click para abrir — sem timer de espera */
+  cover.addEventListener('click', e => {
+    if (e.target.closest('.hotspot-pin')) return;
+    expanded ? collapse() : expand();
+  });
+  backdrop.addEventListener('click', collapse);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') collapse(); });
+})();
+
+/* ── Contador animado "250" — artigo Giverny ─────────────────
+   Anima de 0 → 250 quando o número entra na viewport.
+──────────────────────────────────────────────────────────── */
+(function () {
+  const el = document.getElementById('monetCount');
+  if (!el) return;
+  new IntersectionObserver(([e], obs) => {
+    if (!e.isIntersecting) return;
+    obs.disconnect();
+    let n = 0;
+    const tick = () => { n = Math.min(n + 4, 250); el.textContent = n; if (n < 250) requestAnimationFrame(tick); };
+    requestAnimationFrame(tick);
+  }, { threshold: 0.8 }).observe(el);
+})();
+
 /* ============================================================
    POI FILTER — Onde fica (Turísticos / Importantes)
 ============================================================ */
