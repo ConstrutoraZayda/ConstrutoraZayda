@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Zayda Construtora — Empreendimentos residenciais · Barra de São João, RJ</title>
 <link rel="stylesheet" href="zayda-styles.css" />
+<link rel="stylesheet" href="https://use.typekit.net/uvg7hxo.css">
 
 <!-- Preconnect: reduz latência nas primeiras requisições Cloudinary e tiles -->
 <link rel="preconnect" href="https://res.cloudinary.com" crossorigin>
@@ -16,6 +17,52 @@
 <script src="image-slot.js" defer></script>
 </head>
 <body>
+
+<!-- ====== INTRO SCREEN ====== -->
+<div id="introScreen" class="intro-screen" aria-hidden="true">
+  <div class="intro-inner">
+    <p class="intro-brand">Zayda.</p>
+    <div class="intro-line">
+      <div class="intro-line-fill" id="introLineFill"></div>
+    </div>
+  </div>
+  <p class="intro-counter" id="introCounter">00</p>
+</div>
+
+<!-- ====== HERO WIDGETS (bottom-left) ====== -->
+<div id="heroWidgets" class="hw-stack">
+  <div class="hw-deck" id="hwDeck" role="button" aria-expanded="false" aria-label="Abrir destaques">
+
+    <!-- Card 1 — frente do deck (sempre visível) -->
+    <div class="hw-card" id="hwBlog">
+      <a class="hw-inner" href="#artigo-metros" data-route="artigo-metros" data-link>
+        <div class="hw-thumb">
+          <img src="https://res.cloudinary.com/dovqcebdt/image/upload/w_128,h_128,c_fill,f_auto,q_auto/v1779300854/15__Tuca_Rein%C3%A9s_trvbmq.jpg" alt="" loading="lazy">
+        </div>
+        <div class="hw-body">
+          <span class="hw-label">Zayda Journal · Novo</span>
+          <h4 class="hw-title">Por Que os Imóveis Mais Caros do Mundo São Menores.</h4>
+          <span class="hw-cta">Ler artigo →</span>
+        </div>
+      </a>
+    </div>
+
+    <!-- Card 2 — atrás do deck, revela ao clicar -->
+    <div class="hw-card hw-card--back" id="hwVagas">
+      <a class="hw-inner" href="#carreira" data-route="carreira" data-link>
+        <div class="hw-thumb hw-thumb--dark">
+          <span class="hw-pulse"></span>
+        </div>
+        <div class="hw-body">
+          <span class="hw-label">Carreiras · 4 vagas abertas</span>
+          <h4 class="hw-title">Engenheiro, arquiteto, mestre e analista.</h4>
+          <span class="hw-cta">Ver carreiras →</span>
+        </div>
+      </a>
+    </div>
+
+  </div>
+</div>
 
 <!-- ====== CUSTOM CURSOR ====== -->
 <div class="cursor-dot" id="cursor"></div>
@@ -187,36 +234,19 @@
 <!-- ========== INÍCIO ========== -->
 <div class="page active" data-page="inicio">
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-media">
-      <image-slot id="slot-1" placeholder="Residencial Praia da Lagoa" style="width:100%;height:100%;display:block;"></image-slot>
-    </div>
-    <div class="hero-overlay"></div>
-    <div class="hero-content">
-      <div></div>
-      <div>
-        <div class="hero-top-row reveal-up" style="--d: 280ms;">
-          <div class="hero-tag">
-            <span class="idx">(em destaque)</span>
-            <span class="title">Praia da Lagoa</span>
-            <span class="meta">2026 · Lançamento</span>
-            <a class="link" href="#empreendimento" data-route="empreendimento" data-link>Ver empreendimento <span>→</span></a>
-          </div>
-        </div>
-        <h1 class="hero-headline reveal-up" style="--d: 100ms;">
-          <span class="row-1">Construímos</span>
-          <span class="row-2"><span class="it">o lar</span> de quem</span>
-          <span class="row-2">mora no litoral.</span>
-        </h1>
+  <!-- HERO — tipografia editorial sobre imagem artística -->
+  <section class="hero-viewport">
 
-
-        <div class="hero-bottom-row reveal-up" style="--d: 580ms;">
-          <span>Construtora · Barra de São João, RJ · est. 2014</span>
-          <span class="scroll">Role <span class="hide-mobile">para conhecer</span></span>
-        </div>
-      </div>
+    <!-- Bloco central de branding -->
+    <div class="hero-branding">
+      <h1 class="hero-headline-sans">Alguns lugares parecem pintados para ser lar.</h1>
+      <p class="hero-tagline-serif"><em>Projetando a Permanência.</em></p>
     </div>
+
+    <!-- Metadados cantos inferiores -->
+    <p class="hero-meta-left">Lançamento 2026</p>
+    <p class="hero-meta-right">Barra de São João&nbsp;|&nbsp;Rio de Janeiro</p>
+
   </section>
 
 
@@ -367,40 +397,40 @@
     </div>
 
     <div class="works-list">
-      <a class="work-item" data-img="" href="#empreendimento" data-route="empreendimento" data-link data-emp="praia-da-lagoa">
+      <a class="work-item" data-img="" data-work-img="https://res.cloudinary.com/dovqcebdt/image/upload/q_auto/f_auto/v1779202203/5-IMG_6841_db4c60.jpg" href="#empreendimento" data-route="empreendimento" data-link data-emp="praia-da-lagoa">
         <span class="idx">(00)</span>
         <span class="name">Praia da Lagoa</span>
         <span class="year">2026</span>
         <span class="status">Lançamento</span>
       </a>
-      <a class="work-item" data-img="" href="#empreendimento" data-route="empreendimento" data-link data-emp="mares">
+      <a class="work-item" data-img="" data-work-img="https://res.cloudinary.com/dovqcebdt/image/upload/q_auto/f_auto/v1779291728/IMG_0178_bfqhf9.jpg" href="#empreendimento" data-route="empreendimento" data-link data-emp="rua-lambari-celia">
         <span class="idx">(01)</span>
-        <span class="name">Marés</span>
+        <span class="name">Rua Lambari — Célia</span>
         <span class="year">2025</span>
-        <span class="status">Em obra</span>
+        <span class="status">Entregue</span>
       </a>
-      <a class="work-item" data-img="" href="#empreendimento" data-route="empreendimento" data-link data-emp="vila-do-sol">
+      <a class="work-item" data-img="" data-work-img="https://res.cloudinary.com/dovqcebdt/image/upload/q_auto/f_auto/v1779214464/2-IMG_3614_3_ksrlxs.jpg" href="#empreendimento" data-route="empreendimento" data-link data-emp="vila-do-sol">
         <span class="idx">(02)</span>
         <span class="name">Vila do Sol</span>
         <span class="year">2024</span>
         <span class="status">Entregue</span>
       </a>
-      <a class="work-item" data-img="" href="#empreendimento" data-route="empreendimento" data-link data-emp="aldeia">
+      <a class="work-item" data-img="" data-work-img="https://res.cloudinary.com/dovqcebdt/image/upload/q_auto/f_auto/v1779218012/2-IMG_4479_pzasyb.jpg" href="#empreendimento" data-route="empreendimento" data-link data-emp="rua-lambari-juliana">
         <span class="idx">(03)</span>
-        <span class="name">Aldeia</span>
-        <span class="year">2023</span>
+        <span class="name">Rua Lambari</span>
+        <span class="year">2025</span>
         <span class="status">Entregue</span>
       </a>
-      <a class="work-item" data-img="" href="#empreendimento" data-route="empreendimento" data-link data-emp="atoba">
+      <a class="work-item" data-img="" data-work-img="https://res.cloudinary.com/dovqcebdt/image/upload/q_auto/f_auto/v1779294999/IMG_1850_1_qmpqlz.jpg" href="#empreendimento" data-route="empreendimento" data-link data-emp="rua-lambari-andreia">
         <span class="idx">(04)</span>
-        <span class="name">Atobá</span>
+        <span class="name">Rua Lambari — Andréia</span>
         <span class="year">2025</span>
-        <span class="status">Em obra</span>
+        <span class="status">Entregue</span>
       </a>
-      <a class="work-item" data-img="" href="#empreendimento" data-route="empreendimento" data-link data-emp="manguezal">
+      <a class="work-item" data-img="" data-work-img="https://res.cloudinary.com/dovqcebdt/image/upload/q_auto/f_auto/v1779303194/IMG_4221_qzoreg.jpg" href="#empreendimento" data-route="empreendimento" data-link data-emp="rua-lambari-carla">
         <span class="idx">(05)</span>
-        <span class="name">Manguezal</span>
-        <span class="year">2022</span>
+        <span class="name">Rua Lambari — Carla</span>
+        <span class="year">2025</span>
         <span class="status">Entregue</span>
       </a>
     </div>
@@ -2936,6 +2966,11 @@
       </div>
     </div>
   </div>
+</div>
+
+<!-- ── Works preview — cursor-following para a lista de obras ── -->
+<div id="worksPreview" class="works-preview" aria-hidden="true">
+  <img id="worksPreviewImg" src="" alt="">
 </div>
 
 <!-- ── Glossário Tátil — tooltip de textura que segue o cursor ── -->

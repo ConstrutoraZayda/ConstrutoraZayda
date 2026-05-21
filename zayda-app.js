@@ -1,4 +1,47 @@
 /* ============================================================
+   INTRO SCREEN — loading com contador easeOut
+   Roda uma única vez no carregamento inicial.
+   Remove o elemento do DOM ao terminar (não repete em navegação SPA).
+============================================================ */
+(function () {
+  const intro    = document.getElementById('introScreen');
+  const counter  = document.getElementById('introCounter');
+  const lineFill = document.getElementById('introLineFill');
+  if (!intro) return;
+
+  const DURATION = 1800; /* ms totais do contador            */
+  const HOLD     = 180;  /* pausa em 100 antes de sair       */
+  const start    = performance.now();
+
+  /* Quad ease-out: rápido no começo, suave no final */
+  function easeOut(t) { return 1 - (1 - t) * (1 - t); }
+
+  function tick(now) {
+    const t     = Math.min((now - start) / DURATION, 1);
+    const count = Math.round(easeOut(t) * 100);
+
+    if (counter)  counter.textContent  = String(count).padStart(2, '0');
+    if (lineFill) lineFill.style.width = count + '%';
+
+    if (t < 1) {
+      requestAnimationFrame(tick);
+    } else {
+      /* Contador chegou a 100 → pequena pausa → desliza para fora */
+      setTimeout(() => {
+        intro.classList.add('exit');
+        /* Anima o texto da hero enquanto a intro desliza para fora */
+        setTimeout(() => {
+          document.querySelector('.hero-viewport')?.classList.add('hero-animate');
+        }, 180);
+        intro.addEventListener('transitionend', () => intro.remove(), { once: true });
+      }, HOLD);
+    }
+  }
+
+  requestAnimationFrame(tick);
+})();
+
+/* ============================================================
    PAGE ROUTING + TRANSITION
 ============================================================ */
 const pages = document.querySelectorAll('.page');
@@ -41,6 +84,7 @@ async function goTo(route, push = true) {
   const _socialBar = document.getElementById('socialBar');
   if (_footer)    _footer.classList.toggle('page-hidden', route !== 'inicio');
   if (_socialBar) _socialBar.classList.toggle('active',   route !== 'inicio');
+
 
   await new Promise(r => setTimeout(r, 120));
 
@@ -968,6 +1012,138 @@ if (_init === 'empreendimento') {
 
   /* Expõe o observer para makeVid() usar imediatamente após criação */
   window._lazyVideoObserver = observer;
+})();
+
+/* ============================================================
+   HERO WIDGETS — deck empilhado
+   · Aparece apenas enquanto a hero (.hero-viewport) está visível
+   · Clique no deck → abre/fecha o card de baixo
+   · Clique num link dentro do card aberto → navega normalmente
+   · Aparece após a intro screen terminar
+============================================================ */
+(function () {
+  const stack = document.getElementById('heroWidgets');
+  const deck  = document.getElementById('hwDeck');
+  const hero  = document.querySelector('.hero-viewport');
+  if (!stack || !deck) return;
+
+  /* Toggle do deck ao clicar (ignora cliques em links filhos) */
+  deck.addEventListener('click', e => {
+    if (e.target.closest('a')) return;
+    const isOpen = !deck.classList.contains('open');
+    if (isOpen) {
+      /* Mede a altura do card da frente para posicionar o card de trás exatamente acima */
+      const frontCard = deck.querySelector('.hw-card:not(.hw-card--back)');
+      const frontH = frontCard ? frontCard.offsetHeight : 88;
+      deck.style.setProperty('--back-top', (frontH + 14) + 'px');
+    }
+    deck.classList.toggle('open', isOpen);
+    deck.setAttribute('aria-expanded', String(isOpen));
+  });
+
+  /* Visibilidade: só mostra enquanto a hero está na viewport */
+  function setVisible(show) {
+    stack.classList.toggle('visible', show);
+    if (!show) {
+      deck.classList.remove('open');
+      deck.setAttribute('aria-expanded', 'false');
+    }
+  }
+
+  if (hero) {
+    const obs = new IntersectionObserver(
+      ([entry]) => setVisible(entry.isIntersecting),
+      { threshold: 0.15 } /* some quando 85% da hero saiu de cena */
+    );
+    obs.observe(hero);
+  }
+
+  /* Aparece após a intro screen ser removida do DOM */
+  function revealWidgets() { setTimeout(() => setVisible(!!hero?.getBoundingClientRect().bottom > 0), 400); }
+
+  const introEl = document.getElementById('introScreen');
+  if (introEl) {
+    new MutationObserver((_, obs) => {
+      if (!document.getElementById('introScreen')) {
+        obs.disconnect();
+        revealWidgets();
+      }
+    }).observe(document.body, { childList: true });
+  } else {
+    revealWidgets();
+  }
+})();
+
+/* ============================================================
+   NAV TRANSPARENTE NA HERO — torna sólida ao rolar
+   Transparente apenas na home (inicio) enquanto o hero estiver
+   visível. Em qualquer outra página fica sempre sólida.
+============================================================ */
+(function () {
+  const nav = document.getElementById('nav');
+  if (!nav) return;
+
+  const THRESHOLD = 0.80; /* % do viewport height para acionar */
+
+  function updateNav() {
+    const isHome   = document.querySelector('.page[data-page="inicio"]')
+                       ?.classList.contains('active') ?? false;
+    const pastHero = window.scrollY > window.innerHeight * THRESHOLD;
+    nav.classList.toggle('nav--scrolled', !isHome || pastHero);
+  }
+
+  /* Atualiza no scroll (passive para não bloquear thread de render) */
+  window.addEventListener('scroll', updateNav, { passive: true });
+
+  /* Atualiza quando a página "inicio" ganha ou perde a classe active */
+  const inicioPage = document.querySelector('.page[data-page="inicio"]');
+  if (inicioPage) {
+    new MutationObserver(updateNav)
+      .observe(inicioPage, { attributes: true, attributeFilter: ['class'] });
+  }
+
+  updateNav(); /* estado inicial */
+})();
+
+/* ============================================================
+   WORKS PREVIEW — cursor-following para a lista "Em destaque"
+   Mesmo mecanismo LERP do preview da navbar, elemento separado.
+============================================================ */
+(function () {
+  const wp    = document.getElementById('worksPreview');
+  const wpImg = document.getElementById('worksPreviewImg');
+  if (!wp) return;
+
+  let tx = 0, ty = 0, cx = 0, cy = 0, raf = null;
+  const LERP = 0.12, OX = 28, OY = -100;
+
+  function tick() {
+    cx += (tx - cx) * LERP;
+    cy += (ty - cy) * LERP;
+    const vw = window.innerWidth, vh = window.innerHeight;
+    const w = 300, h = 188; /* 16:10 */
+    const x = Math.min(cx + OX, vw - w - 16);
+    const y = Math.max(Math.min(cy + OY, vh - h - 16), 16);
+    wp.style.transform = `translate(${x}px, ${y}px)`;
+    raf = requestAnimationFrame(tick);
+  }
+
+  document.addEventListener('mousemove', e => { tx = e.clientX; ty = e.clientY; });
+
+  document.querySelectorAll('.work-item[data-work-img]').forEach(item => {
+    item.addEventListener('mouseenter', () => {
+      const src = item.dataset.workImg;
+      if (!src) return;
+      wpImg.src = src;
+      wp.classList.add('visible');
+      if (!raf) raf = requestAnimationFrame(tick);
+    });
+    item.addEventListener('mouseleave', () => {
+      wp.classList.remove('visible');
+      cancelAnimationFrame(raf);
+      raf = null;
+    });
+  });
 })();
 
 /* ============================================================
