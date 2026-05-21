@@ -65,6 +65,13 @@ async function goTo(route, push = true) {
   veil.style.transform = 'translateY(0)';
   veil.classList.add('show');
 
+  /* Áudio do blog: toca no instante em que o veil começa a subir */
+  if (route === 'blog' && !sessionStorage.getItem('blog-audio')) {
+    sessionStorage.setItem('blog-audio', '1');
+    new Audio('https://res.cloudinary.com/dovqcebdt/video/upload/v1779393800/sound_effect_gdl5bo.mp4')
+      .play().catch(() => {});
+  }
+
   await new Promise(r => setTimeout(r, 480));
 
   // 2) swap page
@@ -78,6 +85,7 @@ async function goTo(route, push = true) {
 
   syncActiveNav(route);
   if (push) history.pushState({ route }, '', `#${route}`);
+
 
   /* footer visível apenas na home; social bar nas demais */
   const _footer    = document.querySelector('footer');
@@ -1556,11 +1564,17 @@ if (_init === 'empreendimento') {
     }, 700);
   }
 
-  /* Click para abrir — sem timer de espera */
+  /* Click para abrir */
   cover.addEventListener('click', e => {
     if (e.target.closest('.hotspot-pin')) return;
-    expanded ? collapse() : expand();
+    if (!expanded) expand();
   });
+
+  /* Fecha ao tirar o mouse da imagem expandida */
+  cover.addEventListener('pointerleave', () => {
+    if (expanded) collapse();
+  });
+
   backdrop.addEventListener('click', collapse);
   document.addEventListener('keydown', e => { if (e.key === 'Escape') collapse(); });
 })();
