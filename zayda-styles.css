@@ -3704,6 +3704,7 @@ footer.page-hidden { display: none; }
 .emp-cloud-grid {
   columns: 3;
   column-gap: 10px;
+  min-height: 320px; /* reserva espaço antes dos skeletons renderizarem — evita CLS */
 }
 
 /* Cada item de imagem */

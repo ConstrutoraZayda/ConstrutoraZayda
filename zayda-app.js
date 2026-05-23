@@ -41,6 +41,10 @@
   requestAnimationFrame(tick);
 })();
 
+/* Dimensões do viewport em cache — lidas no resize, usadas em rAF sem causar reflow */
+let _vw = window.innerWidth, _vh = window.innerHeight;
+window.addEventListener('resize', () => { _vw = window.innerWidth; _vh = window.innerHeight; }, { passive: true });
+
 /* ============================================================
    PAGE ROUTING + TRANSITION
 ============================================================ */
@@ -175,21 +179,21 @@ document.getElementById('jnReset')?.addEventListener('click', () => {
   let targetX = 0, targetY = 0;
   let curX    = 0, curY    = 0;
   let rafId   = null;
-  const LERP  = 0.14;           /* suavidade: 0 = instantâneo, 1 = parado */
-  const OFFSET_X =  28;         /* deslocamento à direita do cursor       */
-  const OFFSET_Y = -50;         /* deslocamento vertical (centro no cursor)*/
+  const LERP  = 0.14;
+  const OFFSET_X =  28;
+  const OFFSET_Y = -50;
+
+  /* Dimensões do preview em cache — ResizeObserver evita leitura de offsetWidth/Height por frame */
+  let ndcpW = 0, ndcpH = 0;
+  new ResizeObserver(([e]) => { ndcpW = e.contentRect.width; ndcpH = e.contentRect.height; }).observe(ndcp);
 
   /* ── Animação de posição com interpolação linear ── */
   function tick() {
     curX += (targetX - curX) * LERP;
     curY += (targetY - curY) * LERP;
 
-    const w  = ndcp.offsetWidth;
-    const h  = ndcp.offsetHeight;
-    const vw = window.innerWidth;
-    const vh = window.innerHeight;
-    const x  = Math.min(curX + OFFSET_X, vw - w - 16);
-    const y  = Math.max(Math.min(curY + OFFSET_Y, vh - h - 16), 16);
+    const x = Math.min(curX + OFFSET_X, _vw - ndcpW - 16);
+    const y = Math.max(Math.min(curY + OFFSET_Y, _vh - ndcpH - 16), 16);
 
     ndcp.style.transform = `translate(${x}px, ${y}px)`;
     rafId = requestAnimationFrame(tick);
@@ -1182,16 +1186,18 @@ if (_init === 'empreendimento') {
   const hero  = document.querySelector('.hero-viewport');
   if (!stack || !deck) return;
 
+  /* Pré-cacheia a altura do card da frente — ResizeObserver evita offsetHeight no click */
+  let _frontCardH = 88;
+  const frontCard = deck.querySelector('.hw-card:nth-child(1)');
+  if (frontCard) {
+    new ResizeObserver(([e]) => { _frontCardH = e.contentRect.height; }).observe(frontCard);
+  }
+
   /* Toggle do deck ao clicar (ignora cliques em links filhos) */
   deck.addEventListener('click', e => {
     if (e.target.closest('a')) return;
     const isOpen = !deck.classList.contains('open');
-    if (isOpen) {
-      /* Mede a altura do card da frente para calcular o offset dos cards atrás */
-      const frontCard = deck.querySelector('.hw-card:nth-child(1)');
-      const h = frontCard ? frontCard.offsetHeight : 88;
-      deck.style.setProperty('--card-h', h + 'px');
-    }
+    if (isOpen) deck.style.setProperty('--card-h', _frontCardH + 'px');
     deck.classList.toggle('open', isOpen);
     deck.setAttribute('aria-expanded', String(isOpen));
   });
@@ -1213,8 +1219,8 @@ if (_init === 'empreendimento') {
     obs.observe(hero);
   }
 
-  /* Aparece após a intro screen ser removida do DOM */
-  function revealWidgets() { setTimeout(() => setVisible(!!hero?.getBoundingClientRect().bottom > 0), 400); }
+  /* Aparece após a intro screen ser removida do DOM — IntersectionObserver já controla visibilidade */
+  function revealWidgets() { setTimeout(() => setVisible(true), 400); }
 
   const introEl = document.getElementById('introScreen');
   if (introEl) {
@@ -1243,7 +1249,7 @@ if (_init === 'empreendimento') {
   function updateNav() {
     const isHome   = document.querySelector('.page[data-page="inicio"]')
                        ?.classList.contains('active') ?? false;
-    const pastHero = window.scrollY > window.innerHeight * THRESHOLD;
+    const pastHero = window.scrollY > _vh * THRESHOLD;
     nav.classList.toggle('nav--scrolled', !isHome || pastHero);
   }
 
@@ -1280,10 +1286,9 @@ if (_init === 'empreendimento') {
   function tick() {
     cx += (tx - cx) * LERP;
     cy += (ty - cy) * LERP;
-    const vw = window.innerWidth, vh = window.innerHeight;
     const w = 300, h = 188; /* 16:10 */
-    const x = Math.min(cx + OX, vw - w - 16);
-    const y = Math.max(Math.min(cy + OY, vh - h - 16), 16);
+    const x = Math.min(cx + OX, _vw - w - 16);
+    const y = Math.max(Math.min(cy + OY, _vh - h - 16), 16);
     wp.style.transform = `translate(${x}px, ${y}px)`;
     raf = requestAnimationFrame(tick);
   }
@@ -1325,9 +1330,8 @@ if (_init === 'empreendimento') {
   function tick() {
     cx += (tx - cx) * LERP;
     cy += (ty - cy) * LERP;
-    const vw = window.innerWidth, vh = window.innerHeight;
-    const x = Math.min(cx + OX, vw - 150 - 16);
-    const y = Math.max(Math.min(cy + OY, vh - 100 - 16), 16);
+    const x = Math.min(cx + OX, _vw - 150 - 16);
+    const y = Math.max(Math.min(cy + OY, _vh - 100 - 16), 16);
     tip.style.transform = `translate(${x}px,${y}px)`;
     raf = requestAnimationFrame(tick);
   }
@@ -1633,16 +1637,16 @@ if (_init === 'empreendimento') {
       transition: 'none'
     });
 
-    /* offsetHeight força reflow — captura o estado inicial antes de animar */
-    cover.offsetHeight; // eslint-disable-line no-unused-expressions
-
-    cover.style.transition = T_OPEN;
-    cover.style.top    = '7.5vh';
-    cover.style.left   = '5vw';
-    cover.style.width  = '90vw';
-    cover.style.height = '85vh';
-    backdrop.classList.add('active');
-    cover.classList.add('gvny-expanded');
+    /* Double rAF: substitui o offsetHeight forçado — browser comita a posição inicial antes da transição */
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      cover.style.transition = T_OPEN;
+      cover.style.top    = '7.5vh';
+      cover.style.left   = '5vw';
+      cover.style.width  = '90vw';
+      cover.style.height = '85vh';
+      backdrop.classList.add('active');
+      cover.classList.add('gvny-expanded');
+    }));
   }
 
   function collapse() {
