@@ -355,9 +355,41 @@ backBtn.addEventListener('click', () => { if (stepN > 1) { stepN--; updateStep()
 nextBtn.addEventListener('click', () => {
   if (stepN === 1 && !validateStep1()) return;
   if (stepN === total) {
-    formInner.style.display = 'none';
-    success.classList.add('show');
-    stepIdx.textContent = '(enviado)';
+    const nome   = document.getElementById('fNome').value.trim();
+    const email  = document.getElementById('fEmail').value.trim();
+    const phone  = document.getElementById('phoneInput').value.trim();
+    const brief  = document.querySelector('[name="brief"]')?.value.trim() || '';
+    const origem = document.querySelector('[name="origem"]')?.value || '';
+    const tipo           = document.querySelector('[data-radio="tipo"] .opt.selected')?.textContent.trim() || 'Não informado';
+    const empreendimento = document.querySelector('[data-radio="empreendimento"] .opt.selected')?.textContent.trim() || 'Não informado';
+    const orcamento      = document.querySelector('[data-radio="orcamento"] .opt.selected')?.textContent.trim() || 'Não informado';
+
+    nextBtn.disabled = true;
+    nextBtn.textContent = 'Enviando…';
+
+    const errBox = document.getElementById('submitError');
+    if (errBox) errBox.style.display = 'none';
+
+    fetch('https://formspree.io/f/xwvzqlan', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify({ nome, email, phone, tipo, empreendimento, orcamento, brief, origem })
+    })
+    .then(res => res.json().then(data => ({ ok: res.ok, data })))
+    .then(({ ok, data }) => {
+      if (!ok) throw new Error(data?.errors?.[0]?.message || 'Erro no envio');
+
+      formInner.style.display = 'none';
+      success.classList.add('show');
+      stepIdx.textContent = '(enviado)';
+    })
+    .catch(err => {
+      nextBtn.disabled = false;
+      nextBtn.textContent = 'Enviar →';
+      console.error('Formspree:', err);
+      if (errBox) errBox.style.display = 'block';
+    });
+
     return;
   }
   stepN++; updateStep();

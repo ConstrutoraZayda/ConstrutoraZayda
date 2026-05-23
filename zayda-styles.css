@@ -1563,6 +1563,16 @@ footer {
 .modal-actions .next { background: var(--ink); color: var(--bg); }
 .modal-actions .next:hover { background: var(--accent); color: var(--ink); }
 
+/* Step 5 — layout compacto */
+.modal-step[data-step="5"] { gap: 20px; }
+.modal-step[data-step="5"] h3 { font-size: clamp(18px, 2vw, 24px); letter-spacing: -0.02em; max-width: 22ch; }
+.modal-step[data-step="5"] .field input,
+.modal-step[data-step="5"] .field textarea { font-size: 14px; padding: 10px 14px; }
+.modal-step[data-step="5"] .field textarea { min-height: 72px; }
+.modal-step[data-step="5"] .field label { font-size: 10px; }
+.modal-step[data-step="5"] .liq-trigger { padding: 10px 14px; font-size: 14px; }
+.modal-step[data-step="5"] .liq-opt { padding: 10px 14px; font-size: 13px; }
+
 .modal-success {
   display: none;
   text-align: center;
@@ -1570,7 +1580,7 @@ footer {
   margin: auto;
 }
 .modal-success.show { display: flex; }
-.modal-success h3 { font-family: var(--font-serif); font-size: clamp(32px, 4vw, 56px); letter-spacing: -0.03em; max-width: 18ch; margin: 0 auto; }
+.modal-success h3 { font-family: var(--font-serif); font-size: clamp(20px, 2.2vw, 28px); letter-spacing: -0.02em; max-width: 28ch; margin: 0 auto; }
 
 /* ============================================================
    CUSTOM CURSOR
