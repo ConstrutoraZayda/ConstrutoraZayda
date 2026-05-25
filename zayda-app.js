@@ -1510,7 +1510,7 @@ if (_init === 'empreendimento') {
       if (!data.resources || !data.resources.length) return;
       const r   = data.resources[0];
       const url       = `https://res.cloudinary.com/dovqcebdt/video/upload/f_auto,q_auto/${r.public_id}.mp4`;
-      const posterUrl = `https://res.cloudinary.com/dovqcebdt/video/upload/so_0,f_jpg,q_auto/${r.public_id}.jpg`;
+      const posterUrl = `https://res.cloudinary.com/dovqcebdt/video/upload/so_0,f_auto,q_auto/${r.public_id}.jpg`;
 
       /* Cria um elemento <video> lazy — src só carrega ao entrar na viewport */
       function makeVid() {
