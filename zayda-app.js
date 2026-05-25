@@ -1510,7 +1510,7 @@ if (_init === 'empreendimento') {
       if (!data.resources || !data.resources.length) return;
       const r   = data.resources[0];
       const url       = `https://res.cloudinary.com/dovqcebdt/video/upload/f_auto,q_auto/${r.public_id}.mp4`;
-      const posterUrl = `https://res.cloudinary.com/dovqcebdt/video/upload/so_0,f_auto,q_auto/${r.public_id}.jpg`;
+      const posterUrl = `https://res.cloudinary.com/dovqcebdt/video/upload/so_0,f_auto,q_auto,w_800/${r.public_id}.jpg`;
 
       /* Cria um elemento <video> lazy — src só carrega ao entrar na viewport */
       function makeVid() {
@@ -1546,7 +1546,7 @@ if (_init === 'empreendimento') {
     { route:'artigo-luz',              cat:'Bem Estar',            date:'09 jun 2026', read:'14 min', title:'Sua Casa Sabe Que Horas São?',                                                 img:'https://res.cloudinary.com/dovqcebdt/image/upload/q_auto/f_auto/v1779288889/6f1ff9236946593.68f6bff40df3d_o11lwi.webp' },
     { route:'artigo-cozinha',          cat:'Arquitetura',          date:'16 jun 2026', read:'12 min', title:'A Cozinha Virou Outra Coisa.',                                                  img:'https://res.cloudinary.com/dovqcebdt/image/upload/q_auto/f_auto/v1779293264/dbaf04248279303.69ee25a666e7d_e46wsc.webp' },
     { route:'artigo-metros',           cat:'Mercado',              date:'23 jun 2026', read:'13 min', title:'Por Que os Imóveis Mais Caros do Mundo São Menores.',                           img:'https://res.cloudinary.com/dovqcebdt/image/upload/q_auto/f_auto/v1779300854/15__Tuca_Rein%C3%A9s_trvbmq.jpg' },
-    { route:'artigo-giverny',          cat:'Jardins e Paisagismo', date:'07 jul 2026', read:'11 min', title:'O Jardim Que Ele Construiu Antes de Pintar.',                                   img:'https://res.cloudinary.com/dovqcebdt/image/upload/f_auto,q_auto/v1779388716/the_japanese_footbridge_1992.9.1_gaozko.jpg' },
+    { route:'artigo-giverny',          cat:'Jardins e Paisagismo', date:'07 jul 2026', read:'11 min', title:'O Jardim Que Ele Construiu Antes de Pintar.',                                   img:'https://res.cloudinary.com/dovqcebdt/image/upload/f_auto,q_auto,w_1200/v1779388716/the_japanese_footbridge_1992.9.1_gaozko.jpg' },
   ];
 
   const link = document.querySelector('.jnf-post');
