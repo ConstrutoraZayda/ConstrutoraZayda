@@ -1,4 +1,4 @@
-/* ============================================================
+﻿/* ============================================================
    INTRO SCREEN — loading com contador easeOut
    Roda uma única vez no carregamento inicial.
    Remove o elemento do DOM ao terminar (não repete em navegação SPA).
@@ -561,7 +561,7 @@ const EMP_DATA = {
     name: 'Praia da Lagoa', label:'(00 · 2026 · Centro)', status:'Lançamento',
     tag:'Três quartos com suíte, cozinha integrada e varanda — a duzentos metros da Prainha.',
     local:'Rua São João · Centro · Barra de São João', units:'32 apartamentos',
-    tipo:'3 quartos · 1 suíte · cozinha integrada', vagas:'1 vaga por unidade', entrega:'1 ano após contrato', price:'R$ 480 mil',
+    tipo:'3 quartos · 1 suíte · cozinha integrada', vagas:'1 vaga por unidade', entrega:'1 ano após contrato', price:'A consultar',
     cloudinaryTag: 'rua-sao-joao',
     heroImg: 'https://res.cloudinary.com/dovqcebdt/image/upload/q_auto/f_auto/v1779202203/5-IMG_6841_db4c60.jpg',
     galleryImgs: [
@@ -575,13 +575,13 @@ const EMP_DATA = {
     name: 'Marés', label:'(01 · 2025 · Praia)', status:'Em obra',
     tag:'Vinte e quatro apartamentos a três quadras da areia.',
     local:'Rua das Palmeiras, 88 · Barra de São João', units:'24 apartamentos',
-    tipo:'2 quartos · 58–72 m²', vagas:'1 vaga por unidade', entrega:'Ago 2026', price:'R$ 420 mil'
+    tipo:'2 quartos · 58–72 m²', vagas:'1 vaga por unidade', entrega:'Ago 2026', price:'A consultar'
   },
   'vila-do-sol': {
     name: 'Vila do Sol', label:'(02 · 2024 · Centro)', status:'Pronto pra morar',
     tag:'Quarenta e oito unidades em três blocos baixos, com pátio central arborizado.',
     local:'Estrada do Sana, 1.200 · Barra de São João', units:'48 apartamentos',
-    tipo:'2 quartos · 54–66 m²', vagas:'1 vaga por unidade', entrega:'Entregue em Mai 2024', price:'R$ 380 mil',
+    tipo:'2 quartos · 54–66 m²', vagas:'1 vaga por unidade', entrega:'Entregue em Mai 2024', price:'A consultar',
     cloudinaryTag: 'rua-tucunaré-rosangela',
     heroImg: 'https://res.cloudinary.com/dovqcebdt/image/upload/q_auto/f_auto/v1779214464/1-dji_fly_20250818_103402_69_1755526869376_photo_1_qihmg0.jpg'
   },
@@ -589,31 +589,31 @@ const EMP_DATA = {
     name: 'Aldeia', label:'(03 · 2023 · Costa Azul)', status:'Pronto pra morar',
     tag:'Dezoito casas térreas em condomínio fechado, com horta comunitária.',
     local:'Rua Itacolomi, 45 · Costa Azul', units:'18 casas',
-    tipo:'3 quartos · 96 m²', vagas:'2 vagas por unidade', entrega:'Entregue em Out 2023', price:'R$ 520 mil'
+    tipo:'3 quartos · 96 m²', vagas:'2 vagas por unidade', entrega:'Entregue em Out 2023', price:'A consultar'
   },
   'atoba': {
     name: 'Atobá', label:'(04 · 2025 · Pescão)', status:'Em obra',
     tag:'Dezesseis unidades pequenas, pensadas para casais e veranistas.',
     local:'Av. dos Pescadores, 220 · Pescão', units:'16 apartamentos',
-    tipo:'2 quartos · 52–60 m²', vagas:'1 vaga por unidade', entrega:'Dez 2026', price:'R$ 460 mil'
+    tipo:'2 quartos · 52–60 m²', vagas:'1 vaga por unidade', entrega:'Dez 2026', price:'A consultar'
   },
   'manguezal': {
     name: 'Manguezal', label:'(05 · 2022 · Beira-Rio)', status:'Pronto pra morar',
     tag:'Vinte e oito apartamentos de frente para o mangue, com varandas de 12m².',
     local:'Rua do Mangue, 70 · Beira-Rio', units:'28 apartamentos',
-    tipo:'2 quartos · 56–68 m²', vagas:'1 vaga por unidade', entrega:'Entregue em Mar 2022', price:'R$ 360 mil'
+    tipo:'2 quartos · 56–68 m²', vagas:'1 vaga por unidade', entrega:'Entregue em Mar 2022', price:'A consultar'
   },
   'costa-verde': {
     name: 'Costa Verde', label:'(06 · 2021 · Praia)', status:'Pronto pra morar',
     tag:'Vinte e duas unidades com vista para o mar, em terreno arborizado.',
     local:'Av. Atlântica, 1.800 · Praia', units:'22 apartamentos',
-    tipo:'3 quartos · 72–88 m²', vagas:'1 vaga por unidade', entrega:'Entregue em Jul 2021', price:'R$ 490 mil'
+    tipo:'3 quartos · 72–88 m²', vagas:'1 vaga por unidade', entrega:'Entregue em Jul 2021', price:'A consultar'
   },
   'ipanema-do-norte': {
     name: 'Ipanema do Norte', label:'(07 · 2020 · Costa Azul)', status:'Pronto pra morar',
     tag:'Quatorze unidades em rua arborizada, a duas quadras do mar.',
     local:'Rua dos Coqueiros, 50 · Costa Azul', units:'14 apartamentos',
-    tipo:'2 quartos · 60–74 m²', vagas:'1 vaga por unidade', entrega:'Entregue em Set 2020', price:'R$ 410 mil'
+    tipo:'2 quartos · 60–74 m²', vagas:'1 vaga por unidade', entrega:'Entregue em Set 2020', price:'A consultar'
   },
   'rua-lambari-juliana': {
     name: 'Rua Lambari', label:'(08 · 2025 · Centro)', status:'Pronto pra morar',
