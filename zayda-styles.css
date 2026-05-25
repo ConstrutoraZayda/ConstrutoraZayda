@@ -3421,6 +3421,8 @@ footer.page-hidden { display: none; }
   margin: clamp(40px, 5vw, 64px) -60px;
   border-radius: 8px;
   overflow: hidden;
+  aspect-ratio: 3 / 2;
+  background: var(--bg-2);
 }
 .art-figure img {
   width: 100%;
@@ -3468,6 +3470,7 @@ footer.page-hidden { display: none; }
 .car-hero-media {
   overflow: hidden;
   background: var(--bg-2);
+  aspect-ratio: 4 / 3;
 }
 
 /* ── Por que a Zayda ─────────────────────────────────────────── */
