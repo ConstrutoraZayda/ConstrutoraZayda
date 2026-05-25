@@ -27,8 +27,6 @@
 <link rel="preconnect" href="https://use.typekit.net" crossorigin>
 <link rel="preconnect" href="https://res.cloudinary.com" crossorigin>
 <link rel="dns-prefetch" href="https://res.cloudinary.com">
-<link rel="dns-prefetch" href="https://basemaps.cartocdn.com">
-<link rel="dns-prefetch" href="https://unpkg.com">
 
 <!-- Typekit: não-bloqueante -->
 <link rel="preload" href="https://use.typekit.net/uvg7hxo.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
@@ -653,35 +651,6 @@
     </div>
   </section>
 
-  <!-- ── Seção do mapa ── -->
-  <section class="map-intro">
-    <span class="label">(Localização)</span>
-    <h2 class="section">Visite nosso escritório.</h2>
-    <p class="map-intro-addr">Rodovia Amaral Peixoto, 916, Centro · Barra de São João — RJ</p>
-  </section>
-
-  <div class="map-section">
-
-    <!-- Lado esquerdo: listagem de cards (preenchida pelo JS) -->
-    <div class="map-listing" id="mapListing"></div>
-
-    <!-- Lado direito: mapa Leaflet -->
-    <div class="map-container">
-      <!-- div obrigatória para o Leaflet — precisa ter altura via CSS -->
-      <div id="zaydaMap"></div>
-
-      <!-- Widget Bento Box flutuante com glassmorphism -->
-      <div class="map-widget">
-        <span class="map-widget-eyebrow">Explorar Barra de São João</span>
-        <div class="map-widget-toggle">
-          <!-- Botão ativo por padrão: Imóveis -->
-          <button class="map-tog active" id="togImoveis">Imóveis Zayda</button>
-          <button class="map-tog" id="togRoteiro">Roteiro da Cidade</button>
-        </div>
-      </div>
-    </div>
-
-  </div>
 
 </div>
 
