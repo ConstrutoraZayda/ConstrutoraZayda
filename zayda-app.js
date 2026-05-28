@@ -1317,12 +1317,14 @@ if (_init === 'empreendimento') {
     drawer.classList.add('active');
     overlay.classList.add('active');
     drawer.setAttribute('aria-hidden', 'false');
+    closeBtn.removeAttribute('tabindex');
   }
 
   function closeDrawer() {
     drawer.classList.remove('active');
     overlay.classList.remove('active');
     drawer.setAttribute('aria-hidden', 'true');
+    closeBtn.setAttribute('tabindex', '-1');
   }
 
   /* Delega o clique — funciona mesmo com conteúdo injetado dinamicamente */
@@ -1366,12 +1368,14 @@ if (_init === 'empreendimento') {
     imgs = srcs; show(index);
     lb.classList.add('active');
     lb.setAttribute('aria-hidden', 'false');
+    [lbClose, lbPrev, lbNext].forEach(b => b.removeAttribute('tabindex'));
     document.body.style.overflow = 'hidden';
   }
 
   function close() {
     lb.classList.remove('active');
     lb.setAttribute('aria-hidden', 'true');
+    [lbClose, lbPrev, lbNext].forEach(b => b.setAttribute('tabindex', '-1'));
     document.body.style.overflow = '';
   }
 

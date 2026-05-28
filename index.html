@@ -3386,15 +3386,15 @@ footer{display:none}body[data-route="inicio"] footer{display:block}
 <!-- ── Marginalia — Side Drawer de Referências ── -->
 <div id="side-drawer-overlay"></div>
 <aside id="side-drawer" aria-hidden="true">
-  <button id="side-drawer-close" aria-label="Fechar referência">×</button>
+  <button id="side-drawer-close" aria-label="Fechar referência" tabindex="-1">×</button>
   <div id="side-drawer-content"></div>
 </aside>
 
 <!-- ── Lightbox da galeria ── -->
 <div id="lightbox" class="lightbox" aria-hidden="true">
-  <button class="lb-close" id="lbClose" aria-label="Fechar">×</button>
-  <button class="lb-prev"  id="lbPrev"  aria-label="Anterior">‹</button>
-  <button class="lb-next"  id="lbNext"  aria-label="Próxima">›</button>
+  <button class="lb-close" id="lbClose" aria-label="Fechar"   tabindex="-1">×</button>
+  <button class="lb-prev"  id="lbPrev"  aria-label="Anterior" tabindex="-1">‹</button>
+  <button class="lb-next"  id="lbNext"  aria-label="Próxima"  tabindex="-1">›</button>
   <div class="lb-stage">
     <img id="lbImg" src="" alt="">
   </div>
