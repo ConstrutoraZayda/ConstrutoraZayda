@@ -92,10 +92,9 @@ async function goTo(route, push = true) {
 
 
   /* footer visível apenas na home; social bar nas demais */
-  const _footer    = document.getElementById('siteFooter');
+  document.body.dataset.route = route;
   const _socialBar = document.getElementById('socialBar');
-  if (_footer)    _footer.classList.toggle('page-hidden', route !== 'inicio');
-  if (_socialBar) _socialBar.classList.toggle('active',   route !== 'inicio');
+  if (_socialBar) _socialBar.classList.toggle('active', route !== 'inicio');
 
 
   await new Promise(r => setTimeout(r, 120));
@@ -128,12 +127,11 @@ window.addEventListener('popstate', e => {
 
 // load initial route from hash
 const initialRoute = (location.hash || '#inicio').slice(1);
+document.body.dataset.route = initialRoute;
 if (initialRoute !== 'inicio') {
   document.querySelector('.page.active')?.classList.remove('active');
   document.querySelector(`.page[data-page="${initialRoute}"]`)?.classList.add('active');
   syncActiveNav(initialRoute);
-  /* estado inicial do footer e social bar para rota não-home */
-  document.getElementById('siteFooter')?.classList.add('page-hidden');
   document.getElementById('socialBar')?.classList.add('active');
 }
 
