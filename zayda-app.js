@@ -550,7 +550,7 @@ document.addEventListener('visibilitychange', () => {
 /* ============================================================
    ROUTE LIST (extended)
 ============================================================ */
-const ROUTES = ['inicio','empreendimentos','empreendimento','simulador','sobre','processo','esg','carreira','blog','investidores','atendimento'];
+const ROUTES = ['inicio','empreendimentos','empreendimento','simulador','sobre','esg','carreira','blog','atendimento'];
 
 document.getElementById('empReset')?.addEventListener('click', () => {
   document.querySelectorAll('#empGrid .obra').forEach(c => c.style.display = '');
@@ -625,7 +625,11 @@ const EMP_DATA = {
     local:'Rua dos Coqueiros, 50 · Costa Azul', units:'14 apartamentos',
     tipo:'2 quartos · 60–74 m²', vagas:'1 vaga por unidade', entrega:'Entregue em Set 2020', price:'A consultar',
     cloudinaryTag: 'rua-badejo-entregue',
-    heroImg: 'https://res.cloudinary.com/dovqcebdt/image/upload/q_auto/f_auto/v1779807105/90-IMG_0392_eaozi3.jpg'
+    heroImg: 'https://res.cloudinary.com/dovqcebdt/image/upload/q_auto/f_auto/v1779807105/90-IMG_0392_eaozi3.jpg',
+    body: {
+      p1: '03 quartos, incluindo duas suítes. Sala ampla o suficiente para criar ambientes distintos — área de convívio, home office, cantinho de leitura. O projeto respeita o seu jeito de morar.',
+      p3: 'A varanda foi pensada para ir além do descanso: área gourmet coberta com churrasqueira e piscina. Na área externa, três vagas de garagem e área de serviço nos fundos completam o projeto.'
+    }
   },
   'rua-lambari-juliana': {
     name: 'Rua Lambari', label:'(08 · 2025 · Centro)', status:'Pronto pra morar',
@@ -718,6 +722,19 @@ function populateEmp(key) {
   setText('specVagas', d.vagas);
   setText('specEntrega', d.entrega);
   setText('specPrice', d.price);
+  /* Corpo descritivo — restaura defaults e sobrescreve só o que o projeto define */
+  const _bd = {
+    h2: '03 quartos, do jeito<br/>que <span class="italic serif">você mora</span>.',
+    p1: '03 quartos, incluindo uma suíte. Sala ampla o suficiente para criar ambientes distintos — área de convívio, home office, cantinho de leitura. O projeto respeita o seu jeito de morar.',
+    p2: 'A cozinha no centro da casa. Aberta. Integrada. Perto de quem você ama. A cozinha americana elimina barreiras — você prepara o almoço sem perder a conversa.',
+    p3: 'A varanda foi pensada para quem precisa de silêncio após um longo dia. Arejada, aconchegante e com vista para um dos bairros mais charmosos da cidade.'
+  };
+  const b = d.body || {};
+  const _btEl = document.getElementById('empBodyTitle');
+  if (_btEl) _btEl.innerHTML = b.h2 || _bd.h2;
+  setText('empBodyP1', b.p1 || _bd.p1);
+  setText('empBodyP2', b.p2 || _bd.p2);
+  setText('empBodyP3', b.p3 || _bd.p3);
   /* Atualiza hero — URL estática ou marcado para o Cloudinary preencher */
   const _hEl = document.getElementById('empHeroImg');
   if (_hEl) {
