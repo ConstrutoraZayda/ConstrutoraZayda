@@ -754,9 +754,22 @@ h3.title {
   color: #fff;
   max-width: 24ch;
 }
+/* Fallback calibrado para dashiell-bright: métricas ajustadas para que o swap
+   Georgia → dashiell-bright não cause deslocamento de layout (CLS = 0).
+   Valores estimados — ajustar size-adjust se houver shift visível ao carregar. */
+@font-face {
+  font-family: 'dashiell-fallback';
+  src: local('Georgia'), local('Noto Serif');
+  font-style: italic;
+  font-weight: 400;
+  ascent-override: 91%;
+  descent-override: 23%;
+  line-gap-override: 0%;
+  size-adjust: 104%;
+}
 .hero-tagline-serif {
-  /* Fonte via Adobe Typekit (kit uvg7hxo) */
-  font-family: 'dashiell-bright', 'Dashiell Bright', 'Apple New York', ui-serif, Georgia, serif;
+  /* Fonte via Adobe Typekit (kit uvg7hxo); fallback calibrado evita CLS no swap */
+  font-family: 'dashiell-bright', 'Dashiell Bright', 'dashiell-fallback', 'Apple New York', ui-serif, Georgia, serif;
   font-style: italic;
   font-size: clamp(15px, 1.8vw, 26px);
   font-weight: 400;
