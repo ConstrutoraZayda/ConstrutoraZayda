@@ -4046,3 +4046,10 @@ footer.page-hidden { display: none; }
   .map-listing   { grid-row: 2; border-right: none; border-top: 1px solid var(--line); }
   .map-widget    { min-width: 200px; }
 }
+
+/* image-slot sem JS (produção): mantém o espaço com visual de placeholder */
+image-slot:not(:defined) {
+  display: block;
+  background: var(--line);
+  border-radius: 8px;
+}

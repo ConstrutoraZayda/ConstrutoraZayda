@@ -8,9 +8,14 @@ import { readFileSync, writeFileSync, mkdirSync, copyFileSync } from 'fs';
 
 mkdirSync('dist', { recursive: true });
 
-/* ── HTML — copia sem alterar (já tem CSS crítico inline) ── */
-copyFileSync('index.html', 'dist/index.html');
-console.log('✓ index.html copiado');
+/* ── HTML — strip comentários + image-slot.js (dev-only) ── */
+const htmlIn  = readFileSync('index.html', 'utf8');
+const htmlOut = htmlIn
+  .replace(/<!--[\s\S]*?-->/g, '')                          // remove comentários HTML
+  .replace(/<script src="image-slot\.js"[^>]*><\/script>/g, '') // remove script dev-only
+  .replace(/\n{3,}/g, '\n\n');                               // colapsa linhas em branco extras
+writeFileSync('dist/index.html', htmlOut);
+console.log(`✓ index.html        ${kb(Buffer.byteLength(htmlIn))} → ${kb(Buffer.byteLength(htmlOut))}`);
 
 /* ── Service Worker — copia sem alterar (arquivo pequeno) ── */
 copyFileSync('sw.js', 'dist/sw.js');
@@ -31,8 +36,8 @@ const { code: cssOut } = transform({
 writeFileSync('dist/zayda-styles.css', cssOut);
 console.log(`✓ zayda-styles.css  ${kb(cssIn.length)} → ${kb(cssOut.length)}`);
 
-/* ── JS — minifica com terser ── */
-for (const file of ['zayda-app.js', 'image-slot.js']) {
+/* ── JS — minifica com terser (image-slot.js excluído: dev-only) ── */
+for (const file of ['zayda-app.js']) {
   const src = readFileSync(file, 'utf8');
   const { code: out } = await minify(src, {
     compress: { drop_console: false, passes: 2 },

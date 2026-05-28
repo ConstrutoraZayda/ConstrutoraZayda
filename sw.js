@@ -9,7 +9,6 @@ const STATIC = [
   '/index.html',
   '/zayda-styles.css',
   '/zayda-app.js',
-  '/image-slot.js',
 ];
 
 /* Pré-cacheia os arquivos estáticos na instalação */
