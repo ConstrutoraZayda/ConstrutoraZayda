@@ -1403,10 +1403,13 @@ footer{display:none}body[data-route="inicio"] footer{display:block}
         <h2 class="section">Um e-mail por mês,<br>com o que tá acontecendo na obra.</h2>
         <p class="jn-nl-sub">Sem spam. Só histórias reais de quem constrói no litoral.</p>
       </div>
-      <form class="jn-nl-form" onsubmit="event.preventDefault();this.querySelector('input').value='';alert('Inscrito! Até quinta.');">
-        <input type="email" id="nlEmail" placeholder="voce@email.com" required aria-label="Endereço de e-mail"/>
-        <button type="submit">Assinar →</button>
+      <form class="jn-nl-form" id="newsletterForm">
+        <input type="email" id="nlEmail" name="email" placeholder="voce@email.com" required aria-label="Endereço de e-mail">
+        <input type="hidden" name="_subject" value="Nova inscrição — Newsletter Zayda">
+        <button type="submit" id="nlBtn">Assinar →</button>
       </form>
+      <p class="jn-nl-success" id="nlSuccess" style="display:none">Inscrito! Você vai receber uma confirmação por e-mail.</p>
+      <p class="jn-nl-error" id="nlError" style="display:none">Algo deu errado. Tente novamente.</p>
     </div>
   </section>
 

@@ -1683,6 +1683,44 @@ renderBlogFeatured(blogDailyPost);
 })();
 
 /* ============================================================
+   NEWSLETTER — Formspree xdajrqyd
+============================================================ */
+(function () {
+  const form    = document.getElementById('newsletterForm');
+  if (!form) return;
+  const btn     = document.getElementById('nlBtn');
+  const success = document.getElementById('nlSuccess');
+  const error   = document.getElementById('nlError');
+
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    btn.disabled = true;
+    btn.textContent = 'Enviando…';
+    error.style.display = 'none';
+
+    const email = document.getElementById('nlEmail').value.trim();
+
+    fetch('https://formspree.io/f/xdajrqyd', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify({ email, _subject: 'Nova inscrição — Newsletter Zayda' })
+    })
+    .then(res => res.json().then(data => ({ ok: res.ok, data })))
+    .then(({ ok, data }) => {
+      if (!ok) throw new Error(data?.errors?.[0]?.message || 'Erro no envio');
+      form.style.display = 'none';
+      success.style.display = '';
+    })
+    .catch(err => {
+      console.error('Newsletter:', err);
+      btn.disabled = false;
+      btn.textContent = 'Assinar →';
+      error.style.display = '';
+    });
+  });
+})();
+
+/* ============================================================
    POI FILTER — Onde fica (Turísticos / Importantes)
 ============================================================ */
 document.addEventListener('click', e => {
