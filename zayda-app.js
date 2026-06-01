@@ -59,6 +59,23 @@ function syncActiveNav(route) {
   });
 }
 
+const ROUTE_TITLES = {
+  inicio:          'Zayda Construtora — Empreendimentos residenciais · Barra de São João, RJ',
+  empreendimentos: 'Empreendimentos — Zayda Construtora',
+  empreendimento:  'Empreendimento — Zayda Construtora',
+  simulador:       'Simulador de Financiamento — Zayda Construtora',
+  sobre:           'Expertise — Zayda Construtora',
+  esg:             'Sustentabilidade — Zayda Construtora',
+  carreira:        'Trabalhe Conosco — Zayda Construtora',
+  blog:            'Blog — Zayda Construtora',
+  atendimento:     'Atendimento — Zayda Construtora',
+};
+
+function debounce(fn, ms) {
+  let t;
+  return (...args) => { clearTimeout(t); t = setTimeout(() => fn(...args), ms); };
+}
+
 async function goTo(route, push = true) {
   const current = document.querySelector('.page.active');
   const next = document.querySelector(`.page[data-page="${route}"]`);
@@ -87,6 +104,7 @@ async function goTo(route, push = true) {
   document.querySelectorAll('.r').forEach(el => el.classList.remove('in'));
   observeReveals();
 
+  document.title = ROUTE_TITLES[route] || 'Zayda Construtora';
   syncActiveNav(route);
   if (push) history.pushState({ route }, '', `#${route}`);
 
@@ -790,9 +808,12 @@ function loadCloudinaryGallery(tag) {
 
   /* Cloudinary Resource List API — ative em Settings › Security */
   const listUrl = `https://res.cloudinary.com/${CLOUD_NAME}/image/list/${tag}.json`;
+  const ctrl = new AbortController();
+  const fetchTimeout = setTimeout(() => ctrl.abort(), 8000);
 
-  fetch(listUrl)
+  fetch(listUrl, { signal: ctrl.signal })
     .then(r => {
+      clearTimeout(fetchTimeout);
       if (!r.ok) throw new Error('Verifique se "Resource List" está ativa no Cloudinary.');
       return r.json();
     })
@@ -831,9 +852,9 @@ function loadCloudinaryGallery(tag) {
       }).join('');
     })
     .catch(err => {
+      clearTimeout(fetchTimeout);
       console.error('[Cloudinary]', err);
-      section.style.display = 'none';
-      grid.innerHTML = '';
+      grid.innerHTML = '<p class="cloud-gallery-error">Galeria temporariamente indisponível.</p>';
     });
 }
 
@@ -942,7 +963,8 @@ function calcSim() {
 }
 
 if (sim.val) {
-  [sim.val, sim.ent, sim.prz, sim.rd].forEach(inp => inp.addEventListener('input', calcSim));
+  const calcSimDebounced = debounce(calcSim, 80);
+  [sim.val, sim.ent, sim.prz, sim.rd].forEach(inp => inp.addEventListener('input', calcSimDebounced));
   // system toggle
   document.querySelectorAll('[data-toggle="sys"] button').forEach(b => {
     b.addEventListener('click', () => {
