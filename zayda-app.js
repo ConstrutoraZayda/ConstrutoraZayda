@@ -106,6 +106,13 @@ async function goTo(route, push = true) {
 
   document.title = ROUTE_TITLES[route] || 'Zayda Construtora';
   syncActiveNav(route);
+
+  /* Filtra o blog pela categoria vinda do dropdown do nav */
+  if (route === 'blog' && _pendingBlogCat) {
+    const cat = _pendingBlogCat;
+    _pendingBlogCat = null;
+    document.querySelector(`.jn-cat[data-cat="${cat}"]`)?.click();
+  }
   if (push) history.pushState({ route }, '', `#${route}`);
 
 
@@ -128,12 +135,15 @@ async function goTo(route, push = true) {
   }, 760);
 }
 
+let _pendingBlogCat = null;
+
 navLinks.forEach(a => {
   a.addEventListener('click', e => {
     const route = a.dataset.route;
     if (!route) return;
     e.preventDefault();
     closeMenu();
+    if (a.dataset.blogCat) _pendingBlogCat = a.dataset.blogCat;
     goTo(route);
   });
 });
