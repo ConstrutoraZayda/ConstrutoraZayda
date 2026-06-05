@@ -45,6 +45,9 @@
 let _vw = window.innerWidth, _vh = window.innerHeight;
 window.addEventListener('resize', () => { _vw = window.innerWidth; _vh = window.innerHeight; }, { passive: true });
 
+/* Detecta se estamos no SPA (index.html) ou numa página de projeto independente */
+const IS_SPA = !!document.querySelector('.page');
+
 /* ============================================================
    PAGE ROUTING + TRANSITION
 ============================================================ */
@@ -77,6 +80,7 @@ function debounce(fn, ms) {
 }
 
 async function goTo(route, push = true) {
+  if (!veil) return;
   const current = document.querySelector('.page.active');
   const next = document.querySelector(`.page[data-page="${route}"]`);
   if (!next || current === next) return;
@@ -526,7 +530,7 @@ function observeReveals() {
       }
     });
   }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
-  document.querySelectorAll('.page.active .r').forEach(el => io.observe(el));
+  document.querySelectorAll(IS_SPA ? '.page.active .r' : '.r').forEach(el => io.observe(el));
 }
 observeReveals();
 
@@ -663,7 +667,29 @@ const EMP_DATA = {
     local:'Rua Lambari · Centro · Barra de São João', units:'A definir',
     tipo:'2 quartos', vagas:'1 vaga por unidade', entrega:'A definir', price:'A consultar',
     cloudinaryTag: 'rua-lambari-juliana',
-    heroImg: 'https://res.cloudinary.com/dovqcebdt/image/upload/q_auto,f_auto/v1779218018/1-dji_fly_20250904_153658_157_1757011027056_photo_fi39ey.jpg'
+    heroImg: 'https://res.cloudinary.com/dovqcebdt/image/upload/q_auto,f_auto/v1779218018/1-dji_fly_20250904_153658_157_1757011027056_photo_fi39ey.jpg',
+    galleryImgs: [
+      'https://res.cloudinary.com/dovqcebdt/image/upload/q_auto,f_auto/v1779218014/9-IMG_4462_kq5h5z.jpg',
+      'https://res.cloudinary.com/dovqcebdt/image/upload/q_auto,f_auto/v1779218012/5-IMG_4468_deovz5.jpg',
+      'https://res.cloudinary.com/dovqcebdt/image/upload/q_auto,f_auto/v1779218019/27-IMG_4412_yqzpmj.jpg',
+      'https://res.cloudinary.com/dovqcebdt/image/upload/q_auto,f_auto/v1779218019/26-IMG_4414_ctppdy.jpg',
+    ],
+    mapImg: 'https://res.cloudinary.com/dovqcebdt/image/upload/q_auto,f_auto/v1780668523/4-IMG_4309_cesl33.jpg',
+    pinnedImgs: [
+      'https://res.cloudinary.com/dovqcebdt/image/upload/q_auto,f_auto/v1779218014/9-IMG_4462_kq5h5z.jpg',
+      'https://res.cloudinary.com/dovqcebdt/image/upload/q_auto,f_auto/v1779218167/45-IMG_4358_vl1ucl.jpg',
+      'https://res.cloudinary.com/dovqcebdt/image/upload/q_auto,f_auto/v1779218013/7-IMG_4464_p3ycf2.jpg',
+      'https://res.cloudinary.com/dovqcebdt/image/upload/q_auto,f_auto/v1779218012/5-IMG_4468_deovz5.jpg',
+      'https://res.cloudinary.com/dovqcebdt/image/upload/q_auto,f_auto/v1779218014/8-IMG_4463_ffdlqu.jpg',
+      'https://res.cloudinary.com/dovqcebdt/image/upload/q_auto,f_auto/v1779218166/40-IMG_4379_bukutu.jpg',
+      'https://res.cloudinary.com/dovqcebdt/image/upload/q_auto,f_auto/v1779218166/39-IMG_4380_t9vsoa.jpg',
+      'https://res.cloudinary.com/dovqcebdt/image/upload/q_auto,f_auto/v1779218020/31-IMG_4405_heioz5.jpg',
+      'https://res.cloudinary.com/dovqcebdt/image/upload/q_auto,f_auto/v1779218020/32-IMG_4404_ypygln.jpg',
+      'https://res.cloudinary.com/dovqcebdt/image/upload/q_auto,f_auto/v1779218018/19-IMG_4428_oydusl.jpg',
+      'https://res.cloudinary.com/dovqcebdt/image/upload/q_auto,f_auto/v1779218019/28-IMG_4411_zjfisk.jpg',
+      'https://res.cloudinary.com/dovqcebdt/image/upload/q_auto,f_auto/v1779218017/16-IMG_4436_ujy7k0.jpg',
+      'https://res.cloudinary.com/dovqcebdt/image/upload/q_auto,f_auto/v1779218017/18-IMG_4432_e3srht.jpg',
+    ]
   },
   'rua-lambari-celia': {
     name: 'Rua Lambari — Célia', label:'(09 · 2025 · Centro)', status:'Pronto pra morar',
@@ -734,61 +760,6 @@ document.getElementById('empReset')?.addEventListener('click', () => { empPage =
 
 renderEmpPage();
 
-function populateEmp(key) {
-  const d = EMP_DATA[key];
-  if (!d) return;
-  const setText = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
-  setText('empName', d.name);
-  setText('empLabel', d.label);
-  setText('empStatus', d.status);
-  setText('empTag', d.tag);
-  setText('specLocal', d.local);
-  setText('specUnits', d.units);
-  setText('specTipo', d.tipo);
-  setText('specVagas', d.vagas);
-  setText('specEntrega', d.entrega);
-  setText('specPrice', d.price);
-  /* Corpo descritivo — restaura defaults e sobrescreve só o que o projeto define */
-  const _bd = {
-    h2: '03 quartos, do jeito<br/>que <span class="italic serif">você mora</span>.',
-    p1: '03 quartos, incluindo uma suíte. Sala ampla o suficiente para criar ambientes distintos — área de convívio, home office, cantinho de leitura. O projeto respeita o seu jeito de morar.',
-    p2: 'A cozinha no centro da casa. Aberta. Integrada. Perto de quem você ama. A cozinha americana elimina barreiras — você prepara o almoço sem perder a conversa.',
-    p3: 'A varanda foi pensada para quem precisa de silêncio após um longo dia. Arejada, aconchegante e com vista para um dos bairros mais charmosos da cidade.'
-  };
-  const b = d.body || {};
-  const _btEl = document.getElementById('empBodyTitle');
-  if (_btEl) _btEl.innerHTML = b.h2 || _bd.h2;
-  setText('empBodyP1', b.p1 || _bd.p1);
-  setText('empBodyP2', b.p2 || _bd.p2);
-  setText('empBodyP3', b.p3 || _bd.p3);
-  /* Atualiza hero — URL estática ou marcado para o Cloudinary preencher */
-  const _hEl = document.getElementById('empHeroImg');
-  if (_hEl) {
-    if (d.heroImg) { _hEl.src = d.heroImg; _hEl.classList.remove('img-awaiting-cloud'); }
-    else            { _hEl.removeAttribute('src'); _hEl.classList.add('img-awaiting-cloud'); }
-    _hEl.alt = d.name;
-  }
-  /* Atualiza 4 células da galeria estática */
-  document.querySelectorAll('.emp-g-cell img').forEach((img, i) => {
-    const src = d.galleryImgs && d.galleryImgs[i];
-    if (src) { img.src = src; img.classList.remove('img-awaiting-cloud'); }
-    else       { img.removeAttribute('src'); img.classList.add('img-awaiting-cloud'); }
-    img.alt = `${d.name} — foto ${i + 1}`;
-  });
-  loadCloudinaryGallery(d.cloudinaryTag || null);
-  /* Reinicia vídeo ambiente quando o projeto é carregado */
-  setTimeout(() => {
-    document.querySelectorAll('.emp-map video').forEach(v => {
-      /* Lazy video: carrega src se ainda não foi carregado */
-      if (v.dataset.src && !v.getAttribute('src')) {
-        v.src = v.dataset.src;
-        v.load();
-      }
-      v.currentTime = 0;
-      v.play().catch(() => {});
-    });
-  }, 200);
-}
 
 /* ============================================================
    GALERIA CLOUDINARY
@@ -798,7 +769,7 @@ function populateEmp(key) {
 ============================================================ */
 const CLOUD_NAME = 'dovqcebdt';
 
-function loadCloudinaryGallery(tag) {
+function loadCloudinaryGallery(tag, pinnedUrls) {
   const section = document.getElementById('empCloudSection');
   const grid    = document.getElementById('empCloudGrid');
   if (!section || !grid) return;
@@ -851,15 +822,24 @@ function loadCloudinaryGallery(tag) {
         }
       });
 
-      /* Galeria Cloudinary na base da página — todas as imagens */
-      grid.innerHTML = data.resources.map(r => {
-        const url = buildUrl(r);
-        const alt = r.public_id.split('/').pop().replace(/[-_]/g, ' ');
-        return `
-          <div class="emp-cloud-item r">
-            <img src="${url}" alt="${alt}" loading="lazy">
-          </div>`;
-      }).join('');
+      /* Galeria Cloudinary na base da página — pinned primeiro, restante depois */
+      const urlKey = url => url.split('/').pop().replace(/\.\w+$/, '');
+      const pinnedKeys = pinnedUrls ? new Set(pinnedUrls.map(urlKey)) : null;
+
+      const pinnedHtml = pinnedUrls ? pinnedUrls.map(url => {
+        const alt = urlKey(url).replace(/[-_]/g, ' ');
+        return `\n          <div class="emp-cloud-item r">\n            <img src="${url}" alt="${alt}" loading="lazy">\n          </div>`;
+      }).join('') : '';
+
+      const remainingHtml = data.resources
+        .filter(r => !pinnedKeys || !pinnedKeys.has(urlKey(buildUrl(r))))
+        .map(r => {
+          const url = buildUrl(r);
+          const alt = r.public_id.split('/').pop().replace(/[-_]/g, ' ');
+          return `\n          <div class="emp-cloud-item r">\n            <img src="${url}" alt="${alt}" loading="lazy">\n          </div>`;
+        }).join('');
+
+      grid.innerHTML = pinnedHtml + remainingHtml;
     })
     .catch(err => {
       clearTimeout(fetchTimeout);
@@ -884,16 +864,6 @@ document.querySelectorAll('.obra[data-emp]').forEach(card => {
     .catch(() => {});
 });
 
-// intercept clicks on cards with data-emp BEFORE route handler runs
-document.querySelectorAll('[data-emp]').forEach(el => {
-  el.addEventListener('click', (e) => {
-    const key = el.dataset.emp;
-    if (key) {
-      window._zaydaCurrentEmp = key;
-      populateEmp(key);
-    }
-  }, true);
-});
 
 /* ============================================================
    SIMULADOR — math
@@ -1021,16 +991,6 @@ window.addEventListener('hashchange', () => {
   }
 });
 
-// Attach to all data-link clicks: if going to empreendimentos and there's a search, apply
-document.querySelectorAll('[data-link]').forEach(a => {
-  a.addEventListener('click', (e) => {
-    const route = a.dataset.route;
-    if (route === 'empreendimento') {
-      const key = a.dataset.emp;
-      if (key) { window._zaydaCurrentEmp = key; populateEmp(key); }
-    }
-  });
-});
 
 /* ============================================================
    Filter chips on empreendimentos — update count
@@ -1047,12 +1007,10 @@ document.querySelectorAll('.filters .chip').forEach(chip => {
   });
 });
 
-/* ============================================================
-   Initial route population
-============================================================ */
-const _init = (location.hash || '#inicio').slice(1);
-if (_init === 'empreendimento') {
-  populateEmp(window._zaydaCurrentEmp || 'praia-da-lagoa');
+/* Auto-init galeria em páginas de projeto independentes */
+if (!IS_SPA) {
+  const _tag = document.body.dataset.cloudinaryTag;
+  if (_tag) loadCloudinaryGallery(_tag, window._empPinnedImgs || null);
 }
 
 
