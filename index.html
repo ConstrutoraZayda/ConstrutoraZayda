@@ -44,6 +44,8 @@ footer{display:none}body[data-route="inicio"] footer{display:block}
 .nav{position:fixed;top:0;left:0;right:0;z-index:80}
 .hero-viewport{position:relative;width:100%;height:100vh;min-height:580px;display:flex;align-items:center;justify-content:center;overflow:hidden;background-image:linear-gradient(rgba(0,0,0,.30),rgba(0,0,0,.50)),url('https://res.cloudinary.com/dovqcebdt/image/upload/f_auto,q_auto,w_1200,c_scale/v1779376505/the_bridge_at_argenteuil_1983.1.24_rpbfni.jpg');background-size:cover;background-position:center;background-repeat:no-repeat}
 @media(max-width:768px){.hero-viewport{background-image:linear-gradient(rgba(0,0,0,.30),rgba(0,0,0,.50)),url('https://res.cloudinary.com/dovqcebdt/image/upload/f_auto,q_auto,w_800,c_scale/v1779376505/the_bridge_at_argenteuil_1983.1.24_rpbfni.jpg')}}
+/* Fallback calibrado para Cormorant Garamond — elimina CLS no swap de fonte */
+@font-face{font-family:'cormorant-fallback';src:local('Georgia'),local('Noto Serif');font-style:italic;font-weight:400;ascent-override:88%;descent-override:22%;line-gap-override:0%;size-adjust:94%}
 </style>
 
 <!-- Stylesheet completo: não-bloqueante (intro screen cobre o FOUC enquanto carrega) -->
@@ -96,7 +98,7 @@ footer{display:none}body[data-route="inicio"] footer{display:block}
 }
 </script>
 </head>
-<body>
+<body data-route="inicio">
 
 <!-- ====== INTRO SCREEN ====== -->
 <div id="introScreen" class="intro-screen" aria-hidden="true">
@@ -378,7 +380,7 @@ footer{display:none}body[data-route="inicio"] footer{display:block}
       <!-- Artigo em destaque — rotação diária via JS -->
       <article class="bp-featured r">
         <a id="bpFeatLinkTop" href="#artigo-materiais" data-route="artigo-materiais" data-link class="bp-featured-img-wrap">
-          <img id="bpFeatImg" src="https://res.cloudinary.com/dovqcebdt/image/upload/c_fill,w_587,h_881,q_auto,f_auto/v1779713431/a921ee246879721.69d36fc149dfc_ptqgn5.webp" alt="Pedra. Madeira. Luz. O que cinco mil anos de arquitetura tentam nos dizer." style="width:100%;height:100%;object-fit:cover;display:block;" fetchpriority="high">
+          <img id="bpFeatImg" src="https://res.cloudinary.com/dovqcebdt/image/upload/c_fill,w_587,h_881,q_auto,f_auto/v1779713431/a921ee246879721.69d36fc149dfc_ptqgn5.webp" alt="Pedra. Madeira. Luz. O que cinco mil anos de arquitetura tentam nos dizer." width="587" height="881" style="width:100%;height:100%;object-fit:cover;display:block;" fetchpriority="high">
         </a>
         <div class="bp-featured-body">
           <span id="bpFeatCat" class="bp-cat">Arquitetura</span>
