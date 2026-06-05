@@ -9,13 +9,30 @@ import { readFileSync, writeFileSync, mkdirSync, copyFileSync } from 'fs';
 mkdirSync('dist', { recursive: true });
 
 /* ── HTML — strip comentários + image-slot.js (dev-only) ── */
-const htmlIn  = readFileSync('index.html', 'utf8');
-const htmlOut = htmlIn
-  .replace(/<!--[\s\S]*?-->/g, '')                          // remove comentários HTML
-  .replace(/<script src="image-slot\.js"[^>]*><\/script>/g, '') // remove script dev-only
-  .replace(/\n{3,}/g, '\n\n');                               // colapsa linhas em branco extras
-writeFileSync('dist/index.html', htmlOut);
-console.log(`✓ index.html        ${kb(Buffer.byteLength(htmlIn))} → ${kb(Buffer.byteLength(htmlOut))}`);
+const HTML_FILES = [
+  'index.html',
+  'rua-lambari.html',
+  'praia-da-lagoa.html',
+  'rua-lambari-celia.html',
+  'rua-lambari-andreia.html',
+  'rua-lambari-carla.html',
+  'vila-do-sol.html',
+  'costa-verde.html',
+  'ipanema-do-norte.html',
+  'mares.html',
+  'aldeia.html',
+  'atoba.html',
+  'manguezal.html',
+];
+for (const file of HTML_FILES) {
+  const htmlIn  = readFileSync(file, 'utf8');
+  const htmlOut = htmlIn
+    .replace(/<!--[\s\S]*?-->/g, '')
+    .replace(/<script src="image-slot\.js"[^>]*><\/script>/g, '')
+    .replace(/\n{3,}/g, '\n\n');
+  writeFileSync(`dist/${file}`, htmlOut);
+  console.log(`✓ ${file.padEnd(28)} ${kb(Buffer.byteLength(htmlIn))} → ${kb(Buffer.byteLength(htmlOut))}`);
+}
 
 /* ── Service Worker — copia sem alterar (arquivo pequeno) ── */
 copyFileSync('sw.js', 'dist/sw.js');
