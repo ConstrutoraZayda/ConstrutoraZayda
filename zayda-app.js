@@ -850,7 +850,7 @@ function loadCloudinaryGallery(tag, pinnedUrls) {
         grid.innerHTML = '';
         return;
       }
-      const buildUrl = r => `https://res.cloudinary.com/${CLOUD_NAME}/image/upload/f_auto,q_auto/${r.public_id}`;
+      const buildUrl = r => `https://res.cloudinary.com/${CLOUD_NAME}/image/upload/f_auto,q_auto,w_1200/${r.public_id}`;
 
       /* Preenche hero se ainda aguarda Cloudinary */
       const _hEl = document.getElementById('empHeroImg');

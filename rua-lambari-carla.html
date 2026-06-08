@@ -22,7 +22,7 @@
 <link rel="preload" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,400&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,400&display=swap"></noscript>
 <link rel="preconnect" href="https://res.cloudinary.com" crossorigin><link rel="dns-prefetch" href="https://res.cloudinary.com">
-<link rel="preload" as="image" href="https://res.cloudinary.com/dovqcebdt/image/upload/q_auto,f_auto/v1779303180/IMG_4185_ew9ihu.jpg" fetchpriority="high">
+<link rel="preload" as="image" href="https://res.cloudinary.com/dovqcebdt/image/upload/f_avif,q_auto/v1779303180/IMG_4185_ew9ihu.avif" fetchpriority="high">
 <link rel="preload" href="zayda-app.js" as="script">
 <script src="image-slot.js" defer></script>
 </head>
@@ -143,7 +143,7 @@
 </div>
 
 <section class="emp-hero">
-  <div class="emp-hero-media"><img src="https://res.cloudinary.com/dovqcebdt/image/upload/q_auto,f_auto/v1779303180/IMG_4185_ew9ihu.jpg" alt="Rua Lambari — Carla" width="1800" height="1200" style="width:100%;height:100%;object-fit:cover;display:block;" loading="eager" fetchpriority="high"></div>
+  <div class="emp-hero-media"><picture><source type="image/avif" srcset="https://res.cloudinary.com/dovqcebdt/image/upload/f_avif,q_auto/v1779303180/IMG_4185_ew9ihu.avif"><img src="https://res.cloudinary.com/dovqcebdt/image/upload/q_auto,f_auto/v1779303180/IMG_4185_ew9ihu.jpg" alt="Rua Lambari — Carla" width="1800" height="1200" style="width:100%;height:100%;object-fit:cover;display:block;" loading="eager" fetchpriority="high"></picture></div>
   <div class="hero-overlay"></div>
   <div class="emp-hero-content">
     <div class="emp-hero-top"><a class="crumb" href="index.html#empreendimentos">← Empreendimentos</a><span class="emp-status-pill">Pronto pra morar</span></div>
@@ -263,7 +263,13 @@
   </div>
 </section>
 
-<section class="emp-cloud-gallery" id="empCloudSection" style="display:none;"><div class="emp-cloud-head"><span class="label">(Galeria do projeto)</span><h2 class="section">Atmosfera do empreendimento.</h2></div><div class="emp-cloud-grid" id="empCloudGrid"></div></section><section class="cta-section" style="padding-top:clamp(80px,10vw,160px);"><h2 class="cta-headline">Quer conhecer <span class="italic">de perto</span>?<br/>Marcamos uma visita.</h2><div class="cta-button"><a class="btn-big" href="https://wa.me/5522998621100?text=Olá!%20Quero%20agendar%20uma%20visita%20ao%20Rua%20Lambari%20Carla." target="_blank" rel="noopener">Falar com consultor <span>→</span></a></div></section>
+<section class="emp-cloud-gallery" id="empCloudSection" style="display:none;">
+  <div class="emp-cloud-head"><span class="label">(Galeria do projeto)</span>
+    <h2 class="section">Atmosfera do empreendimento.</h2>
+  </div>
+  <div class="emp-cloud-grid" id="empCloudGrid">
+</div>
+</section>
 
 <div class="social-bar active" id="socialBar">
   <a href="https://www.instagram.com/zaydacorretora/" target="_blank" rel="noopener" aria-label="Instagram">
