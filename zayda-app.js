@@ -881,6 +881,7 @@ function loadCloudinaryGallery(tag, pinnedUrls) {
         }).join('');
 
       grid.innerHTML = pinnedHtml + remainingHtml;
+      observeReveals();
     })
     .catch(err => {
       clearTimeout(fetchTimeout);
