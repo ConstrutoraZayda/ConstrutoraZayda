@@ -89,7 +89,6 @@ const ROUTE_TITLES = {
   inicio:          'Zayda Construtora — Empreendimentos residenciais · Barra de São João, RJ',
   empreendimentos: 'Empreendimentos — Zayda Construtora',
   empreendimento:  'Empreendimento — Zayda Construtora',
-  simulador:       'Simulador de Financiamento — Zayda Construtora',
   sobre:           'Expertise — Zayda Construtora',
   esg:             'Sustentabilidade — Zayda Construtora',
   carreira:        'Trabalhe Conosco — Zayda Construtora',
@@ -381,7 +380,6 @@ const total = steps.length;
 function openContact() { if (!modal) return; modal.classList.add('open'); stepN = 1; updateStep(); }
 function closeContact() { modal?.classList.remove('open'); }
 document.getElementById('openContact')?.addEventListener('click', openContact);
-document.getElementById('openContactFooter')?.addEventListener('click', openContact);
 document.getElementById('ctaContact')?.addEventListener('click', openContact);
 document.getElementById('closeModal')?.addEventListener('click', closeContact);
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeContact(); });
@@ -628,7 +626,7 @@ document.addEventListener('visibilitychange', () => {
 /* ============================================================
    ROUTE LIST (extended)
 ============================================================ */
-const ROUTES = ['inicio','empreendimentos','empreendimento','simulador','sobre','esg','carreira','blog','atendimento'];
+const ROUTES = ['inicio','empreendimentos','empreendimento','sobre','esg','carreira','blog','atendimento'];
 
 document.getElementById('empReset')?.addEventListener('click', () => {
   document.querySelectorAll('#empGrid .obra').forEach(c => c.style.display = '');
@@ -914,117 +912,9 @@ document.querySelectorAll('.obra[data-emp]').forEach(card => {
 });
 
 
-/* ============================================================
-   SIMULADOR — math
-============================================================ */
-const sim = {
-  val: document.getElementById('simVal'),
-  ent: document.getElementById('simEnt'),
-  prz: document.getElementById('simPrz'),
-  rd:  document.getElementById('simRd'),
-  sys: 'sac',
-  rate: 9,
-};
-
-function fmtBRL(n) {
-  if (!isFinite(n)) return 'R$ 0';
-  return 'R$ ' + Math.round(n).toLocaleString('pt-BR');
-}
-
-function calcSim() {
-  if (!sim.val) return;
-  const valor = +sim.val.value;
-  const entPct = +sim.ent.value;
-  const entrada = valor * (entPct/100);
-  const financiado = valor - entrada;
-  const prazoAnos = +sim.prz.value;
-  const prazoMeses = prazoAnos * 12;
-  const renda = +sim.rd.value;
-  const i_a = sim.rate / 100;
-  const i = Math.pow(1 + i_a, 1/12) - 1; // taxa mensal equivalente
-
-  let primeira, ultima, total, juros;
-  if (sim.sys === 'sac') {
-    // SAC: amortização constante = financiado/n
-    const amort = financiado / prazoMeses;
-    primeira = amort + financiado * i;
-    ultima   = amort + amort * i; // último mês: saldo = amort
-    // total pago = soma de n parcelas; em SAC, soma juros = saldo_med * i * n = (financiado * (n+1)/2 / n ) * i * n ≈
-    // mais simples: total juros = financiado * (n+1)/2 * i
-    juros = financiado * (prazoMeses + 1) / 2 * i;
-    total = financiado + juros;
-  } else {
-    // PRICE: parcela fixa = P * i / (1 - (1+i)^-n)
-    const pmt = financiado * i / (1 - Math.pow(1 + i, -prazoMeses));
-    primeira = pmt;
-    ultima = pmt;
-    total = pmt * prazoMeses;
-    juros = total - financiado;
-  }
-
-  // update labels
-  const set = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
-  set('simValTxt', fmtBRL(valor));
-  set('simEntTxt', fmtBRL(entrada) + ' (' + entPct + '%)');
-  set('simPrzTxt', prazoAnos + ' anos');
-  set('simRdTxt',  fmtBRL(renda));
-  set('simFinanciado', fmtBRL(financiado));
-  set('simPa1', fmtBRL(primeira));
-  set('simPa2', fmtBRL(ultima));
-  set('simTotal', fmtBRL(total));
-  set('simPrzOut', prazoAnos + ' anos');
-  set('simSysLabel', sim.sys === 'sac' ? '(Sistema SAC)' : '(Sistema PRICE)');
-  set('simPa1Label', sim.sys === 'price' ? 'Parcela fixa' : 'Primeira parcela');
-  set('simPa2Label', sim.sys === 'price' ? '·' : 'Última parcela');
-  set('simPrincipalTxt', fmtBRL(financiado));
-  set('simJurosTxt', fmtBRL(juros));
-
-  // bar fill: principal ratio of total
-  const ratio = financiado / total;
-  const bar = document.getElementById('simBarFill');
-  if (bar) bar.style.width = (ratio * 100).toFixed(1) + '%';
-
-  // comprometimento: primeira parcela / renda
-  const compr = (primeira / renda) * 100;
-  set('simCompr', compr.toFixed(1).replace('.', ',') + '%');
-  const warn = document.getElementById('simWarn');
-  if (warn) warn.style.display = compr > 30 ? '' : 'none';
-}
-
-if (sim.val) {
-  const calcSimDebounced = debounce(calcSim, 80);
-  [sim.val, sim.ent, sim.prz, sim.rd].forEach(inp => inp.addEventListener('input', calcSimDebounced));
-  // system toggle
-  document.querySelectorAll('[data-toggle="sys"] button').forEach(b => {
-    b.addEventListener('click', () => {
-      document.querySelectorAll('[data-toggle="sys"] button').forEach(x => x.classList.remove('active'));
-      b.classList.add('active');
-      sim.sys = b.dataset.sys;
-      calcSim();
-    });
-  });
-  // rate toggle
-  document.querySelectorAll('[data-toggle="rate"] button').forEach(b => {
-    b.addEventListener('click', () => {
-      document.querySelectorAll('[data-toggle="rate"] button').forEach(x => x.classList.remove('active'));
-      b.classList.add('active');
-      sim.rate = parseFloat(b.dataset.rate);
-      calcSim();
-    });
-  });
-  calcSim();
-}
-
-// Sim CTA → open contact modal
-document.getElementById('simContact')?.addEventListener('click', () => {
-  document.getElementById('modal').classList.add('open');
-});
 // detail page CTAs
 document.querySelectorAll('[data-cta]').forEach(b => {
   b.addEventListener('click', () => document.getElementById('modal').classList.add('open'));
-});
-document.getElementById('openContactFooter')?.addEventListener('click', () => {
-  document.getElementById('modal').classList.add('open');
 });
 
 /* ============================================================

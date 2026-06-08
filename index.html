@@ -305,7 +305,6 @@ footer{display:none}body[data-route="inicio"] footer{display:block}
     <a data-route="sobre" data-link href="#sobre">Expertise</a>
     <a data-route="esg" data-link href="#esg">Sustentabilidade</a>
     <a data-route="carreira" data-link href="#carreira">Carreira</a>
-    <a data-route="simulador" data-link href="#simulador">Simulador</a>
     <a data-route="carreira" data-link href="#carreira">Pessoas</a>
   </nav>
   <div class="footer-row">
@@ -725,7 +724,6 @@ footer{display:none}body[data-route="inicio"] footer{display:block}
 </div>
 
 <!-- EMPREENDIMENTO (detalhe) removido — cada projeto tem sua própria página HTML -->
-<!-- ========== SIMULADOR ========== -->
 <div class="page" data-page="__removed_empreendimento_placeholder__" style="display:none!important">
 
   <section class="emp-hero">
@@ -763,7 +761,6 @@ footer{display:none}body[data-route="inicio"] footer{display:block}
         <p id="empBodyP1">03 quartos, incluindo uma suíte. Sala ampla o suficiente para criar ambientes distintos — área de convívio, home office, cantinho de leitura. O projeto respeita o seu jeito de morar.</p>
         <p id="empBodyP2">A cozinha no centro da casa. Aberta. Integrada. Perto de quem você ama. A cozinha americana elimina barreiras — você prepara o almoço sem perder a conversa.</p>
         <p id="empBodyP3">A varanda foi pensada para quem precisa de silêncio após um longo dia. Arejada, aconchegante e com vista para um dos bairros mais charmosos da cidade.</p>
-        <a class="read-more" href="#simulador" data-route="simulador" data-link>Simular financiamento <span>→</span></a>
       </div>
       <div class="emp-gallery r">
         <div class="emp-g-cell big"><img src="https://res.cloudinary.com/dovqcebdt/image/upload/q_auto,f_auto/v1779218014/9-IMG_4462_kq5h5z.jpg" alt="Rua Lambari — foto 1" width="900" height="600" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy"></div>
@@ -882,116 +879,11 @@ footer{display:none}body[data-route="inicio"] footer{display:block}
     <div class="emp-cloud-grid" id="empCloudGrid"></div>
   </section>
 
-  <section class="emp-sim-teaser">
-    <div class="emp-sim-head">
-      <span class="label">(Cabe no seu bolso?)</span>
-      <h2 class="section">Simule em <span class="italic serif">trinta segundos</span>.</h2>
-    </div>
-    <div class="emp-sim-cta">
-      <button class="btn-big" data-route="simulador" data-link>Abrir simulador completo <span>→</span></button>
-      <span class="mid" style="margin-left:24px;font-size:13px;">Casa Verde e Amarela · a partir de 7,16% a.a.</span>
-    </div>
-  </section>
-
   <section class="cta-section" style="padding-top:clamp(80px,10vw,160px);">
     <h2 class="cta-headline">Quer conhecer <span class="italic">de perto</span>?<br/>Marcamos uma visita.</h2>
     <div class="cta-button">
       <button class="btn-big" data-cta="empreendimento">Falar com consultor <span>→</span></button>
     </div>
-  </section>
-</div>
-
-<!-- ========== SIMULADOR ========== -->
-<div class="page" data-page="simulador">
-  <section class="page-head">
-    <div>
-      <span class="label" style="display:block;margin-bottom:24px;">(Simulador de financiamento)</span>
-      <h1>Simulador</h1>
-    </div>
-    <div class="meta">
-      <span class="idx">(SAC · SFH)</span>
-      <span>Aproximado, não vincula proposta</span>
-    </div>
-  </section>
-
-  <section class="sim-wrap">
-    <div class="sim-grid">
-      <div class="sim-inputs">
-        <div class="sim-field">
-          <div class="sim-field-head"><label for="simVal">Valor do imóvel</label><span class="v" id="simValTxt">R$ 480.000</span></div>
-          <input type="range" min="200000" max="2500000" step="10000" value="480000" id="simVal"/>
-          <div class="sim-range"><span>R$ 200 mil</span><span>R$ 2,5 mi</span></div>
-        </div>
-        <div class="sim-field">
-          <div class="sim-field-head"><label for="simEnt">Entrada</label><span class="v" id="simEntTxt">R$ 144.000 (30%)</span></div>
-          <input type="range" min="20" max="80" step="1" value="30" id="simEnt"/>
-          <div class="sim-range"><span>20%</span><span>80%</span></div>
-        </div>
-        <div class="sim-field">
-          <div class="sim-field-head"><label for="simPrz">Prazo</label><span class="v" id="simPrzTxt">30 anos</span></div>
-          <input type="range" min="5" max="35" step="1" value="30" id="simPrz"/>
-          <div class="sim-range"><span>5 anos</span><span>35 anos</span></div>
-        </div>
-        <div class="sim-field">
-          <div class="sim-field-head"><label for="simRd">Renda mensal familiar</label><span class="v" id="simRdTxt">R$ 12.000</span></div>
-          <input type="range" min="3000" max="40000" step="500" value="12000" id="simRd"/>
-          <div class="sim-range"><span>R$ 3 mil</span><span>R$ 40 mil</span></div>
-        </div>
-        <div class="sim-system">
-          <span class="label">Sistema de amortização</span>
-          <div class="sim-toggle" data-toggle="sys">
-            <button class="active" data-sys="sac">SAC</button>
-            <button data-sys="price">PRICE</button>
-          </div>
-          <span class="label" style="margin-top:20px;">Taxa de juros</span>
-          <div class="sim-toggle" data-toggle="rate">
-            <button class="active" data-rate="9">9,00% a.a.</button>
-            <button data-rate="7.16">7,16% (Casa Verde)</button>
-            <button data-rate="10.5">10,5% (mercado)</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="sim-output">
-        <div class="sim-out-head">
-          <span class="label">(Resultado)</span>
-          <span class="idx" id="simSysLabel">(Sistema SAC)</span>
-        </div>
-        <div class="sim-fin">
-          <span class="sim-fin-label label">Valor financiado</span>
-          <span class="sim-fin-val serif" id="simFinanciado">R$ 336.000</span>
-        </div>
-        <div class="sim-parcelas">
-          <div class="sim-pa">
-            <span class="label" id="simPa1Label">Primeira parcela</span>
-            <span class="v serif" id="simPa1">R$ 3.453</span>
-          </div>
-          <div class="sim-pa">
-            <span class="label" id="simPa2Label">Última parcela</span>
-            <span class="v serif" id="simPa2">R$ 944</span>
-          </div>
-        </div>
-        <div class="sim-bar">
-          <div class="sim-bar-track">
-            <div class="sim-bar-fill" id="simBarFill" style="width:65%;"></div>
-          </div>
-          <div class="sim-bar-legend">
-            <span><span class="sw a"></span> Principal <span id="simPrincipalTxt">R$ 336.000</span></span>
-            <span><span class="sw b"></span> Juros <span id="simJurosTxt">R$ 184.000</span></span>
-          </div>
-        </div>
-        <div class="sim-summary">
-          <div class="sim-row"><span>Total pago em <span id="simPrzOut">30 anos</span></span><span class="serif" id="simTotal">R$ 520.000</span></div>
-          <div class="sim-row"><span>Comprometimento da renda</span><span class="serif" id="simCompr">28,8%</span></div>
-          <div class="sim-row sim-warn" id="simWarn" style="display:none;"><span>⚠︎ Acima de 30% da renda. Considere aumentar a entrada ou o prazo.</span></div>
-        </div>
-        <button class="btn-big sim-cta" id="simContact">Falar com consultor sobre essas condições <span>→</span></button>
-      </div>
-    </div>
-  </section>
-
-  <section class="sim-foot">
-    <p class="mid" style="max-width:60ch;">* Simulação estimada. Não representa proposta de crédito. As taxas reais variam conforme banco, perfil do comprador, programa habitacional e análise de crédito. O time financeiro da Zayda te ajuda a buscar a melhor condição.</p>
   </section>
 </div>
 
@@ -3270,15 +3162,11 @@ footer{display:none}body[data-route="inicio"] footer{display:block}
     <div class="brand-block">
       <div class="word">Zayda<span class="it serif">.</span></div>
       <p class="ack">Construtora local, dedicada a empreendimentos residenciais no litoral fluminense. Construindo entre a lagoa e o mar desde 2014.</p>
-      <div class="footer-cta-row">
-        <button class="pill" id="openContactFooter">Quero meu imóvel →</button>
-      </div>
     </div>
     <div>
       <h4>Navegar</h4>
       <ul>
         <li><a href="#empreendimentos" data-route="empreendimentos" data-link>Empreendimentos</a></li>
-        <li><a href="#simulador" data-route="simulador" data-link>Simulador</a></li>
         <li><a href="#sobre" data-route="sobre" data-link>Expertise</a></li>
         <li><a href="#atendimento" data-route="atendimento" data-link>Pessoas</a></li>
       </ul>
