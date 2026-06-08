@@ -193,23 +193,6 @@ window.addEventListener('popstate', e => {
   goTo(route, false);
 });
 
-/* Veil transition ao navegar para páginas de projeto (cards do grid, mega-menu, etc.)
-   Só no SPA — as próprias páginas standalone já gerenciam o sentido inverso. */
-if (IS_SPA) {
-  document.addEventListener('click', e => {
-    const a = e.target.closest('a[href]');
-    if (!a || !veil) return;
-    const href = a.getAttribute('href');
-    if (!href || !href.endsWith('.html') || href === 'index.html' || href.includes('://')) return;
-    e.preventDefault();
-    sessionStorage.setItem('zayda-enter-project', '1');
-    veil.style.transition = 'transform 620ms cubic-bezier(0.7, 0, 0.3, 1)';
-    veil.style.transform = 'translateY(0)';
-    veil.classList.add('show');
-    setTimeout(() => { window.location.href = href; }, 480);
-  });
-}
-
 // load initial route from hash
 const initialRoute = (location.hash || '#inicio').slice(1);
 document.body.dataset.route = initialRoute;
@@ -448,8 +431,8 @@ function validateStep1() {
   });
 });
 
-backBtn.addEventListener('click', () => { if (stepN > 1) { stepN--; updateStep(); } });
-nextBtn.addEventListener('click', () => {
+backBtn?.addEventListener('click', () => { if (stepN > 1) { stepN--; updateStep(); } });
+nextBtn?.addEventListener('click', () => {
   if (stepN === 1 && !validateStep1()) return;
   if (stepN === total) {
     const nome   = document.getElementById('fNome').value.trim();
@@ -558,17 +541,19 @@ document.querySelectorAll('.options').forEach(group => {
 ============================================================ */
 const cursor = document.getElementById('cursor');
 let _curRaf = null, _curX = 0, _curY = 0;
-window.addEventListener('mousemove', e => {
-  _curX = e.clientX; _curY = e.clientY;
-  if (!_curRaf) _curRaf = requestAnimationFrame(() => {
-    cursor.style.transform = `translate(${_curX}px, ${_curY}px) translate(-50%, -50%)`;
-    _curRaf = null;
+if (cursor) {
+  window.addEventListener('mousemove', e => {
+    _curX = e.clientX; _curY = e.clientY;
+    if (!_curRaf) _curRaf = requestAnimationFrame(() => {
+      cursor.style.transform = `translate(${_curX}px, ${_curY}px) translate(-50%, -50%)`;
+      _curRaf = null;
+    });
+  }, { passive: true });
+  document.querySelectorAll('a, button, .work-item, .obra, .processo-step, .opt').forEach(el => {
+    el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+    el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
   });
-}, { passive: true });
-document.querySelectorAll('a, button, .work-item, .obra, .processo-step, .opt').forEach(el => {
-  el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
-  el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
-});
+}
 
 /* ============================================================
    REVEAL ON SCROLL
@@ -608,12 +593,14 @@ filterChips.forEach(chip => {
    CLOCK
 ============================================================ */
 function tick() {
+  const clockTxt = document.getElementById('clockTxt');
+  if (!clockTxt) return;
   const d = new Date();
   const hh = String(d.getHours()).padStart(2, '0');
   const mm = String(d.getMinutes()).padStart(2, '0');
   const hour = d.getHours();
   const open = hour >= 8 && hour < 18;
-  document.getElementById('clockTxt').textContent = `${hh}:${mm} RJ, ${open ? 'estamos atendendo' : 'voltamos às 08h'}`;
+  clockTxt.textContent = `${hh}:${mm} RJ, ${open ? 'estamos atendendo' : 'voltamos às 08h'}`;
 }
 tick();
 let clockInterval = setInterval(tick, 30000);
@@ -1061,21 +1048,8 @@ document.querySelectorAll('.filters .chip').forEach(chip => {
   });
 });
 
-/* Auto-init galeria e animação de entrada em páginas de projeto independentes */
+/* Auto-init galeria em páginas de projeto independentes */
 if (!IS_SPA) {
-  /* Entrada com veil: cobre a página imediatamente, depois sai */
-  if (veil && sessionStorage.getItem('zayda-enter-project')) {
-    sessionStorage.removeItem('zayda-enter-project');
-    veil.style.transition = 'none';
-    veil.style.transform = 'translateY(0)';
-    veil.classList.add('show');
-    requestAnimationFrame(() => requestAnimationFrame(() => {
-      veil.style.transition = 'transform 720ms cubic-bezier(0.7, 0, 0.3, 1)';
-      veil.style.transform = 'translateY(-100%)';
-      setTimeout(() => { veil.classList.remove('show'); veil.style.cssText = ''; }, 760);
-    }));
-  }
-
   const _tag = document.body.dataset.cloudinaryTag;
   if (_tag) loadCloudinaryGallery(_tag, window._empPinnedImgs || null);
 }
