@@ -32,7 +32,7 @@
     return;
   }
 
-  const DURATION = 1800; /* ms totais do contador            */
+  const DURATION = 1200; /* ms totais do contador            */
   const HOLD     = 180;  /* pausa em 100 antes de sair       */
   const start    = performance.now();
 
