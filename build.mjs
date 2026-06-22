@@ -24,6 +24,22 @@ const HTML_FILES = [
   'aldeia.html',
   'atoba.html',
   'manguezal.html',
+  'empreendimentos.html',
+  'blog.html',
+  'sobre.html',
+  'carreira.html',
+  'atendimento.html',
+  'artigo-materiais.html',
+  'artigo-bem-estar.html',
+  'artigo-concreto.html',
+  'artigo-impermeabilizacao.html',
+  'artigo-luz.html',
+  'artigo-cozinha.html',
+  'artigo-metros.html',
+  'artigo-longevidade.html',
+  'artigo-giverny.html',
+  'artigo-litoral-norte.html',
+  'artigo-reflorestamento.html',
 ];
 for (const file of HTML_FILES) {
   const htmlIn  = readFileSync(file, 'utf8');
@@ -42,6 +58,10 @@ console.log('✓ sw.js copiado');
 /* ── Sitemap — copia sem alterar ── */
 copyFileSync('sitemap.xml', 'dist/sitemap.xml');
 console.log('✓ sitemap.xml copiado');
+
+/* ── robots.txt — copia sem alterar ── */
+copyFileSync('robots.txt', 'dist/robots.txt');
+console.log('✓ robots.txt copiado');
 
 /* ── CSS — remove seletores não usados, depois minifica ── */
 const cssIn  = readFileSync('zayda-styles.css', 'utf8');

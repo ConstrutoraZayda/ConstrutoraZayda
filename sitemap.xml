@@ -5,25 +5,26 @@
   <!-- ============================================================
        ZAYDA CONSTRUTORA · sitemap.xml
        Domínio: https://zaydaconstrutora.com
-       Gerado em: 2026-05-26
-       Nota: o site usa hash routing (#). Ao migrar para path
-       routing (/pagina), substituir os fragmentos por caminhos.
+       Atualizado em: 2026-06-22
+       Migração de hash routing (#pagina) para path routing
+       (/pagina.html) concluída para blog, institucionais e
+       empreendimentos. #esg permanece hash-only (fora de escopo).
   ============================================================ -->
 
 
   <!-- ── HOME ── -->
   <url>
     <loc>https://zaydaconstrutora.com/</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-06-22</lastmod>
   </url>
 
 
-  <!-- ── EMPREENDIMENTOS ─────────────────────────────────────
+  <!-- ── EMPREENDIMENTOS (listagem) ───────────────────────────
        Imagens de capa dos 8 projetos com fotos disponíveis.
   ──────────────────────────────────────────────────────────── -->
   <url>
-    <loc>https://zaydaconstrutora.com/#empreendimentos</loc>
-    <lastmod>2026-05-26</lastmod>
+    <loc>https://zaydaconstrutora.com/empreendimentos.html</loc>
+    <lastmod>2026-06-22</lastmod>
     <image:image>
       <image:loc>https://res.cloudinary.com/dovqcebdt/image/upload/w_1200,f_auto,q_auto/v1779202203/5-IMG_6841_db4c60.jpg</image:loc>
       <image:title>Praia da Lagoa — Zayda Construtora · Barra de São João, RJ</image:title>
@@ -58,16 +59,25 @@
     </image:image>
   </url>
 
+  <!-- ── Empreendimentos individuais ── -->
+  <url><loc>https://zaydaconstrutora.com/praia-da-lagoa.html</loc><lastmod>2026-06-22</lastmod></url>
+  <url><loc>https://zaydaconstrutora.com/rua-lambari-celia.html</loc><lastmod>2026-06-22</lastmod></url>
+  <url><loc>https://zaydaconstrutora.com/vila-do-sol.html</loc><lastmod>2026-06-22</lastmod></url>
+  <url><loc>https://zaydaconstrutora.com/rua-lambari.html</loc><lastmod>2026-06-22</lastmod></url>
+  <url><loc>https://zaydaconstrutora.com/rua-lambari-andreia.html</loc><lastmod>2026-06-22</lastmod></url>
+  <url><loc>https://zaydaconstrutora.com/rua-lambari-carla.html</loc><lastmod>2026-06-22</lastmod></url>
+  <url><loc>https://zaydaconstrutora.com/costa-verde.html</loc><lastmod>2026-06-22</lastmod></url>
+  <url><loc>https://zaydaconstrutora.com/ipanema-do-norte.html</loc><lastmod>2026-06-22</lastmod></url>
+  <url><loc>https://zaydaconstrutora.com/mares.html</loc><lastmod>2026-06-22</lastmod></url>
+  <url><loc>https://zaydaconstrutora.com/aldeia.html</loc><lastmod>2026-06-22</lastmod></url>
+  <url><loc>https://zaydaconstrutora.com/atoba.html</loc><lastmod>2026-06-22</lastmod></url>
+  <url><loc>https://zaydaconstrutora.com/manguezal.html</loc><lastmod>2026-06-22</lastmod></url>
+
 
   <!-- ── INSTITUCIONAL ── -->
   <url>
-    <loc>https://zaydaconstrutora.com/#sobre</loc>
-    <lastmod>2026-05-26</lastmod>
-  </url>
-
-  <url>
-    <loc>https://zaydaconstrutora.com/#processo</loc>
-    <lastmod>2026-05-26</lastmod>
+    <loc>https://zaydaconstrutora.com/sobre.html</loc>
+    <lastmod>2026-06-22</lastmod>
   </url>
 
   <url>
@@ -76,30 +86,20 @@
   </url>
 
   <url>
-    <loc>https://zaydaconstrutora.com/#simulador</loc>
-    <lastmod>2026-05-26</lastmod>
+    <loc>https://zaydaconstrutora.com/atendimento.html</loc>
+    <lastmod>2026-06-22</lastmod>
   </url>
 
   <url>
-    <loc>https://zaydaconstrutora.com/#atendimento</loc>
-    <lastmod>2026-05-26</lastmod>
-  </url>
-
-  <url>
-    <loc>https://zaydaconstrutora.com/#carreira</loc>
-    <lastmod>2026-05-26</lastmod>
-  </url>
-
-  <url>
-    <loc>https://zaydaconstrutora.com/#investidores</loc>
-    <lastmod>2026-05-26</lastmod>
+    <loc>https://zaydaconstrutora.com/carreira.html</loc>
+    <lastmod>2026-06-22</lastmod>
   </url>
 
 
   <!-- ── ZAYDA JOURNAL — LISTAGEM ── -->
   <url>
-    <loc>https://zaydaconstrutora.com/#blog</loc>
-    <lastmod>2026-05-26</lastmod>
+    <loc>https://zaydaconstrutora.com/blog.html</loc>
+    <lastmod>2026-06-22</lastmod>
   </url>
 
 
@@ -107,7 +107,7 @@
        lastmod = data de publicação de cada artigo.
   ──────────────────────────────────────────────────────────── -->
   <url>
-    <loc>https://zaydaconstrutora.com/#artigo-materiais</loc>
+    <loc>https://zaydaconstrutora.com/artigo-materiais.html</loc>
     <lastmod>2026-05-12</lastmod>
     <image:image>
       <image:loc>https://res.cloudinary.com/dovqcebdt/image/upload/w_1200,f_auto,q_auto/v1779713431/a921ee246879721.69d36fc149dfc_ptqgn5.webp</image:loc>
@@ -116,7 +116,7 @@
   </url>
 
   <url>
-    <loc>https://zaydaconstrutora.com/#artigo-bem-estar</loc>
+    <loc>https://zaydaconstrutora.com/artigo-bem-estar.html</loc>
     <lastmod>2026-05-19</lastmod>
     <image:image>
       <image:loc>https://res.cloudinary.com/dovqcebdt/image/upload/w_1200,f_auto,q_auto/v1779219813/ec7a05240187127.693942248159b_fat1nk.webp</image:loc>
@@ -125,12 +125,12 @@
   </url>
 
   <url>
-    <loc>https://zaydaconstrutora.com/#artigo-concreto</loc>
+    <loc>https://zaydaconstrutora.com/artigo-concreto.html</loc>
     <lastmod>2026-05-26</lastmod>
   </url>
 
   <url>
-    <loc>https://zaydaconstrutora.com/#artigo-impermeabilizacao</loc>
+    <loc>https://zaydaconstrutora.com/artigo-impermeabilizacao.html</loc>
     <lastmod>2026-06-02</lastmod>
     <image:image>
       <image:loc>https://res.cloudinary.com/dovqcebdt/image/upload/w_1200,f_auto,q_auto/v1779288159/3e1011226538547.68375be87851c_tknnxq.webp</image:loc>
@@ -139,7 +139,7 @@
   </url>
 
   <url>
-    <loc>https://zaydaconstrutora.com/#artigo-luz</loc>
+    <loc>https://zaydaconstrutora.com/artigo-luz.html</loc>
     <lastmod>2026-06-09</lastmod>
     <image:image>
       <image:loc>https://res.cloudinary.com/dovqcebdt/image/upload/w_1200,f_auto,q_auto/v1779288889/6f1ff9236946593.68f6bff40df3d_o11lwi.webp</image:loc>
@@ -148,7 +148,7 @@
   </url>
 
   <url>
-    <loc>https://zaydaconstrutora.com/#artigo-cozinha</loc>
+    <loc>https://zaydaconstrutora.com/artigo-cozinha.html</loc>
     <lastmod>2026-06-16</lastmod>
     <image:image>
       <image:loc>https://res.cloudinary.com/dovqcebdt/image/upload/w_1200,f_auto,q_auto/v1779293264/dbaf04248279303.69ee25a666e7d_e46wsc.webp</image:loc>
@@ -157,7 +157,7 @@
   </url>
 
   <url>
-    <loc>https://zaydaconstrutora.com/#artigo-metros</loc>
+    <loc>https://zaydaconstrutora.com/artigo-metros.html</loc>
     <lastmod>2026-06-23</lastmod>
     <image:image>
       <image:loc>https://res.cloudinary.com/dovqcebdt/image/upload/w_1200,f_auto,q_auto/v1779300854/15__Tuca_Rein%C3%A9s_trvbmq.jpg</image:loc>
@@ -166,7 +166,7 @@
   </url>
 
   <url>
-    <loc>https://zaydaconstrutora.com/#artigo-longevidade</loc>
+    <loc>https://zaydaconstrutora.com/artigo-longevidade.html</loc>
     <lastmod>2026-06-30</lastmod>
     <image:image>
       <image:loc>https://res.cloudinary.com/dovqcebdt/image/upload/w_1200,f_auto,q_auto/v1779723595/ad7e3b239465687.693957be90550_dsgci1.jpg</image:loc>
@@ -175,7 +175,7 @@
   </url>
 
   <url>
-    <loc>https://zaydaconstrutora.com/#artigo-giverny</loc>
+    <loc>https://zaydaconstrutora.com/artigo-giverny.html</loc>
     <lastmod>2026-07-07</lastmod>
     <image:image>
       <image:loc>https://res.cloudinary.com/dovqcebdt/image/upload/w_1200,f_auto,q_auto/v1779388716/the_japanese_footbridge_1992.9.1_gaozko.jpg</image:loc>
@@ -184,7 +184,7 @@
   </url>
 
   <url>
-    <loc>https://zaydaconstrutora.com/#artigo-litoral-norte</loc>
+    <loc>https://zaydaconstrutora.com/artigo-litoral-norte.html</loc>
     <lastmod>2026-04-01</lastmod>
     <image:image>
       <image:loc>https://res.cloudinary.com/dovqcebdt/image/upload/w_1200,f_auto,q_auto/v1779812069/pexels-muhammed-ballan-117690444-10322305_zddg4w.jpg</image:loc>
@@ -193,7 +193,7 @@
   </url>
 
   <url>
-    <loc>https://zaydaconstrutora.com/#artigo-reflorestamento</loc>
+    <loc>https://zaydaconstrutora.com/artigo-reflorestamento.html</loc>
     <lastmod>2026-04-08</lastmod>
     <image:image>
       <image:loc>https://res.cloudinary.com/dovqcebdt/image/upload/w_1200,f_auto,q_auto/v1779813007/pexels-aimbere-elorza-1176843138-29257464_geu4f1.jpg</image:loc>
