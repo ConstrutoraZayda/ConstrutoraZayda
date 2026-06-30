@@ -12,22 +12,29 @@
   /* Retorno de página de projeto: pula a intro e executa saída do veil */
   if (sessionStorage.getItem('zayda-skip-intro')) {
     sessionStorage.removeItem('zayda-skip-intro');
-    intro.remove();
-    document.querySelector('.hero-viewport')?.classList.add('hero-animate');
 
     if (sessionStorage.getItem('zayda-enter-home')) {
       sessionStorage.removeItem('zayda-enter-home');
       const _v = document.getElementById('veil');
       if (_v) {
+        /* Cobre a tela com o véu ANTES de remover a intro-screen,
+           eliminando o flash de 1-2 frames que causava a transição travada */
         _v.style.transition = 'none';
         _v.style.transform = 'translateY(0)';
         _v.classList.add('show');
+      }
+      intro.remove();
+      document.querySelector('.hero-viewport')?.classList.add('hero-animate');
+      if (_v) {
         requestAnimationFrame(() => requestAnimationFrame(() => {
           _v.style.transition = 'transform 720ms cubic-bezier(0.7, 0, 0.3, 1)';
           _v.style.transform = 'translateY(-100%)';
           setTimeout(() => { _v.classList.remove('show'); _v.style.cssText = ''; }, 760);
         }));
       }
+    } else {
+      intro.remove();
+      document.querySelector('.hero-viewport')?.classList.add('hero-animate');
     }
     return;
   }
@@ -83,147 +90,43 @@ function escapeHtml(str) {
 let _vw = window.innerWidth, _vh = window.innerHeight;
 window.addEventListener('resize', () => { _vw = window.innerWidth; _vh = window.innerHeight; }, { passive: true });
 
-/* Detecta se estamos no SPA (index.html) ou numa página de projeto independente */
+/* Site multi-página: IS_SPA é sempre false — mantido para compatibilidade com
+   as ramificações em observeReveals(), loadCloudinaryGallery() e nav-transparency */
 const IS_SPA = !!document.querySelector('.page');
 
 /* ============================================================
-   PAGE ROUTING + TRANSITION
+   PAGE TRANSITION — animação do véu ao navegar de volta para home
+   (acionado por links com data-link, e.g. logo "Zayda" nas páginas standalone)
 ============================================================ */
-const pages = document.querySelectorAll('.page');
-const navLinks = document.querySelectorAll('[data-link]');
 const veil = document.getElementById('veil');
-const nav = document.getElementById('nav');
+const nav  = document.getElementById('nav');
 
-function syncActiveNav(route) {
-  document.querySelectorAll('.nav-links a').forEach(a => {
-    a.classList.toggle('active', a.dataset.route === route);
-  });
-}
-
-const ROUTE_TITLES = {
-  inicio:          'Zayda Construtora — Empreendimentos residenciais · Barra de São João, RJ',
-  empreendimentos: 'Empreendimentos — Zayda Construtora',
-  empreendimento:  'Empreendimento — Zayda Construtora',
-  sobre:           'Expertise — Zayda Construtora',
-  esg:             'Sustentabilidade — Zayda Construtora',
-  carreira:        'Trabalhe Conosco — Zayda Construtora',
-  blog:            'Blog — Zayda Construtora',
-  atendimento:     'Atendimento — Zayda Construtora',
-};
-
-/* Whitelist de rotas válidas — usada para validar location.hash antes de
-   interpolar em seletores CSS (evita seletores inválidos com hash malicioso) */
 const ROUTES = ['inicio','empreendimentos','empreendimento','sobre','esg','carreira','blog','atendimento'];
-
 function getValidRoute(hash) {
   const route = (hash || '#inicio').replace(/^#/, '');
   return ROUTES.includes(route) ? route : 'inicio';
 }
 
-function debounce(fn, ms) {
-  let t;
-  return (...args) => { clearTimeout(t); t = setTimeout(() => fn(...args), ms); };
-}
-
-async function goTo(route, push = true) {
+async function goTo(route) {
   if (!veil) return;
-
-  /* Páginas standalone: anima o veil e navega para index.html#route */
-  if (!IS_SPA) {
-    veil.style.transition = 'transform 620ms cubic-bezier(0.7, 0, 0.3, 1)';
-    veil.style.transform = 'translateY(0)';
-    veil.classList.add('show');
-    await new Promise(r => setTimeout(r, 480));
-    sessionStorage.setItem('zayda-skip-intro', '1');
-    sessionStorage.setItem('zayda-enter-home', '1');
-    window.location.href = `index.html#${route}`;
-    return;
-  }
-
-  const current = document.querySelector('.page.active');
-  const next = document.querySelector(`.page[data-page="${route}"]`);
-  if (!next || current === next) return;
-
-  // 1) slide veil up to cover
   veil.style.transition = 'transform 620ms cubic-bezier(0.7, 0, 0.3, 1)';
   veil.style.transform = 'translateY(0)';
   veil.classList.add('show');
-
-  /* Áudio do blog: toca no instante em que o veil começa a subir */
-  if (route === 'blog' && !sessionStorage.getItem('blog-audio')) {
-    sessionStorage.setItem('blog-audio', '1');
-    new Audio('https://res.cloudinary.com/dovqcebdt/video/upload/v1779393800/sound_effect_gdl5bo.mp4')
-      .play().catch(() => {});
-  }
-
   await new Promise(r => setTimeout(r, 480));
-
-  // 2) swap page
-  current.classList.remove('active');
-  next.classList.add('active');
-  window.scrollTo({ top: 0, behavior: 'instant' });
-
-  // re-trigger reveals
-  document.querySelectorAll('.r').forEach(el => el.classList.remove('in'));
-  observeReveals();
-
-  document.title = ROUTE_TITLES[route] || 'Zayda Construtora';
-  syncActiveNav(route);
-
-  /* Filtra o blog pela categoria vinda do dropdown do nav */
-  if (route === 'blog' && _pendingBlogCat) {
-    const cat = _pendingBlogCat;
-    _pendingBlogCat = null;
-    document.querySelector(`.jn-cat[data-cat="${cat}"]`)?.click();
-  }
-  if (push) history.pushState({ route }, '', `#${route}`);
-
-
-  /* footer visível apenas na home; social bar nas demais */
-  document.body.dataset.route = route;
-  const _socialBar = document.getElementById('socialBar');
-  if (_socialBar) _socialBar.classList.toggle('active', route !== 'inicio');
-
-
-  await new Promise(r => setTimeout(r, 120));
-
-  // 3) slide veil up out
-  veil.style.transition = 'transform 720ms cubic-bezier(0.7, 0, 0.3, 1)';
-  veil.style.transform = 'translateY(-100%)';
-
-  setTimeout(() => {
-    veil.classList.remove('show');
-    veil.style.transition = 'none';
-    veil.style.transform = 'translateY(100%)';
-  }, 760);
+  sessionStorage.setItem('zayda-skip-intro', '1');
+  sessionStorage.setItem('zayda-enter-home', '1');
+  window.location.href = `index.html#${route}`;
 }
 
-let _pendingBlogCat = null;
-
-navLinks.forEach(a => {
+document.querySelectorAll('[data-link]').forEach(a => {
   a.addEventListener('click', e => {
     const route = a.dataset.route;
     if (!route) return;
     e.preventDefault();
     closeMenu();
-    if (a.dataset.blogCat) _pendingBlogCat = a.dataset.blogCat;
     goTo(route);
   });
 });
-
-window.addEventListener('popstate', e => {
-  goTo(getValidRoute(location.hash), false);
-});
-
-// load initial route from hash
-const initialRoute = getValidRoute(location.hash);
-document.body.dataset.route = initialRoute;
-if (initialRoute !== 'inicio') {
-  document.querySelector('.page.active')?.classList.remove('active');
-  document.querySelector(`.page[data-page="${initialRoute}"]`)?.classList.add('active');
-  syncActiveNav(initialRoute);
-  document.getElementById('socialBar')?.classList.add('active');
-}
 
 /* ============================================================
    BLOG — filtro de categoria
@@ -654,133 +557,6 @@ document.getElementById('empReset')?.addEventListener('click', () => {
   const cnt = document.getElementById('empCount');
   if (cnt) cnt.textContent = '(08)';
 });
-
-/* ============================================================
-   EMPREENDIMENTO DETAIL — populate from data-emp on click
-============================================================ */
-const EMP_DATA = {
-  'praia-da-lagoa': {
-    name: 'Praia da Lagoa', label:'(00 · 2026 · Centro)', status:'Lançamento',
-    tag:'Três quartos com suíte, cozinha integrada e varanda — a duzentos metros da Prainha.',
-    local:'Rua São João · Centro · Barra de São João', units:'32 apartamentos',
-    tipo:'3 quartos · 1 suíte · cozinha integrada', vagas:'1 vaga por unidade', entrega:'1 ano após contrato', price:'A consultar',
-    cloudinaryTag: 'rua-sao-joao',
-    heroImg: 'https://res.cloudinary.com/dovqcebdt/image/upload/q_auto,f_auto/v1779202203/5-IMG_6841_db4c60.jpg',
-    galleryImgs: [
-      'https://res.cloudinary.com/dovqcebdt/image/upload/q_auto,f_auto/v1779202212/58-IMG_6917_g1zx4c.jpg',
-      'https://res.cloudinary.com/dovqcebdt/image/upload/q_auto,f_auto/v1779202210/49-IMG_6891_annyry.jpg',
-      'https://res.cloudinary.com/dovqcebdt/image/upload/q_auto,f_auto/v1779202205/30-IMG_6869_kuaxz5.jpg',
-      'https://res.cloudinary.com/dovqcebdt/image/upload/q_auto,f_auto/v1779202202/24-IMG_6860_mgphry.jpg',
-    ]
-  },
-  'mares': {
-    name: 'Marés', label:'(01 · 2025 · Praia)', status:'Em obra',
-    tag:'Vinte e quatro apartamentos a três quadras da areia.',
-    local:'Rua das Palmeiras, 88 · Barra de São João', units:'24 apartamentos',
-    tipo:'2 quartos · 58–72 m²', vagas:'1 vaga por unidade', entrega:'Ago 2026', price:'A consultar'
-  },
-  'vila-do-sol': {
-    name: 'Vila do Sol', label:'(02 · 2024 · Centro)', status:'Pronto pra morar',
-    tag:'Quarenta e oito unidades em três blocos baixos, com pátio central arborizado.',
-    local:'Estrada do Sana, 1.200 · Barra de São João', units:'48 apartamentos',
-    tipo:'2 quartos · 54–66 m²', vagas:'1 vaga por unidade', entrega:'Entregue em Mai 2024', price:'A consultar',
-    cloudinaryTag: 'rua-tucunaré-rosangela',
-    heroImg: 'https://res.cloudinary.com/dovqcebdt/image/upload/q_auto,f_auto/v1779214464/1-dji_fly_20250818_103402_69_1755526869376_photo_1_qihmg0.jpg'
-  },
-  'aldeia': {
-    name: 'Aldeia', label:'(03 · 2023 · Costa Azul)', status:'Pronto pra morar',
-    tag:'Dezoito casas térreas em condomínio fechado, com horta comunitária.',
-    local:'Rua Itacolomi, 45 · Costa Azul', units:'18 casas',
-    tipo:'3 quartos · 96 m²', vagas:'2 vagas por unidade', entrega:'Entregue em Out 2023', price:'A consultar'
-  },
-  'atoba': {
-    name: 'Atobá', label:'(04 · 2025 · Pescão)', status:'Em obra',
-    tag:'Dezesseis unidades pequenas, pensadas para casais e veranistas.',
-    local:'Av. dos Pescadores, 220 · Pescão', units:'16 apartamentos',
-    tipo:'2 quartos · 52–60 m²', vagas:'1 vaga por unidade', entrega:'Dez 2026', price:'A consultar'
-  },
-  'manguezal': {
-    name: 'Manguezal', label:'(05 · 2022 · Beira-Rio)', status:'Pronto pra morar',
-    tag:'Vinte e oito apartamentos de frente para o mangue, com varandas de 12m².',
-    local:'Rua do Mangue, 70 · Beira-Rio', units:'28 apartamentos',
-    tipo:'2 quartos · 56–68 m²', vagas:'1 vaga por unidade', entrega:'Entregue em Mar 2022', price:'A consultar'
-  },
-  'costa-verde': {
-    name: 'Costa Verde', label:'(06 · 2021 · Praia)', status:'Entregue',
-    tag:'Vinte e duas unidades com vista para o mar, em terreno arborizado.',
-    local:'Av. Atlântica, 1.800 · Praia', units:'22 apartamentos',
-    tipo:'3 quartos · 72–88 m²', vagas:'1 vaga por unidade', entrega:'Entregue em Jul 2021', price:'A consultar',
-    cloudinaryTag: 'rua-wellington-borges',
-    heroImg: 'https://res.cloudinary.com/dovqcebdt/image/upload/q_auto,f_auto/v1779805184/18-IMG_8471_ujhlw3.jpg'
-  },
-  'ipanema-do-norte': {
-    name: 'Ipanema do Norte', label:'(07 · 2020 · Costa Azul)', status:'Entregue',
-    tag:'Quatorze unidades em rua arborizada, a duas quadras do mar.',
-    local:'Rua dos Coqueiros, 50 · Costa Azul', units:'14 apartamentos',
-    tipo:'2 quartos · 60–74 m²', vagas:'1 vaga por unidade', entrega:'Entregue em Set 2020', price:'A consultar',
-    cloudinaryTag: 'rua-badejo-entregue',
-    heroImg: 'https://res.cloudinary.com/dovqcebdt/image/upload/q_auto,f_auto/v1779807105/90-IMG_0392_eaozi3.jpg',
-    body: {
-      p1: '03 quartos, incluindo duas suítes. Sala ampla o suficiente para criar ambientes distintos — área de convívio, home office, cantinho de leitura. O projeto respeita o seu jeito de morar.',
-      p3: 'A varanda foi pensada para ir além do descanso: área gourmet coberta com churrasqueira e piscina. Na área externa, três vagas de garagem e área de serviço nos fundos completam o projeto.'
-    }
-  },
-  'rua-lambari-juliana': {
-    name: 'Rua Lambari', label:'(08 · 2025 · Centro)', status:'Pronto pra morar',
-    tag:'Unidades residenciais em uma das ruas mais tranquilas de Barra de São João.',
-    local:'Rua Lambari · Centro · Barra de São João', units:'A definir',
-    tipo:'2 quartos', vagas:'1 vaga por unidade', entrega:'A definir', price:'A consultar',
-    cloudinaryTag: 'rua-lambari-juliana',
-    heroImg: 'https://res.cloudinary.com/dovqcebdt/image/upload/q_auto,f_auto/v1779218018/1-dji_fly_20250904_153658_157_1757011027056_photo_fi39ey.jpg',
-    galleryImgs: [
-      'https://res.cloudinary.com/dovqcebdt/image/upload/q_auto,f_auto/v1779218014/9-IMG_4462_kq5h5z.jpg',
-      'https://res.cloudinary.com/dovqcebdt/image/upload/q_auto,f_auto/v1779218012/5-IMG_4468_deovz5.jpg',
-      'https://res.cloudinary.com/dovqcebdt/image/upload/q_auto,f_auto/v1779218019/27-IMG_4412_yqzpmj.jpg',
-      'https://res.cloudinary.com/dovqcebdt/image/upload/q_auto,f_auto/v1779218019/26-IMG_4414_ctppdy.jpg',
-    ],
-    mapImg: 'https://res.cloudinary.com/dovqcebdt/image/upload/q_auto,f_auto/v1780668523/4-IMG_4309_cesl33.jpg',
-    pinnedImgs: [
-      'https://res.cloudinary.com/dovqcebdt/image/upload/q_auto,f_auto/v1779218014/9-IMG_4462_kq5h5z.jpg',
-      'https://res.cloudinary.com/dovqcebdt/image/upload/q_auto,f_auto/v1779218167/45-IMG_4358_vl1ucl.jpg',
-      'https://res.cloudinary.com/dovqcebdt/image/upload/q_auto,f_auto/v1779218013/7-IMG_4464_p3ycf2.jpg',
-      'https://res.cloudinary.com/dovqcebdt/image/upload/q_auto,f_auto/v1779218012/5-IMG_4468_deovz5.jpg',
-      'https://res.cloudinary.com/dovqcebdt/image/upload/q_auto,f_auto/v1779218014/8-IMG_4463_ffdlqu.jpg',
-      'https://res.cloudinary.com/dovqcebdt/image/upload/q_auto,f_auto/v1779218166/40-IMG_4379_bukutu.jpg',
-      'https://res.cloudinary.com/dovqcebdt/image/upload/q_auto,f_auto/v1779218166/39-IMG_4380_t9vsoa.jpg',
-      'https://res.cloudinary.com/dovqcebdt/image/upload/q_auto,f_auto/v1779218020/31-IMG_4405_heioz5.jpg',
-      'https://res.cloudinary.com/dovqcebdt/image/upload/q_auto,f_auto/v1779218020/32-IMG_4404_ypygln.jpg',
-      'https://res.cloudinary.com/dovqcebdt/image/upload/q_auto,f_auto/v1779218018/19-IMG_4428_oydusl.jpg',
-      'https://res.cloudinary.com/dovqcebdt/image/upload/q_auto,f_auto/v1779218019/28-IMG_4411_zjfisk.jpg',
-      'https://res.cloudinary.com/dovqcebdt/image/upload/q_auto,f_auto/v1779218017/16-IMG_4436_ujy7k0.jpg',
-      'https://res.cloudinary.com/dovqcebdt/image/upload/q_auto,f_auto/v1779218017/18-IMG_4432_e3srht.jpg',
-    ]
-  },
-  'rua-lambari-celia': {
-    name: 'Rua Lambari — Célia', label:'(09 · 2025 · Centro)', status:'Pronto pra morar',
-    tag:'Unidades residenciais em uma das ruas mais tranquilas de Barra de São João.',
-    local:'Rua Lambari · Centro · Barra de São João', units:'A definir',
-    tipo:'2 quartos', vagas:'1 vaga por unidade', entrega:'A definir', price:'A consultar',
-    cloudinaryTag: 'rua-lambari-célia',
-    heroImg: 'https://res.cloudinary.com/dovqcebdt/image/upload/q_auto,f_auto/v1779291711/IMG_0148_bupo8n.jpg'
-  },
-  'rua-lambari-andreia': {
-    name: 'Rua Lambari — Andréia', label:'(10 · 2025 · Centro)', status:'Pronto pra morar',
-    tag:'Unidades residenciais em uma das ruas mais tranquilas de Barra de São João.',
-    local:'Rua Lambari · Centro · Barra de São João', units:'A definir',
-    tipo:'2 quartos', vagas:'1 vaga por unidade', entrega:'A definir', price:'A consultar',
-    cloudinaryTag: 'rua-lambari-andreia',
-    heroImg: 'https://res.cloudinary.com/dovqcebdt/image/upload/q_auto,f_auto/v1779294999/IMG_1850_1_qmpqlz.jpg'
-  },
-  'rua-lambari-carla': {
-    name: 'Rua Lambari — Carla', label:'(11 · 2025 · Centro)', status:'Pronto pra morar',
-    tag:'Unidades residenciais em uma das ruas mais tranquilas de Barra de São João.',
-    local:'Rua Lambari · Centro · Barra de São João', units:'A definir',
-    tipo:'2 quartos', vagas:'1 vaga por unidade', entrega:'A definir', price:'A consultar',
-    cloudinaryTag: 'rua-lambari-carla',
-    heroImg: 'https://res.cloudinary.com/dovqcebdt/image/upload/q_auto,f_auto/v1779303180/IMG_4185_ew9ihu.jpg'
-  }
-};
-
 /* ── Paginação da grade de empreendimentos ── */
 const EMP_PAGE_SIZE = 6;
 let empPage = 0;
@@ -829,7 +605,6 @@ renderEmpPage();
    GALERIA CLOUDINARY
    Cloud: dovqcebdt  |  Transformações: f_auto,q_auto
    Para adicionar galeria a outro projeto: inclua
-   cloudinaryTag: 'nome-do-album' no objeto EMP_DATA.
 ============================================================ */
 const CLOUD_NAME = 'dovqcebdt';
 
@@ -868,13 +643,6 @@ async function loadCloudinaryGallery(tag, pinnedUrls) {
       return;
     }
     const buildUrl = r => `https://res.cloudinary.com/${CLOUD_NAME}/image/upload/f_auto,q_auto,w_1200/${r.public_id}`;
-
-    /* Preenche hero se ainda aguarda Cloudinary */
-    const _hEl = document.getElementById('empHeroImg');
-    if (_hEl && _hEl.classList.contains('img-awaiting-cloud') && data.resources[0]) {
-      _hEl.src = buildUrl(data.resources[0]);
-      _hEl.classList.remove('img-awaiting-cloud');
-    }
 
     /* Preenche células da galeria estática que aguardam Cloudinary (a partir da 2ª imagem) */
     let _ci = 1;
@@ -918,42 +686,6 @@ async function loadCloudinaryGallery(tag, pinnedUrls) {
     grid.innerHTML = '<p class="cloud-gallery-error">Galeria temporariamente indisponível.</p>';
   }
 }
-
-/* Pré-carrega thumbnails do grid para projetos com cloudinaryTag */
-document.querySelectorAll('.obra[data-emp]').forEach(card => {
-  const imgEl = card.querySelector('[data-cloud-thumb]');
-  if (!imgEl) return;
-  const d = EMP_DATA[card.dataset.emp];
-  if (!d?.cloudinaryTag) return;
-  fetch(`https://res.cloudinary.com/${CLOUD_NAME}/image/list/${d.cloudinaryTag}.json`)
-    .then(r => r.ok ? r.json() : null)
-    .then(data => {
-      if (data?.resources?.[0]) {
-        imgEl.src = `https://res.cloudinary.com/${CLOUD_NAME}/image/upload/w_900,f_auto,q_auto/${data.resources[0].public_id}`;
-      }
-    })
-    .catch(() => {});
-});
-
-
-// detail page CTAs
-document.querySelectorAll('[data-cta]').forEach(b => {
-  b.addEventListener('click', () => document.getElementById('modal').classList.add('open'));
-});
-
-/* ============================================================
-   Empreendimentos page — apply hero search on entry
-============================================================ */
-const origGoTo = window.goTo;
-// wrap goTo from external script — we need to extend the listener for the new pages.
-// Since goTo is a top-level function in the original script, it's accessible.
-window.addEventListener('hashchange', () => {
-  const route = getValidRoute(location.hash);
-  if (route === 'empreendimentos' && window._zaydaSearch) {
-    setTimeout(applyEmpSearch, 60);
-  }
-});
-
 
 /* ============================================================
    Filter chips on empreendimentos — update count
@@ -1110,16 +842,18 @@ if (!IS_SPA) {
 
   const THRESHOLD = 0.80; /* % do viewport height para acionar */
 
+  /* Páginas com hero escuro que querem nav transparente no topo:
+     home (index.html), blog e todos os artigos.
+     Todas as outras (empreendimentos, sobre, carreira, etc.) → sempre sólida. */
+  const _file = location.pathname.split('/').pop();
+  const _heroPage = !_file || _file === 'index.html' || _file === 'blog.html' || _file.startsWith('artigo-');
+
   function updateNav() {
-    /* Página standalone: transparente sobre o hero, sólida ao rolar */
-    if (!IS_SPA) {
+    if (_heroPage) {
       nav.classList.toggle('nav--scrolled', window.scrollY > _vh * THRESHOLD);
-      return;
+    } else {
+      nav.classList.add('nav--scrolled');
     }
-    const isHome   = document.querySelector('.page[data-page="inicio"]')
-                       ?.classList.contains('active') ?? false;
-    const pastHero = window.scrollY > _vh * THRESHOLD;
-    nav.classList.toggle('nav--scrolled', !isHome || pastHero);
   }
 
   /* Atualiza no scroll com rAF para não executar mais de 1x por frame */

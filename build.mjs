@@ -52,9 +52,11 @@ for (const file of HTML_FILES) {
   console.log(`✓ ${file.padEnd(28)} ${kb(Buffer.byteLength(htmlIn))} → ${kb(Buffer.byteLength(htmlOut))}`);
 }
 
-/* ── Service Worker — copia sem alterar (arquivo pequeno) ── */
-copyFileSync('sw.js', 'dist/sw.js');
-console.log('✓ sw.js copiado');
+/* ── Service Worker — injeta versão com timestamp para invalidar cache a cada build ── */
+const swVersion = `zayda-${Date.now()}`;
+const swOut = readFileSync('sw.js', 'utf8').replace("'zayda-v1'", `'${swVersion}'`);
+writeFileSync('dist/sw.js', swOut);
+console.log(`✓ sw.js          → cache versão: ${swVersion}`);
 
 /* ── Sitemap — copia sem alterar ── */
 copyFileSync('sitemap.xml', 'dist/sitemap.xml');

@@ -442,11 +442,6 @@ h3.title {
 /* ============================================================
    PAGE STACK + TRANSITION
 ============================================================ */
-.page-stack { position: relative; }
-.page {
-  display: none;
-}
-.page.active { display: block; }
 
 .transition-veil {
   position: fixed; inset: 0; z-index: 95;

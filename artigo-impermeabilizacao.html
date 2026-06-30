@@ -61,7 +61,7 @@
     <div class="nav-item" data-menu="sobre"><a href="sobre.html">Expertise</a></div>
     <div class="nav-item" data-menu="atendimento"><a href="carreira.html">Pessoas</a></div>
   </nav>
-  <div class="nav-cta"><a class="pill" id="openContact" href="https://wa.me/5522998621100?text=Olá!%20Quero%20saber%20mais%20sobre%20os%20empreendimentos%20da%20Zayda." target="_blank" rel="noopener">Quero meu imóvel →</a><button class="menu" id="openMenu" aria-label="Menu"><svg width="22" height="14" viewBox="0 0 22 14" fill="none" aria-hidden="true"><line x1="0" y1="2" x2="22" y2="2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><line x1="0" y1="12" x2="22" y2="12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button></div>
+  <div class="nav-cta"><button class="pill" id="openContact">Quero meu imóvel →</button><button class="menu" id="openMenu" aria-label="Menu"><svg width="22" height="14" viewBox="0 0 22 14" fill="none" aria-hidden="true"><line x1="0" y1="2" x2="22" y2="2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><line x1="0" y1="12" x2="22" y2="12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button></div>
 </header>
 <div class="nav-dropdown" data-panel="empreendimentos" data-default-preview="empreendimentos-default" data-default-caption="Portfólio Zayda · 8 empreendimentos">
   <div class="nd-inner">
@@ -351,6 +351,104 @@
   </a>
 </div>
 <div id="lightbox" class="lightbox" aria-hidden="true"><button class="lb-close" id="lbClose" aria-label="Fechar" tabindex="-1">×</button><button class="lb-prev" id="lbPrev" aria-label="Anterior" tabindex="-1">‹</button><button class="lb-next" id="lbNext" aria-label="Próxima" tabindex="-1">›</button><div class="lb-stage"><img id="lbImg" src="" alt=""></div><p class="lb-counter" id="lbCounter"></p></div>
+<!-- ====== CONTACT MODAL ====== -->
+<div class="modal" id="modal">
+  <div class="modal-head">
+    <span class="title">Iniciar projeto<span class="serif italic">.</span></span>
+    <span class="step-idx" id="stepIdx">(01/05)</span>
+    <button class="close" id="closeModal">Fechar</button>
+  </div>
+  <div class="modal-body">
+    <div class="modal-form">
+      <form id="contactForm">
+        <!-- Step 1 -->
+        <div class="modal-step active" data-step="1">
+          <h3 class="serif">Seus dados, pra gente começar.</h3>
+          <div class="field">
+            <label>Nome</label>
+            <input type="text" name="nome" id="fNome" placeholder="Como você se chama?"/>
+            <span class="field-error" id="errNome">Digite seu nome completo.</span>
+          </div>
+          <div class="field">
+            <label>E-mail</label>
+            <input type="email" name="email" id="fEmail" placeholder="voce@email.com"/>
+            <span class="field-error" id="errEmail">Digite um e-mail válido (ex: voce@email.com).</span>
+          </div>
+          <div class="field">
+            <label>WhatsApp</label>
+            <input type="tel" name="phone" id="phoneInput" placeholder="(00) 00000-0000" maxlength="15" autocomplete="tel"/>
+            <span class="field-error" id="errPhone">Número incompleto — use o formato (00) 00000-0000.</span>
+          </div>
+        </div>
+        <!-- Step 2 -->
+        <div class="modal-step" data-step="2">
+          <h3 class="serif">Que tipo de projeto você procura?</h3>
+          <div class="options" data-radio="tipo">
+            <button type="button" class="opt">Comprar na planta</button>
+            <button type="button" class="opt">Unidade pronta</button>
+            <button type="button" class="opt">Lote / terreno + obra</button>
+            <button type="button" class="opt">Investimento (locação)</button>
+          </div>
+        </div>
+        <!-- Step 3 -->
+        <div class="modal-step" data-step="3">
+          <h3 class="serif">Em que empreendimento você tem interesse?</h3>
+          <div class="options" data-radio="empreendimento">
+            <button type="button" class="opt">Praia da Lagoa (lançamento)</button>
+            <button type="button" class="opt">Marés (em obra)</button>
+            <button type="button" class="opt">Atobá (em obra)</button>
+            <button type="button" class="opt">Ainda estou olhando</button>
+          </div>
+        </div>
+        <!-- Step 4 -->
+        <div class="modal-step" data-step="4">
+          <h3 class="serif">Qual a faixa de investimento?</h3>
+          <p class="help">A gente trabalha com unidades a partir de R$ 380mil. Selecione abaixo a faixa em que se enquadra.</p>
+          <div class="options" data-radio="orcamento">
+            <button type="button" class="opt">Até R$ 500 mil</button>
+            <button type="button" class="opt">R$ 500 mil — 800 mil</button>
+            <button type="button" class="opt">R$ 800 mil — 1,2 mi</button>
+            <button type="button" class="opt">R$ 1,2 mi+</button>
+          </div>
+        </div>
+        <!-- Step 5 -->
+        <div class="modal-step" data-step="5">
+          <h3 class="serif">Algo mais que a gente precise saber?</h3>
+          <div class="field"><label>Conte um pouco sobre o que você imagina</label><textarea name="brief" placeholder="Quantos quartos, prazo, prioridades, dúvidas — fique à vontade."></textarea></div>
+          <div class="field">
+            <label>Como você ouviu falar da gente?</label>
+            <div class="liq-select" id="origemSelect">
+              <button class="liq-trigger" type="button" aria-haspopup="listbox" aria-expanded="false">
+                <span class="liq-value">Selecionar</span>
+                <span class="liq-arrow">↓</span>
+              </button>
+              <div class="liq-panel" role="listbox">
+                <button class="liq-opt" type="button" data-val="Indicação">Indicação</button>
+                <button class="liq-opt" type="button" data-val="Instagram">Instagram</button>
+                <button class="liq-opt" type="button" data-val="Google">Google</button>
+                <button class="liq-opt" type="button" data-val="Já é cliente">Já é cliente</button>
+                <button class="liq-opt" type="button" data-val="Outro">Outro</button>
+              </div>
+              <input type="hidden" name="origem" value="Indicação">
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="back" id="backBtn" disabled>← Voltar</button>
+          <button type="button" class="next" id="nextBtn">Próximo →</button>
+        </div>
+        <p id="submitError" style="display:none;margin-top:12px;font-size:13px;color:#c0392b;">Falha no envio. Verifique sua conexão e tente novamente.</p>
+      </form>
+
+      <div class="modal-success" id="success">
+        <span class="idx">(enviado)</span>
+        <h3 class="serif">Mensagem recebida.<br>Respondemos em até 24h no seu WhatsApp.</h3>
+        <p class="mid">Enquanto isso, sinta-se à vontade pra dar uma volta pelos <a href="empreendimentos.html" style="text-decoration:underline;">empreendimentos</a>.</p>
+      </div>
+    </div>
+  </div>
+</div>
 <script src="zayda-app.js" defer></script>
 </body>
 </html>
