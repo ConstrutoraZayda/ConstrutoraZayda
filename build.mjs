@@ -40,6 +40,7 @@ const HTML_FILES = [
   'artigo-giverny.html',
   'artigo-litoral-norte.html',
   'artigo-reflorestamento.html',
+  'artigo-autoria-colonial.html',
 ];
 for (const file of HTML_FILES) {
   const htmlIn  = readFileSync(file, 'utf8');
