@@ -9,6 +9,9 @@ import { PurgeCSS }  from 'purgecss';
 
 mkdirSync('dist', { recursive: true });
 
+/* ── Nav partial — fonte canônica do nav compartilhado entre as 29 páginas ── */
+const navPartial = readFileSync('_nav.html', 'utf8');
+
 /* ── HTML — strip comentários + image-slot.js (dev-only) ── */
 const HTML_FILES = [
   'index.html',
@@ -45,6 +48,7 @@ const HTML_FILES = [
 for (const file of HTML_FILES) {
   const htmlIn  = readFileSync(file, 'utf8');
   const htmlOut = htmlIn
+    .replace('<!-- @nav -->', navPartial)
     .replace(/<!--[\s\S]*?-->/g, '')
     .replace(/<script src="image-slot\.js"[^>]*><\/script>/g, '')
     .replace(/\n{3,}/g, '\n\n');

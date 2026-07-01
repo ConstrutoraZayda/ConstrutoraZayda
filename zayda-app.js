@@ -133,6 +133,7 @@ document.querySelectorAll('[data-link]').forEach(a => {
 ============================================================ */
 const jnCats  = document.querySelectorAll('.jn-cat');
 const jnPosts = document.querySelectorAll('#jnGrid .jn-post');
+const jnCards = [...jnPosts];
 jnCats.forEach(btn => {
   btn.addEventListener('click', () => {
     jnCats.forEach(b => b.classList.remove('active'));
@@ -146,11 +147,10 @@ jnCats.forEach(btn => {
     });
     const empty = document.getElementById('jnEmpty');
     if (empty) empty.style.display = shown === 0 ? '' : 'none';
-    /* Atualiza o post em destaque conforme a categoria */
     if (cat === 'all') {
-      renderBlogFeatured(blogDailyPost);
+      if (dailyCard) renderBlogFeatured(dailyCard);
     } else {
-      const subset = BLOG_POSTS.filter(p => p.catKey === cat);
+      const subset = jnCards.filter(p => p.dataset.cat === cat);
       if (subset.length) renderBlogFeatured(subset[Math.floor(Date.now() / 86400000) % subset.length]);
     }
   });
@@ -160,7 +160,7 @@ document.getElementById('jnReset')?.addEventListener('click', () => {
   jnPosts.forEach(p => p.style.display = '');
   const empty = document.getElementById('jnEmpty');
   if (empty) empty.style.display = 'none';
-  renderBlogFeatured(blogDailyPost);
+  if (dailyCard) renderBlogFeatured(dailyCard);
 });
 
 /* ============================================================
@@ -1176,40 +1176,28 @@ if (!IS_SPA) {
 })();
 
 /* ── Rotação diária + filtro por categoria — destaque do blog ─
-   renderBlogFeatured(post) é chamado no load (rotação diária)
-   e novamente sempre que o user troca de categoria.
+   renderBlogFeatured(card) lê os dados do próprio card do grid.
+   Fonte única de verdade: blog.html.
 ──────────────────────────────────────────────────────────── */
-const BLOG_POSTS = [
-  { route:'artigo-materiais',        catKey:'arquitetura',          cat:'Arquitetura',          date:'12 mai 2026', read:'13 min', title:'Pedra. Madeira. Luz. O que cinco mil anos de arquitetura tentam nos dizer.',  excerpt:'Do travertino romano ao carvalho japonês — e ao que a neurociência mede quando o cérebro encontra um ambiente construído com materiais naturais. A história comprova o que a tendência apenas redescobrirá.',         img:'https://res.cloudinary.com/dovqcebdt/image/upload/w_1200,f_auto,q_auto/v1779713431/a921ee246879721.69d36fc149dfc_ptqgn5.webp' },
-  { route:'artigo-bem-estar',        catKey:'bem-estar',            cat:'Bem Estar',            date:'19 mai 2026', read:'12 min', title:'Bem-Estar Não É Um Cômodo.',                                                   excerpt:'Espaços que geram conforto real não surgem de um projeto de interiores. Surgem de decisões tomadas antes de colocar a primeira pedra — e de uma compreensão do que é habitar, não apenas ocupar.',               img:'https://res.cloudinary.com/dovqcebdt/image/upload/q_auto,f_auto/v1779219813/ec7a05240187127.693942248159b_fat1nk.webp' },
-  { route:'artigo-impermeabilizacao',catKey:'bem-estar',            cat:'Bem Estar',            date:'02 jun 2026', read:'13 min', title:'O Que Acontece com Sua Obra Quando Chove.',                                    excerpt:'60% das patologias em edificações têm origem na água. Não é azar — é decisão de projeto. E começa antes de qualquer parede.',                                                                                       img:'https://res.cloudinary.com/dovqcebdt/image/upload/q_auto,f_auto/v1779288159/3e1011226538547.68375be87851c_tknnxq.webp' },
-  { route:'artigo-luz',              catKey:'bem-estar',            cat:'Bem Estar',            date:'09 jun 2026', read:'14 min', title:'Sua Casa Sabe Que Horas São?',                                                 excerpt:'A orientação solar de um dormitório afeta seu sono mais do que qualquer colchão. A hora mais importante do dia começa pela janela.',                                                                                img:'https://res.cloudinary.com/dovqcebdt/image/upload/q_auto,f_auto/v1779288889/6f1ff9236946593.68f6bff40df3d_o11lwi.webp' },
-  { route:'artigo-cozinha',          catKey:'arquitetura',          cat:'Arquitetura',          date:'16 jun 2026', read:'12 min', title:'A Cozinha Virou Outra Coisa.',                                                  excerpt:'De laboratório de eficiência a centro arquitetônico. O que essa virada exige da obra — e o que revela sobre como queremos viver.',                                                                                  img:'https://res.cloudinary.com/dovqcebdt/image/upload/q_auto,f_auto/v1779293264/dbaf04248279303.69ee25a666e7d_e46wsc.webp' },
-  { route:'artigo-longevidade',      catKey:'arquitetura',          cat:'Arquitetura',          date:'30 jun 2026', read:'14 min', title:'Durar é o Ato Mais Sustentável que Existe.',                                    excerpt:'As portas de bronze do Pantheon têm 1.900 anos. E esse número muda completamente o que entendemos por construção responsável.',                                                                                    img:'https://res.cloudinary.com/dovqcebdt/image/upload/f_auto,q_auto,w_1200/v1779723595/ad7e3b239465687.693957be90550_dsgci1.jpg' },
-  { route:'artigo-metros',           catKey:'mercado',              cat:'Mercado',              date:'23 jun 2026', read:'13 min', title:'Por Que os Imóveis Mais Caros do Mundo São Menores.',                           excerpt:'Em Monaco, €1 milhão compra menos de 20m². O que o mercado global já entendeu sobre valor — e o que o mercado brasileiro ainda usa como critério.',                                                                img:'https://res.cloudinary.com/dovqcebdt/image/upload/q_auto,f_auto/v1779300854/15__Tuca_Rein%C3%A9s_trvbmq.jpg' },
-  { route:'artigo-litoral-norte',    catKey:'mercado',              cat:'Mercado',              date:'01 abr 2026', read:'8 min',  title:'O Litoral Norte Fluminense e a Nova Rota do Mercado Imobiliário.',               excerpt:'O mercado imobiliário do Rio cresceu 27,8% em 2025. Mas é no litoral norte fluminense que o comprador mais atento está olhando — antes que todos os outros olhem também.',                                         img:'https://res.cloudinary.com/dovqcebdt/image/upload/w_1200,f_auto,q_auto/v1779812069/pexels-muhammed-ballan-117690444-10322305_zddg4w.jpg' },
-  { route:'artigo-giverny',          catKey:'jardins-e-paisagismo', cat:'Jardins e Paisagismo', date:'07 jul 2026', read:'11 min', title:'O Jardim Que Ele Construiu Antes de Pintar.',                                   excerpt:'Monet levou 43 anos construindo Giverny. O jardim não era o cenário das telas. Era a obra-prima que tornou as telas possíveis.',                                                                                   img:'https://res.cloudinary.com/dovqcebdt/image/upload/f_auto,q_auto,w_1200/v1779388716/the_japanese_footbridge_1992.9.1_gaozko.jpg' },
-  { route:'artigo-reflorestamento',  catKey:'tecnologia',           cat:'Sustentabilidade',     date:'08 abr 2026', read:'5 min',  title:'340 Mudas e Contando.',                                                         excerpt:'Uma construtora que planta árvores às margens dos rios antes de erguer paredes. O que é mata ciliar, por que ela importa — e por que esse número vai crescer.',                                                   img:'https://res.cloudinary.com/dovqcebdt/image/upload/w_1200,f_auto,q_auto/v1779813007/pexels-aimbere-elorza-1176843138-29257464_geu4f1.jpg' },
-];
-
-function renderBlogFeatured(post) {
-  const link = document.querySelector('.jnf-post');
-  if (!link) return;
-  link.href = '#' + post.route;
-  link.dataset.route = post.route;
-  link.dataset.cat   = post.catKey;
-  const img = link.querySelector('.jnf-media img');
-  if (img) { img.src = post.img; img.alt = post.title; }
-  const q = s => link.querySelector(s);
-  if (q('.jn-tag'))      q('.jn-tag').textContent      = post.cat;
-  if (q('.jn-date'))     q('.jn-date').textContent     = post.date;
-  if (q('.jn-read'))     q('.jn-read').textContent     = post.read + ' de leitura';
-  if (q('.jnf-title'))   q('.jnf-title').textContent   = post.title;
-  if (q('.jnf-excerpt')) q('.jnf-excerpt').textContent = post.excerpt;
+function renderBlogFeatured(card) {
+  const feat = document.querySelector('.jnf-post');
+  if (!feat) return;
+  feat.href = card.href;
+  feat.dataset.cat = card.dataset.cat;
+  const featImg = feat.querySelector('.jnf-media img');
+  const cardImg = card.querySelector('.jn-post-media img');
+  if (featImg && cardImg) { featImg.src = cardImg.src; featImg.alt = cardImg.alt; }
+  const q  = s => feat.querySelector(s);
+  const cq = s => card.querySelector(s);
+  if (q('.jn-tag'))      q('.jn-tag').textContent      = cq('.jn-tag')?.textContent      || '';
+  if (q('.jn-date'))     q('.jn-date').textContent     = cq('.jn-date')?.textContent     || '';
+  if (q('.jn-read'))     q('.jn-read').textContent     = cq('.jn-read')?.textContent     || '';
+  if (q('.jnf-title'))   q('.jnf-title').textContent   = cq('.jn-post-title')?.textContent || '';
+  if (q('.jnf-excerpt')) q('.jnf-excerpt').textContent = card.dataset.excerpt             || '';
 }
 
-const blogDailyPost = BLOG_POSTS[Math.floor(Date.now() / 86400000) % BLOG_POSTS.length];
-renderBlogFeatured(blogDailyPost);
+const dailyCard = jnCards.length ? jnCards[Math.floor(Date.now() / 86400000) % jnCards.length] : null;
+if (dailyCard) renderBlogFeatured(dailyCard);
 
 /* ============================================================
    INTERACTIVE FRAME — Giverny
