@@ -39,6 +39,13 @@
     return;
   }
 
+  /* Anchor direto (ex: index.html#esg via URL ou bookmark): pula intro */
+  if (location.hash && location.hash !== '#' && location.hash !== '#inicio') {
+    intro.remove();
+    document.querySelector('.hero-viewport')?.classList.add('hero-animate');
+    return;
+  }
+
   const DURATION = 1200; /* ms totais do contador            */
   const HOLD     = 180;  /* pausa em 100 antes de sair       */
   const start    = performance.now();
