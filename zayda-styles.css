@@ -448,6 +448,7 @@ h3.title {
   background: var(--ink);
   transform: translateY(-100%);
   pointer-events: none;
+  will-change: transform;
 }
 .transition-veil .veil-mark {
   position: absolute; inset: 0;
@@ -461,6 +462,7 @@ h3.title {
   transition: opacity 280ms var(--ease);
 }
 .transition-veil.show .veil-mark { opacity: 1; }
+html.entering .transition-veil { transform: translateY(0); transition: none; }
 
 /* ============================================================
    HERO WIDGETS — deck empilhado, sem bordas, abre ao clicar

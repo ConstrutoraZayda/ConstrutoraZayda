@@ -29,7 +29,7 @@
         requestAnimationFrame(() => requestAnimationFrame(() => {
           _v.style.transition = 'transform 720ms cubic-bezier(0.7, 0, 0.3, 1)';
           _v.style.transform = 'translateY(-100%)';
-          setTimeout(() => { _v.classList.remove('show'); _v.style.cssText = ''; }, 760);
+          setTimeout(() => { _v.classList.remove('show'); _v.style.cssText = ''; document.documentElement.classList.remove('skip-intro'); }, 760);
         }));
       }
     } else {
@@ -78,6 +78,23 @@
   requestAnimationFrame(tick);
 })();
 
+/* ============================================================
+   INCOMING TRANSITION — slide-off do veil em qualquer página de destino
+   (acionado pela classe `entering` adicionada pelo inline script do _nav.html)
+============================================================ */
+(function () {
+  if (!document.documentElement.classList.contains('entering')) return;
+  const _ve = document.getElementById('veil');
+  if (!_ve) return;
+  _ve.classList.add('show');
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    document.documentElement.classList.remove('entering');
+    _ve.style.transition = 'transform 720ms cubic-bezier(0.7, 0, 0.3, 1)';
+    _ve.style.transform = 'translateY(-100%)';
+    setTimeout(() => { _ve.classList.remove('show'); _ve.style.cssText = ''; }, 760);
+  }));
+})();
+
 /* Cede à thread principal entre blocos de trabalho pesado (scheduler.yield polyfill) */
 function yieldToMain() {
   if (globalThis.scheduler?.yield) return scheduler.yield();
@@ -108,22 +125,39 @@ const IS_SPA = !!document.querySelector('.page');
 const veil = document.getElementById('veil');
 const nav  = document.getElementById('nav');
 
-const ROUTES = ['inicio','empreendimentos','empreendimento','sobre','esg','carreira','blog','atendimento'];
-function getValidRoute(hash) {
-  const route = (hash || '#inicio').replace(/^#/, '');
-  return ROUTES.includes(route) ? route : 'inicio';
-}
-
 async function goTo(route) {
   if (!veil) return;
-  veil.style.transition = 'transform 620ms cubic-bezier(0.7, 0, 0.3, 1)';
-  veil.style.transform = 'translateY(0)';
-  veil.classList.add('show');
-  await new Promise(r => setTimeout(r, 480));
   sessionStorage.setItem('zayda-skip-intro', '1');
   sessionStorage.setItem('zayda-enter-home', '1');
+  veil.style.transition = 'transform 350ms ease-in';
+  veil.style.transform = 'translateY(0)';
+  veil.classList.add('show');
+  await new Promise(r => setTimeout(r, 380));
   window.location.href = `index.html#${route}`;
 }
+
+async function transitionTo(url) {
+  const v = document.getElementById('veil');
+  if (!v) { window.location.href = url; return; }
+  sessionStorage.setItem('zayda-incoming-trans', '1');
+  v.style.transition = 'transform 350ms ease-in';
+  v.style.transform = 'translateY(0)';
+  v.classList.add('show');
+  await new Promise(r => setTimeout(r, 380));
+  window.location.href = url;
+}
+
+document.addEventListener('click', function (e) {
+  const a = e.target.closest('a[href]');
+  if (!a || 'link' in a.dataset) return;
+  if (a.target === '_blank') return;
+  const href = a.getAttribute('href');
+  if (!href || href.startsWith('http') || href.startsWith('mailto') ||
+      href.startsWith('tel') || href.startsWith('#')) return;
+  if (!href.match(/\.html($|#)/)) return;
+  e.preventDefault();
+  transitionTo(href);
+});
 
 document.querySelectorAll('[data-link]').forEach(a => {
   a.addEventListener('click', e => {
