@@ -561,29 +561,6 @@ filterChips.forEach(chip => {
   });
 });
 
-/* ============================================================
-   CLOCK
-============================================================ */
-function tick() {
-  const clockTxt = document.getElementById('clockTxt');
-  if (!clockTxt) return;
-  const d = new Date();
-  const hh = String(d.getHours()).padStart(2, '0');
-  const mm = String(d.getMinutes()).padStart(2, '0');
-  const hour = d.getHours();
-  const open = hour >= 8 && hour < 18;
-  clockTxt.textContent = `${hh}:${mm} RJ, ${open ? 'estamos atendendo' : 'voltamos às 08h'}`;
-}
-tick();
-let clockInterval = setInterval(tick, 30000);
-document.addEventListener('visibilitychange', () => {
-  if (document.hidden) {
-    clearInterval(clockInterval);
-  } else {
-    tick();
-    clockInterval = setInterval(tick, 30000);
-  }
-});
 
 /* ============================================================
    NAV BLEND COLOR (light pages need invert)
@@ -888,10 +865,14 @@ if (!IS_SPA) {
      Todas as outras (empreendimentos, sobre, carreira, etc.) → sempre sólida. */
   const _file = location.pathname.split('/').pop();
   const _heroPage = !_file || _file === 'index.html' || _file === 'blog.html' || _file.startsWith('artigo-');
+  /* Blog e artigos não têm hero escuro: nav deve ficar totalmente oculta até o scroll */
+  const _hiddenNav = _file === 'blog.html' || _file.startsWith('artigo-');
 
   function updateNav() {
     if (_heroPage) {
-      nav.classList.toggle('nav--scrolled', window.scrollY > _vh * THRESHOLD);
+      const scrolled = window.scrollY > _vh * THRESHOLD;
+      nav.classList.toggle('nav--scrolled', scrolled);
+      if (_hiddenNav) nav.classList.toggle('nav--hidden', !scrolled);
     } else {
       nav.classList.add('nav--scrolled');
     }

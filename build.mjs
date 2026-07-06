@@ -78,7 +78,7 @@ const [purgeResult] = await new PurgeCSS().purge({
   safelist: {
     standard: [
       'active', 'open', 'show', 'visible', 'in', 'exit', 'hover',
-      'selected', 'invalid', 'no-reveal', 'skip-intro', 'entering', 'hero-animate', 'nav--scrolled',
+      'selected', 'invalid', 'no-reveal', 'skip-intro', 'entering', 'hero-animate', 'nav--scrolled', 'nav--hidden',
       'gvny-expanded', 'img-awaiting-cloud', 'lazy-video', 'poi-tog',
     ],
     /* Preserva todos os seletores do Leaflet (carregado dinâmicamente) */
