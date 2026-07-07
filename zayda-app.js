@@ -1417,3 +1417,91 @@ document.addEventListener('click', e => {
     l.style.display = l.id === `poi-${group}` ? '' : 'none';
   });
 });
+
+/* ============================================================
+   OUVIR ARTIGO — botão de áudio + equalizador estilo Apple Music
+   O AnalyserNode só é criado no clique (gesto do usuário, exigido
+   pelo Safari/iOS). Se Web Audio API ou o CORS do host do áudio
+   falhar, o player continua funcionando normalmente — só as
+   barras do equalizador ficam paradas.
+============================================================ */
+(function () {
+  const btn = document.getElementById('artListen');
+  const audio = document.getElementById('artAudio');
+  if (!btn || !audio) return;
+
+  const bars = btn.querySelectorAll('.art-eq i');
+  let audioCtx, analyser, freqData, bandEdges, rafId;
+
+  /* Faixas em escala logarítmica (não linear): voz humana concentra quase
+     toda energia abaixo de ~2-3kHz, então uma divisão linear deixaria 3 das
+     4 barras praticamente paradas. Em log-scale, cada barra pega uma fatia
+     do espectro onde a fala realmente varia. */
+  function computeBandEdges(totalBins, numBars) {
+    const edges = [0];
+    for (let i = 1; i <= numBars; i++) {
+      edges.push(Math.round(Math.pow(totalBins, i / numBars)));
+    }
+    return edges;
+  }
+
+  function setupAnalyser() {
+    if (audioCtx) return;
+    try {
+      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      const source = audioCtx.createMediaElementSource(audio);
+      analyser = audioCtx.createAnalyser();
+      analyser.fftSize = 512;
+      analyser.smoothingTimeConstant = 0.78;
+      freqData = new Uint8Array(analyser.frequencyBinCount);
+      bandEdges = computeBandEdges(analyser.frequencyBinCount, bars.length);
+      source.connect(analyser);
+      analyser.connect(audioCtx.destination);
+    } catch (err) {
+      analyser = null; /* segue sem o equalizador reativo */
+    }
+  }
+
+  function animate() {
+    if (analyser) {
+      analyser.getByteFrequencyData(freqData);
+      bars.forEach((bar, i) => {
+        const start = bandEdges[i], end = Math.max(start + 1, bandEdges[i + 1]);
+        let sum = 0;
+        for (let b = start; b < end; b++) sum += freqData[b];
+        const level = Math.max(0.15, (sum / (end - start)) / 255);
+        bar.style.transform = `scaleY(${level})`;
+      });
+    }
+    rafId = requestAnimationFrame(animate);
+  }
+
+  function resetBars() {
+    bars.forEach(bar => { bar.style.transform = 'scaleY(0.15)'; });
+  }
+
+  btn.addEventListener('click', () => {
+    if (!audio.paused) { audio.pause(); return; }
+    setupAnalyser();
+    if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
+    audio.play().catch(() => {});
+  });
+
+  audio.addEventListener('play', () => {
+    btn.classList.add('playing');
+    btn.setAttribute('aria-pressed', 'true');
+    btn.setAttribute('aria-label', 'Pausar leitura em áudio');
+    cancelAnimationFrame(rafId);
+    animate();
+  });
+
+  function onStop() {
+    btn.classList.remove('playing');
+    btn.setAttribute('aria-pressed', 'false');
+    btn.setAttribute('aria-label', 'Ouvir este artigo em áudio');
+    cancelAnimationFrame(rafId);
+    resetBars();
+  }
+  audio.addEventListener('pause', onStop);
+  audio.addEventListener('ended', () => { audio.currentTime = 0; onStop(); });
+})();

@@ -135,7 +135,7 @@ const [purgeResult] = await new PurgeCSS().purge({
     standard: [
       'active', 'open', 'show', 'visible', 'in', 'exit', 'hover',
       'selected', 'invalid', 'no-reveal', 'skip-intro', 'entering', 'hero-animate', 'nav--scrolled', 'nav--hidden',
-      'gvny-expanded', 'img-awaiting-cloud', 'lazy-video', 'poi-tog',
+      'gvny-expanded', 'img-awaiting-cloud', 'lazy-video', 'poi-tog', 'playing',
     ],
     /* Preserva todos os seletores do Leaflet (carregado dinâmicamente) */
     greedy: [/^leaflet-/],
