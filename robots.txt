@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://zaydaconstrutora.com/sitemap.xml
+Sitemap: https://zaydaconstrutora.com.br/sitemap.xml

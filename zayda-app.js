@@ -133,7 +133,9 @@ async function goTo(route) {
   veil.style.transform = 'translateY(0)';
   veil.classList.add('show');
   await new Promise(r => setTimeout(r, 380));
-  window.location.href = `index.html#${route}`;
+  /* home é "/" em produção (pretty URL) ou "index.html" em preview local/legado */
+  const home = /\.html$/.test(location.pathname) ? 'index.html' : '/';
+  window.location.href = `${home}#${route}`;
 }
 
 async function transitionTo(url) {
@@ -154,7 +156,6 @@ document.addEventListener('click', function (e) {
   const href = a.getAttribute('href');
   if (!href || href.startsWith('http') || href.startsWith('mailto') ||
       href.startsWith('tel') || href.startsWith('#')) return;
-  if (!href.match(/\.html($|#)/)) return;
   e.preventDefault();
   transitionTo(href);
 });
@@ -861,12 +862,15 @@ if (!IS_SPA) {
   const THRESHOLD = 0.80; /* % do viewport height para acionar */
 
   /* Páginas com hero escuro que querem nav transparente no topo:
-     home (index.html), blog e todos os artigos.
-     Todas as outras (empreendimentos, sobre, carreira, etc.) → sempre sólida. */
-  const _file = location.pathname.split('/').pop();
-  const _heroPage = !_file || _file === 'index.html' || _file === 'blog.html' || _file.startsWith('artigo-');
+     home, blog e todos os artigos.
+     Todas as outras (empreendimentos, sobre, carreira, etc.) → sempre sólida.
+     Slug extraído funciona tanto com pretty URLs (/blog/) quanto com
+     URLs antigas/preview local (blog.html). */
+  const _segs = location.pathname.split('/').filter(Boolean);
+  const _slug = (_segs[_segs.length - 1] || '').replace(/\.html$/, '');
+  const _heroPage = !_slug || _slug === 'index' || _slug === 'blog' || _slug.startsWith('artigo-');
   /* Blog e artigos não têm hero escuro: nav deve ficar totalmente oculta até o scroll */
-  const _hiddenNav = _file === 'blog.html' || _file.startsWith('artigo-');
+  const _hiddenNav = _slug === 'blog' || _slug.startsWith('artigo-');
 
   function updateNav() {
     if (_heroPage) {

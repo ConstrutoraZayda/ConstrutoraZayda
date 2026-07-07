@@ -7,6 +7,8 @@ import { minify }    from 'terser';
 import { readFileSync, writeFileSync, mkdirSync, copyFileSync } from 'fs';
 import { PurgeCSS }  from 'purgecss';
 
+const SITE = 'https://zaydaconstrutora.com.br';
+
 mkdirSync('dist', { recursive: true });
 
 /* ── HTML — strip comentários + image-slot.js (dev-only) ── */
@@ -42,13 +44,67 @@ const HTML_FILES = [
   'artigo-reflorestamento.html',
   'artigo-autoria-colonial.html',
 ];
+/* ── Pretty URLs — slugs conhecidos (todas as páginas exceto a home) ── */
+const KNOWN_SLUGS = new Set(HTML_FILES.map(f => f.replace(/\.html$/, '')).filter(s => s !== 'index'));
+
+/* Reescreve links internos, URLs absolutas (canonical/og/JSON-LD) e caminhos de assets
+   para o esquema de "pretty URLs" (ex: empreendimentos.html → /empreendimentos/). */
+function toCleanUrls(html) {
+  return html
+    // <a>/<link> internos relativos: href="index.html" → "/", href="slug.html" → "/slug/"
+    .replace(/href="index\.html"/g, 'href="/"')
+    .replace(/href="([a-z0-9-]+)\.html"/g, (m, slug) => KNOWN_SLUGS.has(slug) ? `href="/${slug}/"` : m)
+    // URLs absolutas (canonical, og:url, JSON-LD) — corrige domínio e remove .html
+    .replace(/https:\/\/zaydaconstrutora\.com(?:\.br)?(\/(?:([a-z0-9-]+)\.html)?)?/g, (m, pathPart, slug) => {
+      if (!pathPart) return SITE;
+      if (!slug) return `${SITE}/`;
+      return `${SITE}/${slug}/`;
+    })
+    // assets — precisam ser absolutos porque as páginas passam a viver em subpastas
+    .replace(/href="zayda-styles\.css"/g, 'href="/zayda-styles.css"')
+    .replace(/href="zayda-app\.js"/g, 'href="/zayda-app.js"')
+    .replace(/src="zayda-app\.js"/g, 'src="/zayda-app.js"');
+}
+
+/* Stub de redirecionamento para a URL antiga (.html) — GitHub Pages não tem
+   redirect 301 real, então usamos meta-refresh + canonical, o padrão aceito
+   pelo Google como equivalente a um redirect permanente. */
+function redirectStub(slug) {
+  const target = `/${slug}/`;
+  return `<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Redirecionando…</title>
+<link rel="canonical" href="${SITE}${target}">
+<meta http-equiv="refresh" content="0; url=${target}">
+<meta name="robots" content="noindex">
+</head>
+<body>
+<p>Esta página mudou de endereço. Se você não foi redirecionado automaticamente, <a href="${target}">clique aqui</a>.</p>
+<script>location.replace(${JSON.stringify(target)});</script>
+</body>
+</html>
+`;
+}
+
 for (const file of HTML_FILES) {
+  const slug = file.replace(/\.html$/, '');
   const htmlIn  = readFileSync(file, 'utf8');
-  const htmlOut = htmlIn
-    .replace(/<!--[\s\S]*?-->/g, '')
-    .replace(/<script src="image-slot\.js"[^>]*><\/script>/g, '')
-    .replace(/\n{3,}/g, '\n\n');
-  writeFileSync(`dist/${file}`, htmlOut);
+  const htmlOut = toCleanUrls(
+    htmlIn
+      .replace(/<!--[\s\S]*?-->/g, '')
+      .replace(/<script src="image-slot\.js"[^>]*><\/script>/g, '')
+      .replace(/\n{3,}/g, '\n\n')
+  );
+
+  if (slug === 'index') {
+    writeFileSync('dist/index.html', htmlOut);
+  } else {
+    mkdirSync(`dist/${slug}`, { recursive: true });
+    writeFileSync(`dist/${slug}/index.html`, htmlOut);
+    writeFileSync(`dist/${file}`, redirectStub(slug)); // preserva a URL antiga indexada
+  }
   console.log(`✓ ${file.padEnd(28)} ${kb(Buffer.byteLength(htmlIn))} → ${kb(Buffer.byteLength(htmlOut))}`);
 }
 

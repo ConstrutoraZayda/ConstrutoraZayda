@@ -37,8 +37,10 @@ self.addEventListener('fetch', e => {
 
   const ext = url.pathname.split('.').pop().toLowerCase();
 
-  /* HTML: network-first (sempre versão mais recente) */
-  if (ext === 'html' || url.pathname === '/') {
+  /* HTML: network-first (sempre versão mais recente).
+     Usa request.destination em vez de checar a extensão .html na URL,
+     porque as páginas agora vivem em pretty URLs sem extensão (/blog/). */
+  if (request.destination === 'document') {
     e.respondWith(
       fetch(request)
         .then(res => { caches.open(CACHE).then(c => c.put(request, res.clone())); return res; })

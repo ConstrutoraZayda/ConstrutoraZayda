@@ -252,6 +252,18 @@ O deploy acontece via **GitHub Actions** na branch `master`. O Actions executa `
 
 `image-slot.js` é um utilitário de desenvolvimento (preenche placeholders de imagem no ambiente local) e é **removido automaticamente pelo build**. Não o referencie em produção.
 
+### Pretty URLs
+
+Os arquivos-fonte continuam simples (`empreendimentos.html`, `blog.html`, etc.) — você edita e faz link entre eles normalmente, do jeito que sempre fez. O `build.mjs` que transforma isso em URLs limpas na hora do build:
+
+- `empreendimentos.html` → `dist/empreendimentos/index.html`, servido em `/empreendimentos/`.
+- Todo `href="algo.html"` nas páginas (inclusive as sincronizadas via `_nav.html`) é reescrito para `href="/algo/"` automaticamente.
+- `<link rel="canonical">`, `og:url` e URLs absolutas em JSON-LD são corrigidas para `https://zaydaconstrutora.com.br/algo/`.
+- A URL antiga (`dist/empreendimentos.html`) continua existindo, mas como um stub de redirecionamento (meta-refresh + `canonical` + `noindex`) para não quebrar links externos e posições já indexadas no Google — GitHub Pages não suporta redirect 301 real.
+- `index.html` é o único caso especial: fica em `dist/index.html` (raiz), sem pasta própria, porque a home já é servida em `/`.
+
+**Não escreva `href="/algo/"` manualmente no código-fonte** — continue usando `href="algo.html"` nos arquivos-fonte e no `_nav.html`. Se precisar adicionar uma página nova, basta registrá-la no `HTML_FILES` do `build.mjs` (ver seção acima) que ela entra automaticamente nesse esquema.
+
 ---
 
 ## Service Worker
@@ -313,8 +325,8 @@ Sem largura definida, o Cloudinary entrega a imagem em resolução original. Com
 |---------|-----------|
 | Cloudinary | `res.cloudinary.com/dovqcebdt` — credenciais com o time |
 | GitHub Pages | Repositório `ConstrutoraZayda` — branch `master` → `dist/` |
-| Google Analytics / Search Console | Vinculado ao domínio `zaydaconstrutora.com` |
+| Google Analytics / Search Console | Vinculado ao domínio `zaydaconstrutora.com.br` (ver `CNAME`) |
 
 ---
 
-*Última atualização: 08 Junho 2026*
+*Última atualização: 07 Julho 2026*
