@@ -39,7 +39,7 @@
     return;
   }
 
-  /* Anchor direto (ex: index.html#esg via URL ou bookmark): pula intro */
+  /* Anchor direto (ex: index.html#sobre via URL ou bookmark): pula intro */
   if (location.hash && location.hash !== '#' && location.hash !== '#inicio') {
     intro.remove();
     document.querySelector('.hero-viewport')?.classList.add('hero-animate');
