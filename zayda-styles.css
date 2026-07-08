@@ -3338,19 +3338,19 @@ footer.page-hidden { display: none; }
 .art-listen.playing .ic-pause { display: block; }
 .art-eq {
   display: none;
-  align-items: center;
-  gap: 2px;
-  height: 18px;
+  align-items: flex-end;
+  gap: 3px;
+  height: 14px;
 }
 .art-listen.playing .art-eq { display: inline-flex; }
 .art-eq i {
   display: block;
-  width: 2px;
+  width: 3px;
   height: 100%;
-  background: linear-gradient(180deg, #b25bff 0%, #4a1078 50%, #120018 100%);
-  border-radius: 2px;
+  background: linear-gradient(180deg, #b25bff 0%, #4a1078 55%, #120018 100%);
+  border-radius: 3px;
   transform: scaleY(0.15);
-  transform-origin: center;
+  transform-origin: bottom;
   transition: transform 220ms cubic-bezier(0.33, 1, 0.68, 1);
 }
 .art-cover-wrap {
@@ -3468,6 +3468,39 @@ footer.page-hidden { display: none; }
   color: var(--mid) !important;
   margin: 0 0 2em !important;
 }
+
+/* ── Fontes ─────────────────────────────────────────────────── */
+.art-sources {
+  border-top: 1px solid var(--line);
+  padding-top: clamp(32px, 4vw, 48px);
+  margin-top: clamp(48px, 6vw, 72px);
+}
+.art-sources-label {
+  font-size: 10px;
+  font-family: var(--font-mono);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--mid);
+  margin: 0 0 16px;
+}
+.art-sources-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.art-sources-list li {
+  font-size: 12px;
+  font-family: var(--font-mono);
+  line-height: 1.8;
+  margin-bottom: 4px;
+}
+.art-sources-list a {
+  color: var(--mid);
+  text-decoration: none;
+  border-bottom: 1px solid var(--line);
+  transition: color 160ms, border-color 160ms;
+}
+.art-sources-list a:hover { color: var(--ink); border-color: var(--ink); }
 
 /* ── Rodapé ─────────────────────────────────────────────────── */
 .art-footer {
