@@ -122,6 +122,15 @@ console.log('✓ sitemap.xml copiado');
 copyFileSync('robots.txt', 'dist/robots.txt');
 console.log('✓ robots.txt copiado');
 
+/* ── CNAME — necessário em dist/ para o GitHub Pages servir o domínio customizado ── */
+copyFileSync('CNAME', 'dist/CNAME');
+console.log('✓ CNAME copiado');
+
+/* ── .nojekyll — impede o GitHub Pages de rodar o processamento Jekyll,
+   que ignora arquivos/pastas com "_" no nome (ex.: _nav.html) ── */
+writeFileSync('dist/.nojekyll', '');
+console.log('✓ .nojekyll criado');
+
 /* ── CSS — remove seletores não usados, depois minifica ── */
 const cssIn  = readFileSync('zayda-styles.css', 'utf8');
 const [purgeResult] = await new PurgeCSS().purge({
