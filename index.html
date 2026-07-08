@@ -72,6 +72,13 @@ html.skip-intro .transition-veil{transform:translateY(0);transition:none}
    antes do stylesheet carregar — sem isso eles ficam no fluxo normal e empurram o hero para baixo */
 .hw-stack,.nav-dropdown,.ndcp,.nav-backdrop,.cursor-dot{position:fixed;opacity:0;pointer-events:none}
 .menu-overlay{position:fixed;transform:translateY(-100%)}
+/* Previne flash de transição: .modal e #side-drawer têm transition em transform/right
+   que dispara se o valor computado mudar de "sem regra" (unstyled) para o estado
+   fechado só quando zayda-styles.css carregar. Replicando o estado fechado aqui, o
+   valor computado nunca muda, então a transição não é disparada nessa troca de stylesheet. */
+.modal{position:fixed;top:0;right:0;width:min(480px,100vw);height:100vh;z-index:800;transform:translateX(100%);pointer-events:none}
+#side-drawer{position:fixed;top:0;right:-420px;width:min(420px,90vw);height:100vh;z-index:150}
+@media(max-width:768px){#side-drawer{width:100vw;right:-100vw}}
 </style>
 
 <!-- Stylesheet completo: não-bloqueante (intro screen cobre o FOUC enquanto carrega) -->
@@ -188,7 +195,7 @@ html.skip-intro .transition-veil{transform:translateY(0);transition:none}
 
 <!-- ====== HEADER ====== -->
 <header class="nav" id="nav">
-  <a class="brand" href="index.html">Zayda</a>
+  <a class="brand" href="index.html" data-route="inicio" data-link>Zayda</a>
   <nav class="nav-links">
     <div class="nav-item" data-menu="empreendimentos"><a href="empreendimentos.html">Empreendimentos</a></div>
     <div class="nav-item" data-menu="blog"><a href="blog.html">Blog</a></div>
@@ -308,7 +315,7 @@ html.skip-intro .transition-veil{transform:translateY(0);transition:none}
     <button class="pill" id="closeMenu" style="color:var(--bg);border-color:var(--bg);padding:9px 16px;border-radius:999px;border:1px solid currentColor;">Fechar</button>
   </div>
   <nav class="links-big">
-    <a href="index.html">Início</a>
+    <a href="index.html" data-route="inicio" data-link>Início</a>
     <a href="empreendimentos.html">Empreendimentos</a>
     <a href="blog.html">Blog</a>
     <a href="sobre.html">Expertise</a>

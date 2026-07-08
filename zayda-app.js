@@ -9,33 +9,14 @@
   const lineFill = document.getElementById('introLineFill');
   if (!intro) return;
 
-  /* Retorno de página de projeto: pula a intro e executa saída do veil */
+  /* Retorno para home via logo/breadcrumb: pula a intro sem nenhuma transição de véu */
   if (sessionStorage.getItem('zayda-skip-intro')) {
     sessionStorage.removeItem('zayda-skip-intro');
-
-    if (sessionStorage.getItem('zayda-enter-home')) {
-      sessionStorage.removeItem('zayda-enter-home');
-      const _v = document.getElementById('veil');
-      if (_v) {
-        /* Cobre a tela com o véu ANTES de remover a intro-screen,
-           eliminando o flash de 1-2 frames que causava a transição travada */
-        _v.style.transition = 'none';
-        _v.style.transform = 'translateY(0)';
-        _v.classList.add('show');
-      }
-      intro.remove();
-      document.querySelector('.hero-viewport')?.classList.add('hero-animate');
-      if (_v) {
-        requestAnimationFrame(() => requestAnimationFrame(() => {
-          _v.style.transition = 'transform 720ms cubic-bezier(0.7, 0, 0.3, 1)';
-          _v.style.transform = 'translateY(-100%)';
-          setTimeout(() => { _v.classList.remove('show'); _v.style.cssText = ''; document.documentElement.classList.remove('skip-intro'); }, 760);
-        }));
-      }
-    } else {
-      intro.remove();
-      document.querySelector('.hero-viewport')?.classList.add('hero-animate');
-    }
+    document.documentElement.classList.remove('skip-intro');
+    const _v = document.getElementById('veil');
+    if (_v) { _v.classList.remove('show'); _v.style.cssText = ''; }
+    intro.remove();
+    document.querySelector('.hero-viewport')?.classList.add('hero-animate');
     return;
   }
 
@@ -119,20 +100,13 @@ window.addEventListener('resize', () => { _vw = window.innerWidth; _vh = window.
 const IS_SPA = !!document.querySelector('.page');
 
 /* ============================================================
-   PAGE TRANSITION — animação do véu ao navegar de volta para home
+   VOLTA PARA HOME — navegação direta, sem transição de véu
    (acionado por links com data-link, e.g. logo "Zayda" nas páginas standalone)
 ============================================================ */
-const veil = document.getElementById('veil');
-const nav  = document.getElementById('nav');
+const nav = document.getElementById('nav');
 
 async function goTo(route) {
-  if (!veil) return;
   sessionStorage.setItem('zayda-skip-intro', '1');
-  sessionStorage.setItem('zayda-enter-home', '1');
-  veil.style.transition = 'transform 350ms ease-in';
-  veil.style.transform = 'translateY(0)';
-  veil.classList.add('show');
-  await new Promise(r => setTimeout(r, 380));
   /* home é "/" em produção (pretty URL) ou "index.html" em preview local/legado */
   const home = /\.html$/.test(location.pathname) ? 'index.html' : '/';
   window.location.href = `${home}#${route}`;
