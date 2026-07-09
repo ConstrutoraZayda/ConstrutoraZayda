@@ -231,7 +231,7 @@ h3.title {
 .nav-cta .pill:hover { background: var(--ink); color: #fff; border-color: var(--ink); }
 .nav-cta .menu {
   display: none;
-  padding: 9px 12px;
+  padding: 15px 14px; /* área de toque >= 44px (guideline mobile) */
   border: 1px solid currentColor;
   border-radius: 999px;
   line-height: 0; /* remove espaço extra ao redor do SVG */
