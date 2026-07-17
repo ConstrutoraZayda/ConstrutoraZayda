@@ -76,6 +76,21 @@
   }));
 })();
 
+/* ============================================================
+   RESTAURAÇÃO VIA BFCACHE — botão voltar/avançar do navegador
+   Ao sair de uma página, transitionTo() deixa o véu cobrindo a tela
+   antes de navegar. Se o navegador restaura essa página do bfcache
+   (em vez de recarregar), o DOM volta "congelado" nesse estado, com
+   o véu preso na frente da tela. `pageshow` com `persisted: true`
+   é o único evento disparado nesse caso, então usamos para resetar.
+============================================================ */
+window.addEventListener('pageshow', (e) => {
+  if (!e.persisted) return;
+  document.documentElement.classList.remove('entering');
+  const _v = document.getElementById('veil');
+  if (_v) { _v.classList.remove('show'); _v.style.cssText = ''; }
+});
+
 /* Cede à thread principal entre blocos de trabalho pesado (scheduler.yield polyfill) */
 function yieldToMain() {
   if (globalThis.scheduler?.yield) return scheduler.yield();
