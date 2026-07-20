@@ -63,7 +63,12 @@ function toCleanUrls(html) {
     // assets — precisam ser absolutos porque as páginas passam a viver em subpastas
     .replace(/href="zayda-styles\.css"/g, 'href="/zayda-styles.css"')
     .replace(/href="zayda-app\.js"/g, 'href="/zayda-app.js"')
-    .replace(/src="zayda-app\.js"/g, 'src="/zayda-app.js"');
+    .replace(/src="zayda-app\.js"/g, 'src="/zayda-app.js"')
+    .replace(/href="favicon\.svg"/g, 'href="/favicon.svg"')
+    .replace(/href="favicon-32x32\.png"/g, 'href="/favicon-32x32.png"')
+    .replace(/href="favicon-16x16\.png"/g, 'href="/favicon-16x16.png"')
+    .replace(/href="apple-touch-icon\.png"/g, 'href="/apple-touch-icon.png"')
+    .replace(/href="favicon\.ico"/g, 'href="/favicon.ico"');
 }
 
 /* Stub de redirecionamento para a URL antiga (.html) — GitHub Pages não tem
@@ -125,6 +130,12 @@ console.log('✓ robots.txt copiado');
 /* ── CNAME — necessário em dist/ para o GitHub Pages servir o domínio customizado ── */
 copyFileSync('CNAME', 'dist/CNAME');
 console.log('✓ CNAME copiado');
+
+/* ── Favicon — copia sem alterar (SVG usa a mesma pilha de fontes do véu de transição) ── */
+for (const f of ['favicon.svg', 'favicon.ico', 'favicon-16x16.png', 'favicon-32x32.png', 'apple-touch-icon.png']) {
+  copyFileSync(f, `dist/${f}`);
+}
+console.log('✓ favicon copiado');
 
 /* ── .nojekyll — impede o GitHub Pages de rodar o processamento Jekyll,
    que ignora arquivos/pastas com "_" no nome (ex.: _nav.html) ── */
