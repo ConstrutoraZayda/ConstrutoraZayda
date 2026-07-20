@@ -120,11 +120,10 @@ const IS_SPA = !!document.querySelector('.page');
 ============================================================ */
 const nav = document.getElementById('nav');
 
-async function goTo(route) {
+async function goTo() {
   sessionStorage.setItem('zayda-skip-intro', '1');
   /* home é "/" em produção (pretty URL) ou "index.html" em preview local/legado */
-  const home = /\.html$/.test(location.pathname) ? 'index.html' : '/';
-  window.location.href = `${home}#${route}`;
+  window.location.href = /\.html$/.test(location.pathname) ? 'index.html' : '/';
 }
 
 async function transitionTo(url) {
@@ -151,11 +150,10 @@ document.addEventListener('click', function (e) {
 
 document.querySelectorAll('[data-link]').forEach(a => {
   a.addEventListener('click', e => {
-    const route = a.dataset.route;
-    if (!route) return;
+    if (!a.dataset.route) return;
     e.preventDefault();
     closeMenu();
-    goTo(route);
+    goTo();
   });
 });
 
