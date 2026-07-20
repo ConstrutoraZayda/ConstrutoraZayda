@@ -28,7 +28,7 @@ const HTML_FILES = [
   'manguezal.html',
   'empreendimentos.html',
   'blog.html',
-  'sobre.html',
+  'expertise.html',
   'carreira.html',
   'atendimento.html',
   'artigo-materiais.html',
@@ -93,6 +93,10 @@ function redirectStub(slug) {
 `;
 }
 
+/* URLs antigas de páginas renomeadas — preserva o link/SEO acumulado
+   redirecionando pro slug atual. Adicione um par aqui ao renomear uma página. */
+const LEGACY_SLUGS = { sobre: 'expertise' };
+
 for (const file of HTML_FILES) {
   const slug = file.replace(/\.html$/, '');
   const htmlIn  = readFileSync(file, 'utf8');
@@ -111,6 +115,14 @@ for (const file of HTML_FILES) {
     writeFileSync(`dist/${file}`, redirectStub(slug)); // preserva a URL antiga indexada
   }
   console.log(`✓ ${file.padEnd(28)} ${kb(Buffer.byteLength(htmlIn))} → ${kb(Buffer.byteLength(htmlOut))}`);
+}
+
+/* ── URLs antigas (LEGACY_SLUGS) — redireciona /sobre/ e /sobre.html pro slug novo ── */
+for (const [oldSlug, newSlug] of Object.entries(LEGACY_SLUGS)) {
+  mkdirSync(`dist/${oldSlug}`, { recursive: true });
+  writeFileSync(`dist/${oldSlug}/index.html`, redirectStub(newSlug));
+  writeFileSync(`dist/${oldSlug}.html`, redirectStub(newSlug));
+  console.log(`✓ redirect legado: /${oldSlug}/ → /${newSlug}/`);
 }
 
 /* ── Service Worker — injeta versão com timestamp para invalidar cache a cada build ── */

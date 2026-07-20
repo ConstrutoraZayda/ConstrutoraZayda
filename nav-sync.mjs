@@ -13,7 +13,7 @@ const FILES = [
   'rua-lambari-andreia.html','rua-lambari-carla.html','vila-do-sol.html',
   'costa-verde.html','ipanema-do-norte.html','mares.html','aldeia.html',
   'atoba.html','manguezal.html','empreendimentos.html','blog.html',
-  'sobre.html','carreira.html','atendimento.html',
+  'expertise.html','carreira.html','atendimento.html',
   'artigo-materiais.html','artigo-bem-estar.html','artigo-concreto.html',
   'artigo-impermeabilizacao.html','artigo-luz.html','artigo-cozinha.html',
   'artigo-metros.html','artigo-longevidade.html','artigo-giverny.html',

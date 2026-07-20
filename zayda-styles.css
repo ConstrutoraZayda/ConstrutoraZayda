@@ -1357,7 +1357,7 @@ footer {
 .studio-body {
   padding: clamp(80px, 10vw, 160px) var(--pad);
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   gap: clamp(40px, 6vw, 96px);
   align-items: end;
 }
@@ -1367,7 +1367,22 @@ footer {
   border-left: 2px solid var(--ink);
 }
 .studio-quote cite { font-size: 13px; color: var(--mid); font-style: normal; margin-top: 8px; display: block; }
-@media (max-width: 820px) { .studio-body { grid-template-columns: 1fr; } }
+/* Tablet: volta pra imagem + os dois blocos de texto empilhados ao lado */
+@media (max-width: 1024px) {
+  .studio-body {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: "img texta" "img textb";
+  }
+  .studio-body .col-img { grid-area: img; }
+  .studio-body .col-text:first-of-type { grid-area: texta; }
+  .studio-body .col-text:last-of-type { grid-area: textb; }
+}
+@media (max-width: 820px) {
+  .studio-body { grid-template-columns: 1fr; grid-template-areas: none; }
+  .studio-body .col-img,
+  .studio-body .col-text:first-of-type,
+  .studio-body .col-text:last-of-type { grid-area: auto; }
+}
 .studio-body .col-img { aspect-ratio: 4 / 5; overflow: hidden; }
 .studio-body .col-img img { width: 100%; height: 100%; object-fit: cover; }
 .studio-body .col-text { display: flex; flex-direction: column; gap: 24px; max-width: 48ch; }
