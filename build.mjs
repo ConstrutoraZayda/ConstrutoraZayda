@@ -23,6 +23,7 @@ const HTML_FILES = [
   'costa-verde.html',
   'ipanema-do-norte.html',
   'rua-corvina.html',
+  'epitacio-pessoa.html',
   'mares.html',
   'aldeia.html',
   'atoba.html',
