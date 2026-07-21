@@ -21,9 +21,11 @@ const FILES = [
   'artigo-autoria-colonial.html',
 ];
 
-// Regex: captura o bloco nav completo — inclui prefetch e scripts opcionais antes do <header>,
-// garantindo que re-runs não duplicam o script inline.
-const NAV_RE = /(?:(?:<link rel="prefetch" href="index\.html">|<script>[^<]*<\/script>)\n)*<header class="nav" id="nav">[\s\S]*?<span class="veil-mark serif">Z<\/span>\n<\/div>/;
+// Regex: captura o bloco nav completo — inclui prefetch e scripts opcionais antes do
+// primeiro elemento, garantindo que re-runs não duplicam o script inline. Aceita tanto a
+// ordem antiga (header primeiro, veil por último) quanto a atual (veil primeiro, cobrindo
+// a tela antes do <header> ser parseado — evita flash de nav sem estilo).
+const NAV_RE = /(?:(?:<link rel="prefetch" href="index\.html">|<script>[^<]*<\/script>)\n)*(?:<header class="nav" id="nav">[\s\S]*?<span class="veil-mark serif">Z<\/span>\n<\/div>|<div class="transition-veil" id="veil">[\s\S]*?<span>© 2026<\/span>\n  <\/div>\n<\/div>)/;
 
 let changed = 0;
 for (const file of FILES) {

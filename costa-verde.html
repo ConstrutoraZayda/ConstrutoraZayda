@@ -64,6 +64,11 @@
 <body data-cloudinary-tag="rua-wellington-borges">
 <link rel="prefetch" href="index.html">
 <script>try{if(sessionStorage.getItem('zayda-incoming-trans')){sessionStorage.removeItem('zayda-incoming-trans');document.documentElement.classList.add('entering')}}catch(e){}</script>
+<!-- Fixed no topo do <body>: existe antes do <header> ser parseado, então cobre
+     qualquer flash de conteúdo sem estilo (ver commit da navegação instantânea da logo) -->
+<div class="transition-veil" id="veil">
+  <span class="veil-mark serif">Z</span>
+</div>
 <header class="nav" id="nav">
   <a class="brand" href="index.html" data-route="inicio" data-link>Zayda</a>
   <nav class="nav-links">
@@ -170,9 +175,6 @@
     <span>© 2026</span>
   </div>
 </div>
-<div class="transition-veil" id="veil">
-  <span class="veil-mark serif">Z</span>
-</div>
 
 
 <section class="emp-hero">
@@ -180,16 +182,16 @@
   <div class="hero-overlay"></div>
   <div class="emp-hero-content">
     <div class="emp-hero-top"><a class="crumb" href="empreendimentos.html">← Empreendimentos</a><span class="emp-status-pill">Entregue</span></div>
-    <div class="emp-hero-title"><span class="label">(06 · 2021 · Praia)</span><h1 class="emp-name">Costa Verde</h1><p class="emp-tag">Vinte e duas unidades com vista para o mar, em terreno arborizado.</p></div>
+    <div class="emp-hero-title"><span class="label">(06 · 2025 · Praia)</span><h1 class="emp-name">Costa Verde</h1><p class="emp-tag">Vinte e duas unidades com vista para o mar, em terreno arborizado.</p></div>
   </div>
 </section>
 
 <section class="emp-specs">
   <div class="spec"><span class="label">Onde fica</span><span class="v">Av. Atlântica, 1.800 · Praia</span></div>
   <div class="spec"><span class="label">Quantidade de quartos</span><span class="v">3 quartos · 72–88 m²</span></div>
-  <div class="spec"><span class="label">Na garagem</span><span class="v">1 vaga por unidade</span></div>
-  <div class="spec"><span class="label">Para viver lá fora</span><span class="v">22 apartamentos</span></div>
-  <div class="spec"><span class="label">Prazo do projeto</span><span class="v">Entregue em Jul 2021</span></div>
+  <div class="spec"><span class="label">Na garagem</span><span class="v">03 vagas de garagem</span></div>
+  <div class="spec"><span class="label">Para viver lá fora</span><span class="v">Área gourmet externa com <br>churrasqueira e varanda coberta </span></div>
+  <div class="spec"><span class="label">Prazo do projeto</span><span class="v">18 meses após a assinatura do contrato</span></div>
   <div class="spec"><span class="label">Investimento</span><span class="v price">A consultar</span></div>
 </section>
 
@@ -230,7 +232,26 @@
   </div>
 </section>
 
-<section class="emp-plant"><div class="emp-plant-grid"><div class="emp-plant-img r"><image-slot id="slot-emp-plant" placeholder="Planta do apartamento" style="width:100%;height:100%;display:block;background:var(--paper);"></image-slot></div><div class="emp-plant-copy r"><span class="label">(Planta)</span><h2 class="section">2 quartos<br/>· 60–74 m²</h2><ul class="emp-plant-list"><li><span class="v">Em breve</span></li></ul></div></div></section>
+<section class="emp-plant">
+  <div class="emp-plant-grid">
+    <div class="emp-plant-img r">
+      <image-slot id="slot-emp-plant" placeholder="Planta do apartamento" style="width:100%;height:100%;display:block;background:var(--paper);">
+
+      </image-slot>
+    </div>
+    <div class="emp-plant-copy r"><span class="label">(Planta)</span>
+      <h2 class="section">02 quartos<br/>· 60–74 m²</h2>
+      <ul class="emp-plant-list">
+        <li><span class="v">Sala ampliada</span> <span class="m">26 m²</span></li>
+        <li><span class="v">Suíte com closet</span> <span class="m">14 m²</span></li>
+        <li><span class="v">Dois quartos</span> <span class="m">11 m² cada</span></li>
+        <li><span class="v">Varanda gourmet</span> <span class="m">9 m²</span></li>
+        <li><span class="v">Cozinha + lavanderia</span> <span class="m">12 m²</span></li>
+        <li><span class="v">Lavabo + banheiro social</span> <span class="m">·</span></li>
+      </ul>
+    </div>
+  </div>
+  </section>
 
   <section>
 <section class="emp-loc">

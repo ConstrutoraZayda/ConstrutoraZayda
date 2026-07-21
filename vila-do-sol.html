@@ -63,6 +63,11 @@
 <body data-cloudinary-tag="rua-tucunaré-rosangela">
 <link rel="prefetch" href="index.html">
 <script>try{if(sessionStorage.getItem('zayda-incoming-trans')){sessionStorage.removeItem('zayda-incoming-trans');document.documentElement.classList.add('entering')}}catch(e){}</script>
+<!-- Fixed no topo do <body>: existe antes do <header> ser parseado, então cobre
+     qualquer flash de conteúdo sem estilo (ver commit da navegação instantânea da logo) -->
+<div class="transition-veil" id="veil">
+  <span class="veil-mark serif">Z</span>
+</div>
 <header class="nav" id="nav">
   <a class="brand" href="index.html" data-route="inicio" data-link>Zayda</a>
   <nav class="nav-links">
@@ -168,9 +173,6 @@
     <span>Barra de São João · RJ</span>
     <span>© 2026</span>
   </div>
-</div>
-<div class="transition-veil" id="veil">
-  <span class="veil-mark serif">Z</span>
 </div>
 
 
