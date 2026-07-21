@@ -11,7 +11,7 @@ const nav = readFileSync('_nav.html', 'utf8');
 const FILES = [
   'rua-lambari.html','praia-da-lagoa.html','rua-lambari-celia.html',
   'rua-lambari-andreia.html','rua-lambari-carla.html','vila-do-sol.html',
-  'costa-verde.html','ipanema-do-norte.html','mares.html','aldeia.html',
+  'costa-verde.html','ipanema-do-norte.html','rua-corvina.html','mares.html','aldeia.html',
   'atoba.html','manguezal.html','empreendimentos.html','blog.html',
   'expertise.html','carreira.html','atendimento.html',
   'artigo-materiais.html','artigo-bem-estar.html','artigo-concreto.html',
@@ -25,7 +25,7 @@ const FILES = [
 // primeiro elemento, garantindo que re-runs não duplicam o script inline. Aceita tanto a
 // ordem antiga (header primeiro, veil por último) quanto a atual (veil primeiro, cobrindo
 // a tela antes do <header> ser parseado — evita flash de nav sem estilo).
-const NAV_RE = /(?:(?:<link rel="prefetch" href="index\.html">|<script>[^<]*<\/script>)\n)*(?:<header class="nav" id="nav">[\s\S]*?<span class="veil-mark serif">Z<\/span>\n<\/div>|<div class="transition-veil" id="veil">[\s\S]*?<span>© 2026<\/span>\n  <\/div>\n<\/div>)/;
+const NAV_RE = /(?:(?:<link rel="prefetch" href="index\.html">|<script>[^<]*<\/script>|<!--[\s\S]*?-->)\n)*(?:<header class="nav" id="nav">[\s\S]*?<span class="veil-mark serif">Z<\/span>\n<\/div>|<div class="transition-veil" id="veil">[\s\S]*?<span>© 2026<\/span>\n  <\/div>\n<\/div>)/;
 
 let changed = 0;
 for (const file of FILES) {

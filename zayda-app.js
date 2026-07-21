@@ -561,7 +561,7 @@ document.getElementById('empReset')?.addEventListener('click', () => {
   const empty = document.getElementById('empEmpty');
   if (empty) empty.style.display = 'none';
   const cnt = document.getElementById('empCount');
-  if (cnt) cnt.textContent = '(08)';
+  if (cnt) cnt.textContent = '(' + String(document.querySelectorAll('#empGrid .obra').length).padStart(2, '0') + ')';
 });
 /* ── Paginação da grade de empreendimentos ── */
 const EMP_PAGE_SIZE = 6;
