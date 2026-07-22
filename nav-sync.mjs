@@ -19,6 +19,7 @@ const FILES = [
   'artigo-metros.html','artigo-longevidade.html','artigo-giverny.html',
   'artigo-litoral-norte.html','artigo-reflorestamento.html',
   'artigo-autoria-colonial.html',
+  'artigo-neuroarquitetura.html',
 ];
 
 // Regex: captura o bloco nav completo — inclui prefetch e scripts opcionais antes do

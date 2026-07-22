@@ -1114,16 +1114,19 @@ if (!IS_SPA) {
 })();
 
 /* ============================================================
-   VIDEO COVER — Artigo "O Concreto Aprendeu a Se Curar Sozinho"
-   Busca o vídeo pela tag blog-video-mit no Cloudinary e injeta
-   um <video> autoplay no card do blog no lugar do image-slot.
+   VIDEO COVER — artigos com vídeo em vez de foto de capa
+   Busca o vídeo pela tag no Cloudinary e injeta um <video>
+   autoplay no card do blog e na capa do artigo, no lugar do
+   image-slot. Enquanto a tag não tiver vídeo, o fetch falha
+   silenciosamente e o image-slot (placeholder) permanece —
+   ou seja, é seguro configurar antes do vídeo existir.
 ============================================================ */
-(function () {
-  const slotCard  = document.getElementById('slot-blog-concreto');
-  const slotCover = document.getElementById('slot-artigo-concreto');
+function initBlogVideoCover(tag, cardSlotId, coverSlotId) {
+  const slotCard  = document.getElementById(cardSlotId);
+  const slotCover = document.getElementById(coverSlotId);
   if (!slotCard && !slotCover) return;
 
-  fetch('https://res.cloudinary.com/dovqcebdt/video/list/blog-video-mit.json')
+  fetch(`https://res.cloudinary.com/dovqcebdt/video/list/${tag}.json`)
     .then(r => r.ok ? r.json() : Promise.reject('Resource List inativa'))
     .then(data => {
       if (!data.resources || !data.resources.length) return;
@@ -1150,7 +1153,10 @@ if (!IS_SPA) {
       if (slotCover) slotCover.replaceWith(makeVid());
     })
     .catch(err => console.warn('[Blog video]', err));
-})();
+}
+
+initBlogVideoCover('blog-video-mit', 'slot-blog-concreto', 'slot-artigo-concreto');
+initBlogVideoCover('blog-video-neuroarquitetura', 'slot-blog-neuroarquitetura', 'slot-artigo-neuroarquitetura');
 
 /* ── Rotação diária do destaque — Zayda Journal na home ─────
    Troca 1× por dia. Para adicionar artigo: inclua um objeto

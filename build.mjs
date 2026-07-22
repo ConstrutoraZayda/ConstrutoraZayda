@@ -45,6 +45,7 @@ const HTML_FILES = [
   'artigo-litoral-norte.html',
   'artigo-reflorestamento.html',
   'artigo-autoria-colonial.html',
+  'artigo-neuroarquitetura.html',
 ];
 /* ── Pretty URLs — slugs conhecidos (todas as páginas exceto a home) ── */
 const KNOWN_SLUGS = new Set(HTML_FILES.map(f => f.replace(/\.html$/, '')).filter(s => s !== 'index'));
