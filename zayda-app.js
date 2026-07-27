@@ -575,6 +575,14 @@ function renderEmpPage() {
     return;
   }
   const cards = Array.from(document.querySelectorAll('#empGrid .obra'));
+  // Abaixo de 768px o grid vira carrossel horizontal (scroll-snap) — o usuário
+  // já "vira a página" deslizando, então a paginação por botão fica desligada
+  // e todos os cards ficam disponíveis no scroll.
+  if (_vw <= 768) {
+    cards.forEach(card => { card.style.display = ''; });
+    if (nav) nav.style.display = 'none';
+    return;
+  }
   const totalPages = Math.ceil(cards.length / EMP_PAGE_SIZE);
   cards.forEach((card, i) => {
     card.style.display = (i >= empPage * EMP_PAGE_SIZE && i < (empPage + 1) * EMP_PAGE_SIZE) ? '' : 'none';
@@ -605,6 +613,13 @@ document.querySelectorAll('.filters .chip').forEach(chip => {
 document.getElementById('empReset')?.addEventListener('click', () => { empPage = 0; setTimeout(renderEmpPage, 70); });
 
 renderEmpPage();
+
+/* Recalcula ao cruzar o breakpoint mobile/desktop (rotação, resize da janela) */
+let _empResizeT = null;
+window.addEventListener('resize', () => {
+  clearTimeout(_empResizeT);
+  _empResizeT = setTimeout(renderEmpPage, 150);
+}, { passive: true });
 
 
 /* ============================================================
