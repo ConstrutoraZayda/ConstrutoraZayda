@@ -1877,7 +1877,14 @@ html.no-reveal .r { opacity: 1; transform: none; transition: none; }
   border-left: 1px solid var(--line);
   border-right: 1px solid var(--line);
 }
-@media (max-width: 768px) { .emp-nav { display: none !important; } }
+@media (max-width: 768px) {
+  /* No mobile o grid é um carrossel horizontal — o nav vira controle de scroll
+     (setas + contador), em vez de paginação por página, pra deixar claro que
+     há mais empreendimentos além dos primeiros cards visíveis. */
+  .emp-nav-label { display: none; }
+  .emp-nav-item { padding: 18px var(--pad); }
+  .emp-nav-counter { padding: 0 16px; font-size: 11px; }
+}
 
 /* ============================================================
    SIMULADOR

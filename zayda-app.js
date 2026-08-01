@@ -575,12 +575,12 @@ function renderEmpPage() {
     return;
   }
   const cards = Array.from(document.querySelectorAll('#empGrid .obra'));
-  // Abaixo de 768px o grid vira carrossel horizontal (scroll-snap) — o usuário
-  // já "vira a página" deslizando, então a paginação por botão fica desligada
-  // e todos os cards ficam disponíveis no scroll.
+  // Abaixo de 768px o grid vira carrossel horizontal (scroll-snap) com todos
+  // os cards disponíveis; o nav vira setas de "próximo/anterior" que rolam
+  // o carrossel, pra deixar claro que dá pra ver todos os empreendimentos.
   if (_vw <= 768) {
     cards.forEach(card => { card.style.display = ''; });
-    if (nav) nav.style.display = 'none';
+    updateEmpNavMobile();
     return;
   }
   const totalPages = Math.ceil(cards.length / EMP_PAGE_SIZE);
@@ -598,10 +598,52 @@ function renderEmpPage() {
   }
 }
 
+/* Largura de um card + gap, pra rolar o carrossel mobile "um card por vez" */
+function empCardStep() {
+  const grid = document.getElementById('empGrid');
+  const card = grid?.querySelector('.obra');
+  if (!grid || !card) return 0;
+  const gap = parseFloat(getComputedStyle(grid).columnGap || getComputedStyle(grid).gap) || 0;
+  return card.getBoundingClientRect().width + gap;
+}
+
+/* Atualiza setas + contador do emp-nav no modo carrossel (mobile) */
+function updateEmpNavMobile() {
+  const grid = document.getElementById('empGrid');
+  const nav = document.querySelector('.emp-nav');
+  if (!grid || !nav) return;
+  const total = Array.from(grid.querySelectorAll('.obra')).filter(c => c.style.display !== 'none').length;
+  if (total <= 1) { nav.style.display = 'none'; return; }
+  nav.style.display = '';
+  const step = empCardStep();
+  const idx = step ? Math.round(grid.scrollLeft / step) : 0;
+  const prevBtn = document.getElementById('empNavPrev');
+  const nextBtn = document.getElementById('empNavNext');
+  const counter = document.getElementById('empNavCounter');
+  if (prevBtn) prevBtn.disabled = idx <= 0;
+  if (nextBtn) nextBtn.disabled = idx >= total - 1;
+  if (counter) counter.textContent = `${Math.min(idx + 1, total)} / ${total}`;
+}
+
+let _empScrollTick = false;
+document.getElementById('empGrid')?.addEventListener('scroll', () => {
+  if (_vw > 768 || _empScrollTick) return;
+  _empScrollTick = true;
+  requestAnimationFrame(() => { _empScrollTick = false; updateEmpNavMobile(); });
+}, { passive: true });
+
 document.getElementById('empNavPrev')?.addEventListener('click', () => {
+  if (_vw <= 768) {
+    document.getElementById('empGrid')?.scrollBy({ left: -empCardStep(), behavior: 'smooth' });
+    return;
+  }
   if (empPage > 0) { empPage--; renderEmpPage(); window.scrollTo({ top: 0, behavior: 'smooth' }); }
 });
 document.getElementById('empNavNext')?.addEventListener('click', () => {
+  if (_vw <= 768) {
+    document.getElementById('empGrid')?.scrollBy({ left: empCardStep(), behavior: 'smooth' });
+    return;
+  }
   const total = Math.ceil(document.querySelectorAll('#empGrid .obra').length / EMP_PAGE_SIZE);
   if (empPage < total - 1) { empPage++; renderEmpPage(); window.scrollTo({ top: 0, behavior: 'smooth' }); }
 });
