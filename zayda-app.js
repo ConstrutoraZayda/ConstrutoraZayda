@@ -1228,6 +1228,12 @@ initBlogVideoCover('blog-video-neuroarquitetura', 'slot-blog-neuroarquitetura', 
     { route:'artigo-cozinha',          cat:'Arquitetura',          title:'A Cozinha Virou Outra Coisa.',                                                  excerpt:'De laboratório de eficiência a centro arquitetônico — e o que essa virada exige da obra.',                                                      img:'https://res.cloudinary.com/dovqcebdt/image/upload/c_fill,w_740,h_1110,q_auto:best,f_auto/v1779293264/dbaf04248279303.69ee25a666e7d_e46wsc.webp' },
     { route:'artigo-metros',           cat:'Mercado',              title:'Por Que os Imóveis Mais Caros do Mundo São Menores.',                           excerpt:'Em Monaco, €1 milhão compra menos de 20m². O que o mercado global já entendeu sobre valor e densidade urbana.',                                  img:'https://res.cloudinary.com/dovqcebdt/image/upload/c_fill,w_740,h_1110,q_auto:best,f_auto/v1779300854/15__Tuca_Rein%C3%A9s_trvbmq.jpg' },
     { route:'artigo-giverny',          cat:'Jardins e Paisagismo', title:'O Jardim Que Ele Construiu Antes de Pintar.',                                   excerpt:'Monet levou 43 anos construindo Giverny. A obra mais importante que ele criou nunca apareceu em uma moldura.',                                  img:'https://res.cloudinary.com/dovqcebdt/image/upload/c_fill,w_740,h_1110,q_auto:best,f_auto/v1779388716/the_japanese_footbridge_1992.9.1_gaozko.jpg' },
+    { route:'artigo-neuroarquitetura', cat:'Arquitetura',          title:'O Prédio Pensa Por Você.',                                                      excerpt:'Jonas Salk encontrou a cura da poliomielite num mosteiro, não no laboratório. A ciência que estuda por que isso aconteceu está redefinindo o que significa construir bem.', img:'https://res.cloudinary.com/dovqcebdt/image/upload/c_fill,w_740,h_1110,q_auto:best,f_auto/v1785502647/24d414247699217.69e0bf4ad144b_p3pnii.webp' },
+    { route:'artigo-autoria-colonial', cat:'Arquitetura',          title:'Indígena, Africano, Português: A Receita que Ninguém Credita.',                  excerpt:'A arquitetura brasileira nasceu de três tradições. Mas apenas uma delas tem nome nos livros de história — e esse esquecimento tem um custo enorme para entender quem somos.', img:'https://res.cloudinary.com/dovqcebdt/image/upload/c_fill,w_740,h_1110,q_auto:best,f_auto/v1782826199/Africa_s_image_2_kepgbw.jpg' },
+    { route:'artigo-concreto',         cat:'Tecnologia',           title:'O Concreto Aprendeu a Se Curar Sozinho.',                                       excerpt:'Bactérias que produzem calcita em contato com a umidade. A tecnologia que deixa o concreto se autocurar — e o que isso representa para quem constrói para durar.', img:'https://res.cloudinary.com/dovqcebdt/image/upload/c_fill,w_740,h_1110,q_auto:best,f_auto/v1779202203/5-IMG_6841_db4c60.jpg' },
+    { route:'artigo-longevidade',      cat:'Arquitetura',          title:'Durar é o Ato Mais Sustentável que Existe.',                                    excerpt:'As portas de bronze do Pantheon têm 1.900 anos. E esse número muda completamente o que entendemos por construção responsável.', img:'https://res.cloudinary.com/dovqcebdt/image/upload/c_fill,w_740,h_1110,q_auto:best,f_auto/v1779723595/ad7e3b239465687.693957be90550_dsgci1.jpg' },
+    { route:'artigo-reflorestamento',  cat:'Tecnologia',           title:'340 mudas e contando: o programa de reflorestamento da mata ciliária.',         excerpt:'Uma construtora que planta árvores às margens dos rios antes de erguer paredes. O que é mata ciliar, por que ela importa — e por que esse número vai crescer.', img:'https://res.cloudinary.com/dovqcebdt/image/upload/c_fill,w_740,h_1110,q_auto:best,f_auto/v1779813007/pexels-aimbere-elorza-1176843138-29257464_geu4f1.jpg' },
+    { route:'artigo-litoral-norte',    cat:'Mercado',               title:'O litoral norte fluminense e a nova rota do mercado imobiliário.',              excerpt:'O mercado imobiliário do Rio cresceu 27,8% em 2025. Mas é no litoral norte fluminense que o comprador mais atento está olhando — antes que todos os outros olhem também.', img:'https://res.cloudinary.com/dovqcebdt/image/upload/c_fill,w_740,h_1110,q_auto:best,f_auto/v1779812069/pexels-muhammed-ballan-117690444-10322305_zddg4w.jpg' },
   ];
 
   const post = HOME_POSTS[Math.floor(Date.now() / 86400000) % HOME_POSTS.length];
@@ -1242,7 +1248,15 @@ initBlogVideoCover('blog-video-neuroarquitetura', 'slot-blog-neuroarquitetura', 
   if (linkBot) { linkBot.href = href; linkBot.dataset.route = post.route; }
 
   const img = document.getElementById('bpFeatImg');
-  if (img) { img.src = post.img; img.alt = post.title; }
+  if (img) {
+    /* post.img vem na resolução 2x (w_740,h_1110); deriva a 1x pra manter o
+       srcset responsivo — sem isso o navegador ignora o .src e mantém a
+       capa antiga, porque srcset tem prioridade sobre src. */
+    const src1x = post.img.replace('w_740,h_1110', 'w_587,h_881');
+    img.src = src1x;
+    img.srcset = `${src1x} 1x, ${post.img} 2x`;
+    img.alt = post.title;
+  }
 
   const cat     = document.getElementById('bpFeatCat');
   const title   = document.getElementById('bpFeatTitle');
