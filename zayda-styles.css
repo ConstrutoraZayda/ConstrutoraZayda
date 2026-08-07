@@ -3601,7 +3601,7 @@ footer.page-hidden { display: none; }
 .car-hero-media {
   overflow: hidden;
   background: var(--bg-2);
-  aspect-ratio: 4 / 3;
+  height: 100%;
 }
 
 /* ── Por que a Zayda ─────────────────────────────────────────── */
