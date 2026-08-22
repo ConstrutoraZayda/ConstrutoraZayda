@@ -1281,15 +1281,36 @@ function renderBlogFeatured(card) {
   if (!feat) return;
   feat.href = card.href;
   feat.dataset.cat = card.dataset.cat;
-  const featImg = feat.querySelector('.jnf-media img');
+  const media   = feat.querySelector('.jnf-media');
+  const featImg = media?.querySelector('img');
   const cardImg = card.querySelector('.jn-post-media img');
   const cardVid = card.querySelector('.jn-post-media video');
-  if (featImg) {
-    // Posts com capa em vídeo (ver initBlogVideoCover) não têm <img> no
-    // card — usa o poster do vídeo pra não deixar a foto de destaque presa
-    // na capa hardcoded do HTML.
-    if (cardImg)      { featImg.src = cardImg.src;    featImg.alt = cardImg.alt; }
-    else if (cardVid) { featImg.src = cardVid.poster; }
+  if (media) {
+    const oldVid = media.querySelector('video');
+    if (cardVid) {
+      // Posts com capa em vídeo (ver initBlogVideoCover) não têm <img> no
+      // card. Espelha o próprio <video> — poster estático deixava o
+      // destaque parado num frame em vez de tocar como no grid.
+      if (featImg) featImg.style.display = 'none';
+      const vid = document.createElement('video');
+      vid.className     = 'lazy-video';
+      vid.poster        = cardVid.poster;
+      vid.dataset.src   = cardVid.dataset.src || cardVid.currentSrc;
+      vid.muted         = true;
+      vid.loop          = true;
+      vid.playsInline   = true;
+      vid.preload       = 'none';
+      vid.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block;';
+      if (window._lazyVideoObserver) window._lazyVideoObserver.observe(vid);
+      if (oldVid) oldVid.replaceWith(vid); else media.appendChild(vid);
+    } else {
+      if (oldVid) oldVid.remove();
+      if (featImg && cardImg) {
+        featImg.src = cardImg.src;
+        featImg.alt = cardImg.alt;
+        featImg.style.display = 'block';
+      }
+    }
   }
   const q  = s => feat.querySelector(s);
   const cq = s => card.querySelector(s);
