@@ -1206,8 +1206,14 @@ function initBlogVideoCover(tag, cardSlotId, coverSlotId) {
         return vid;
       }
 
+      // Guarda o post pai ANTES do replaceWith (que desconecta slotCard do
+      // DOM) — se esse post for o destaque do dia, renderBlogFeatured() já
+      // rodou sem vídeo (este fetch é assíncrono) e ficou com a capa antiga.
+      // Reaplica agora que o poster existe.
+      const parentPost = slotCard && slotCard.closest('.jn-post');
       if (slotCard)  slotCard.replaceWith(makeVid());
       if (slotCover) slotCover.replaceWith(makeVid());
+      if (parentPost && parentPost === dailyCard) renderBlogFeatured(parentPost);
     })
     .catch(err => console.warn('[Blog video]', err));
 }
@@ -1277,7 +1283,14 @@ function renderBlogFeatured(card) {
   feat.dataset.cat = card.dataset.cat;
   const featImg = feat.querySelector('.jnf-media img');
   const cardImg = card.querySelector('.jn-post-media img');
-  if (featImg && cardImg) { featImg.src = cardImg.src; featImg.alt = cardImg.alt; }
+  const cardVid = card.querySelector('.jn-post-media video');
+  if (featImg) {
+    // Posts com capa em vídeo (ver initBlogVideoCover) não têm <img> no
+    // card — usa o poster do vídeo pra não deixar a foto de destaque presa
+    // na capa hardcoded do HTML.
+    if (cardImg)      { featImg.src = cardImg.src;    featImg.alt = cardImg.alt; }
+    else if (cardVid) { featImg.src = cardVid.poster; }
+  }
   const q  = s => feat.querySelector(s);
   const cq = s => card.querySelector(s);
   if (q('.jn-tag'))      q('.jn-tag').textContent      = cq('.jn-tag')?.textContent      || '';
