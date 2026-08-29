@@ -1220,6 +1220,7 @@ function initBlogVideoCover(tag, cardSlotId, coverSlotId) {
 
 initBlogVideoCover('blog-video-mit', 'slot-blog-concreto', 'slot-artigo-concreto');
 initBlogVideoCover('blog-video-neuroarquitetura', 'slot-blog-neuroarquitetura', 'slot-artigo-neuroarquitetura');
+initBlogVideoCover('blog-video-alegria-carioca', 'slot-blog-alegria-carioca', 'slot-artigo-alegria-carioca');
 
 /* ── Rotação diária do destaque — Zayda Journal na home ─────
    Troca 1× por dia. Para adicionar artigo: inclua um objeto
