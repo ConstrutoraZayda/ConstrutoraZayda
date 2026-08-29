@@ -1178,49 +1178,58 @@ if (!IS_SPA) {
    silenciosamente e o image-slot (placeholder) permanece —
    ou seja, é seguro configurar antes do vídeo existir.
 ============================================================ */
-function initBlogVideoCover(tag, cardSlotId, coverSlotId) {
+function installVideoCover(publicId, cardSlotId, coverSlotId) {
   const slotCard  = document.getElementById(cardSlotId);
   const slotCover = document.getElementById(coverSlotId);
   if (!slotCard && !slotCover) return;
 
+  /* w_1200 é essencial — sem ele o Cloudinary entrega a fonte original
+     (algumas são 4K, 20+ MB) para um card de ~400px. Mesma regra do
+     w_1200 nas imagens (ver DEVELOPERS.md), aplicada a vídeo. */
+  const url       = `https://res.cloudinary.com/dovqcebdt/video/upload/f_auto,q_auto,w_1200/${publicId}.mp4`;
+  const posterUrl = `https://res.cloudinary.com/dovqcebdt/video/upload/so_0,f_auto,q_auto:best,w_800/${publicId}.jpg`;
+
+  /* Cria um elemento <video> lazy — src só carrega ao entrar na viewport */
+  function makeVid() {
+    const vid = document.createElement('video');
+    vid.className     = 'lazy-video';
+    vid.poster        = posterUrl;      /* placeholder instantâneo */
+    vid.dataset.src   = url;            /* src real carregado pelo IntersectionObserver */
+    vid.preload       = 'none';
+    vid.muted         = true;
+    vid.loop          = true;
+    vid.playsInline   = true;
+    vid.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block;';
+    if (window._lazyVideoObserver) window._lazyVideoObserver.observe(vid);
+    return vid;
+  }
+
+  // Guarda o post pai ANTES do replaceWith (que desconecta slotCard do
+  // DOM) — se esse post for o destaque do dia, renderBlogFeatured() já
+  // rodou sem vídeo (chamada assíncrona ou anterior à definição de
+  // dailyCard) e ficou com a capa antiga. Reaplica agora que o vídeo existe.
+  const parentPost = slotCard && slotCard.closest('.jn-post');
+  if (slotCard)  slotCard.replaceWith(makeVid());
+  if (slotCover) slotCover.replaceWith(makeVid());
+  if (parentPost && parentPost === dailyCard) renderBlogFeatured(parentPost);
+}
+
+function initBlogVideoCover(tag, cardSlotId, coverSlotId) {
   fetch(`https://res.cloudinary.com/dovqcebdt/video/list/${tag}.json`)
     .then(r => r.ok ? r.json() : Promise.reject('Resource List inativa'))
     .then(data => {
-      if (!data.resources || !data.resources.length) return;
-      const r   = data.resources[0];
-      const url       = `https://res.cloudinary.com/dovqcebdt/video/upload/f_auto,q_auto/${r.public_id}.mp4`;
-      const posterUrl = `https://res.cloudinary.com/dovqcebdt/video/upload/so_0,f_auto,q_auto:best,w_800/${r.public_id}.jpg`;
-
-      /* Cria um elemento <video> lazy — src só carrega ao entrar na viewport */
-      function makeVid() {
-        const vid = document.createElement('video');
-        vid.className     = 'lazy-video';
-        vid.poster        = posterUrl;      /* placeholder instantâneo */
-        vid.dataset.src   = url;            /* src real carregado pelo IntersectionObserver */
-        vid.preload       = 'none';
-        vid.muted         = true;
-        vid.loop          = true;
-        vid.playsInline   = true;
-        vid.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block;';
-        if (window._lazyVideoObserver) window._lazyVideoObserver.observe(vid);
-        return vid;
+      if (data.resources && data.resources.length) {
+        installVideoCover(data.resources[0].public_id, cardSlotId, coverSlotId);
       }
-
-      // Guarda o post pai ANTES do replaceWith (que desconecta slotCard do
-      // DOM) — se esse post for o destaque do dia, renderBlogFeatured() já
-      // rodou sem vídeo (este fetch é assíncrono) e ficou com a capa antiga.
-      // Reaplica agora que o poster existe.
-      const parentPost = slotCard && slotCard.closest('.jn-post');
-      if (slotCard)  slotCard.replaceWith(makeVid());
-      if (slotCover) slotCover.replaceWith(makeVid());
-      if (parentPost && parentPost === dailyCard) renderBlogFeatured(parentPost);
     })
     .catch(err => console.warn('[Blog video]', err));
 }
 
 initBlogVideoCover('blog-video-mit', 'slot-blog-concreto', 'slot-artigo-concreto');
 initBlogVideoCover('blog-video-neuroarquitetura', 'slot-blog-neuroarquitetura', 'slot-artigo-neuroarquitetura');
-initBlogVideoCover('blog-video-alegria-carioca', 'slot-blog-alegria-carioca', 'slot-artigo-alegria-carioca');
+/* Vídeo de capa "Alegria Carioca" — public_id fixo (Cloudinary), sem tag
+   associada ainda. installVideoCover() precisa que dailyCard/renderBlogFeatured
+   já existam, por isso é chamado mais abaixo, depois da rotação diária. */
 
 /* ── Rotação diária do destaque — Zayda Journal na home ─────
    Troca 1× por dia. Para adicionar artigo: inclua um objeto
@@ -1324,6 +1333,8 @@ function renderBlogFeatured(card) {
 
 const dailyCard = jnCards.length ? jnCards[Math.floor(Date.now() / 86400000) % jnCards.length] : null;
 if (dailyCard) renderBlogFeatured(dailyCard);
+
+installVideoCover('0829_ubga7r', 'slot-blog-alegria-carioca', 'slot-artigo-alegria-carioca');
 
 /* ============================================================
    INTERACTIVE FRAME — Giverny
