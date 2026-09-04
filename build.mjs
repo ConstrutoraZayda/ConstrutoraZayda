@@ -28,6 +28,7 @@ const HTML_FILES = [
   'aldeia.html',
   'atoba.html',
   'manguezal.html',
+  'recanto-do-sol.html',
   'empreendimentos.html',
   'blog.html',
   'expertise.html',
