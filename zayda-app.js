@@ -1185,8 +1185,10 @@ function installVideoCover(publicId, cardSlotId, coverSlotId) {
 
   /* w_1200 é essencial — sem ele o Cloudinary entrega a fonte original
      (algumas são 4K, 20+ MB) para um card de ~400px. Mesma regra do
-     w_1200 nas imagens (ver DEVELOPERS.md), aplicada a vídeo. */
-  const url       = `https://res.cloudinary.com/dovqcebdt/video/upload/f_auto,q_auto,w_1200/${publicId}.mp4`;
+     w_1200 nas imagens (ver DEVELOPERS.md), aplicada a vídeo.
+     q_auto:best em vez de q_auto simples — capa é o primeiro contato
+     do post, prioriza qualidade sobre peso (~50-70% maior). */
+  const url       = `https://res.cloudinary.com/dovqcebdt/video/upload/f_auto,q_auto:best,w_1200/${publicId}.mp4`;
   const posterUrl = `https://res.cloudinary.com/dovqcebdt/video/upload/so_0,f_auto,q_auto:best,w_800/${publicId}.jpg`;
 
   /* Cria um elemento <video> lazy — src só carrega ao entrar na viewport */
