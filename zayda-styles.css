@@ -3550,21 +3550,31 @@ footer.page-hidden { display: none; }
 /* ── Imagens editoriais inline ─────────────────────────────── */
 .art-figure {
   margin: clamp(40px, 5vw, 64px) -60px;
-  border-radius: 8px;
-  overflow: hidden;
-  aspect-ratio: 3 / 2;
-  background: var(--bg-2);
 }
 .art-figure img {
   width: 100%;
   height: auto;
   display: block;
+  border-radius: 8px;
+  background: var(--bg-2);
+}
+/* Legenda — fora da caixa da imagem (sem aspect-ratio/overflow no
+   figure) para não cortar o texto quando a arte não é 3:2. */
+.art-figure figcaption {
+  margin: 14px 60px 0;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--mid);
 }
 
 /* ── Mobile ─────────────────────────────────────────────────── */
 @media (max-width: 768px) {
   .art-cover { border-radius: 4px; }
-  .art-figure { margin-inline: -var(--pad); border-radius: 0; }
+  .art-figure { margin-inline: -var(--pad); }
+  .art-figure img { border-radius: 0; }
+  .art-figure figcaption { margin-inline: var(--pad); }
 }
 
 /* ============================================================
