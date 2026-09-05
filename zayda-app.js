@@ -1199,6 +1199,12 @@ function installVideoCover(publicId, cardSlotId, coverSlotId) {
     vid.muted         = true;
     vid.loop          = true;
     vid.playsInline   = true;
+    /* Safari (especialmente iOS) decide se permite autoplay olhando o
+       ATRIBUTO muted no momento do play(), não só a propriedade JS —
+       setar só vid.muted=true engana o Chrome mas o Safari ainda pode
+       bloquear o autoplay de um <video> criado dinamicamente. */
+    vid.setAttribute('muted', '');
+    vid.setAttribute('playsinline', '');
     vid.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block;';
     if (window._lazyVideoObserver) window._lazyVideoObserver.observe(vid);
     return vid;
@@ -1309,6 +1315,8 @@ function renderBlogFeatured(card) {
       vid.muted         = true;
       vid.loop          = true;
       vid.playsInline   = true;
+      vid.setAttribute('muted', '');
+      vid.setAttribute('playsinline', '');
       vid.preload       = 'none';
       vid.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block;';
       if (window._lazyVideoObserver) window._lazyVideoObserver.observe(vid);
