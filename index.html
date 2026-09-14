@@ -385,117 +385,59 @@ html.skip-intro .transition-veil{transform:translateY(0);transition:none}
     </div>
   </section>
 
-  <!-- DIFERENCIAIS — carrossel de cards estilo Apple (imagem + legenda,
-       scroll-snap com espiada do próximo card, setas circulares) -->
-  <section class="feat-carousel" aria-label="Diferenciais Zayda">
+  <!-- ZAYDA JOURNAL — carrossel de cards estilo Apple (imagem + legenda,
+       scroll-snap com espiada do próximo card, setas circulares).
+       Substitui a antiga seção .blog-preview só aqui na home — o
+       componente .blog-preview em si continua intocado (não é usado em
+       nenhuma outra página, mas o CSS permanece caso volte a ser usado). -->
+  <section class="feat-carousel" aria-label="Zayda Journal — últimos artigos">
     <div class="feat-head">
-      <span class="label">(Por que a Zayda)</span>
-      <h2 class="section">O que muda,<br/>quando é <span class="italic serif">feito por perto</span>.</h2>
-    </div>
-    <div class="feat-track-wrap" id="featTrack">
-      <div class="feat-track">
-        <div class="feat-card">
-          <div class="feat-media"><img src="https://res.cloudinary.com/dovqcebdt/image/upload/w_1300,f_auto,q_auto:best/v1779202203/5-IMG_6841_db4c60.jpg" srcset="https://res.cloudinary.com/dovqcebdt/image/upload/w_800,f_auto,q_auto:best/v1779202203/5-IMG_6841_db4c60.jpg 800w, https://res.cloudinary.com/dovqcebdt/image/upload/w_1300,f_auto,q_auto:best/v1779202203/5-IMG_6841_db4c60.jpg 1300w, https://res.cloudinary.com/dovqcebdt/image/upload/w_1800,f_auto,q_auto:best/v1779202203/5-IMG_6841_db4c60.jpg 1800w" sizes="(max-width:640px) 86vw, (max-width:1100px) 68vw, 48vw" alt="Vista aérea entre a lagoa e o mar, Barra de São João" width="1300" height="813" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy"></div>
-          <p class="feat-caption"><strong>Entre a lagoa e o mar.</strong> Todos os empreendimentos da Zayda ficam em Barra de São João — entre a Lagoa de Iriry e o Atlântico.</p>
-        </div>
-        <div class="feat-card">
-          <div class="feat-media"><img src="https://res.cloudinary.com/dovqcebdt/image/upload/w_1300,f_auto,q_auto:best/v1779214464/1-dji_fly_20250818_103402_69_1755526869376_photo_1_qihmg0.jpg" srcset="https://res.cloudinary.com/dovqcebdt/image/upload/w_800,f_auto,q_auto:best/v1779214464/1-dji_fly_20250818_103402_69_1755526869376_photo_1_qihmg0.jpg 800w, https://res.cloudinary.com/dovqcebdt/image/upload/w_1300,f_auto,q_auto:best/v1779214464/1-dji_fly_20250818_103402_69_1755526869376_photo_1_qihmg0.jpg 1300w, https://res.cloudinary.com/dovqcebdt/image/upload/w_1800,f_auto,q_auto:best/v1779214464/1-dji_fly_20250818_103402_69_1755526869376_photo_1_qihmg0.jpg 1800w" sizes="(max-width:640px) 86vw, (max-width:1100px) 68vw, 48vw" alt="Vila do Sol vista do alto" width="1300" height="813" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy"></div>
-          <p class="feat-caption"><strong>Desde 2014, construindo por aqui.</strong> Mais de uma década entregando obras na Barra de São João — no prazo combinado.</p>
-        </div>
-        <div class="feat-card">
-          <div class="feat-media"><img src="https://res.cloudinary.com/dovqcebdt/image/upload/w_1300,f_auto,q_auto:best/v1779813007/pexels-aimbere-elorza-1176843138-29257464_geu4f1.jpg" srcset="https://res.cloudinary.com/dovqcebdt/image/upload/w_800,f_auto,q_auto:best/v1779813007/pexels-aimbere-elorza-1176843138-29257464_geu4f1.jpg 800w, https://res.cloudinary.com/dovqcebdt/image/upload/w_1300,f_auto,q_auto:best/v1779813007/pexels-aimbere-elorza-1176843138-29257464_geu4f1.jpg 1300w, https://res.cloudinary.com/dovqcebdt/image/upload/w_1800,f_auto,q_auto:best/v1779813007/pexels-aimbere-elorza-1176843138-29257464_geu4f1.jpg 1800w" sizes="(max-width:640px) 86vw, (max-width:1100px) 68vw, 48vw" alt="Margem de rio reflorestada" width="1300" height="813" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy"></div>
-          <p class="feat-caption"><strong>340 mudas plantadas.</strong> Um programa próprio de reflorestamento das margens dos rios da região, antes de erguer qualquer parede.</p>
-        </div>
-        <div class="feat-card">
-          <div class="feat-media"><img src="https://res.cloudinary.com/dovqcebdt/image/upload/w_1300,f_auto,q_auto:best/v1788533748/23-IMG_5032_zmwqpt.jpg" srcset="https://res.cloudinary.com/dovqcebdt/image/upload/w_800,f_auto,q_auto:best/v1788533748/23-IMG_5032_zmwqpt.jpg 800w, https://res.cloudinary.com/dovqcebdt/image/upload/w_1300,f_auto,q_auto:best/v1788533748/23-IMG_5032_zmwqpt.jpg 1300w, https://res.cloudinary.com/dovqcebdt/image/upload/w_1800,f_auto,q_auto:best/v1788533748/23-IMG_5032_zmwqpt.jpg 1800w" sizes="(max-width:640px) 86vw, (max-width:1100px) 68vw, 48vw" alt="Sala integrada à cozinha, Recanto do Sol" width="1300" height="813" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy"></div>
-          <p class="feat-caption"><strong>Prédios pequenos, qualidade de grande.</strong> Uma construtora de bairro — cada empreendimento pensado no detalhe, não em escala.</p>
-        </div>
-      </div>
-    </div>
-    <nav class="feat-nav" aria-label="Navegar entre diferenciais">
-      <button type="button" class="feat-arrow" id="featPrev" aria-label="Diferencial anterior" disabled>
-        <svg width="9" height="15" viewBox="0 0 9 15" fill="none" aria-hidden="true"><path d="M7.5 1.5L1.5 7.5L7.5 13.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </button>
-      <button type="button" class="feat-arrow" id="featNext" aria-label="Próximo diferencial">
-        <svg width="9" height="15" viewBox="0 0 9 15" fill="none" aria-hidden="true"><path d="M1.5 1.5L7.5 7.5L1.5 13.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </button>
-    </nav>
-  </section>
-
-  <!-- BLOG PREVIEW — Zayda Journal -->
-  <section class="blog-preview">
-    <div class="blog-preview-head">
       <div>
         <span class="label">(Zayda Journal)</span>
         <h2 class="section">Histórias, processo<br>e <span class="italic serif">lugar</span>.</h2>
       </div>
       <a href="blog.html" class="blog-preview-all">Ver todos os artigos →</a>
     </div>
-
-    <div class="blog-preview-grid">
-
-      <!-- Artigo em destaque — rotação diária via JS -->
-      <article class="bp-featured r">
-        <a id="bpFeatLinkTop" href="artigo-impermeabilizacao.html" class="bp-featured-img-wrap">
-          <img id="bpFeatImg" src="https://res.cloudinary.com/dovqcebdt/image/upload/c_fill,w_587,h_881,q_auto:best,f_auto/v1779288159/3e1011226538547.68375be87851c_tknnxq.webp" srcset="https://res.cloudinary.com/dovqcebdt/image/upload/c_fill,w_587,h_881,q_auto:best,f_auto/v1779288159/3e1011226538547.68375be87851c_tknnxq.webp 1x, https://res.cloudinary.com/dovqcebdt/image/upload/c_fill,w_740,h_1110,q_auto:best,f_auto/v1779288159/3e1011226538547.68375be87851c_tknnxq.webp 2x" alt="O Que Acontece com Sua Obra Quando Chove." width="587" height="881" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy">
+    <div class="feat-track-wrap" id="featTrack">
+      <div class="feat-track">
+        <a class="feat-card" href="artigo-metros.html">
+          <div class="feat-media">
+            <span class="obra-pill">Mercado</span>
+            <img src="https://res.cloudinary.com/dovqcebdt/image/upload/c_fill,g_auto,w_1300,h_1072,f_auto,q_auto:best/v1779300854/15__Tuca_Rein%C3%A9s_trvbmq.jpg" srcset="https://res.cloudinary.com/dovqcebdt/image/upload/c_fill,g_auto,w_800,h_660,f_auto,q_auto:best/v1779300854/15__Tuca_Rein%C3%A9s_trvbmq.jpg 800w, https://res.cloudinary.com/dovqcebdt/image/upload/c_fill,g_auto,w_1300,h_1072,f_auto,q_auto:best/v1779300854/15__Tuca_Rein%C3%A9s_trvbmq.jpg 1300w, https://res.cloudinary.com/dovqcebdt/image/upload/c_fill,g_auto,w_1800,h_1484,f_auto,q_auto:best/v1779300854/15__Tuca_Rein%C3%A9s_trvbmq.jpg 1800w" sizes="(max-width:640px) 86vw, (max-width:1100px) 68vw, 48vw" alt="Por Que os Imóveis Mais Caros do Mundo São Menores" width="1300" height="1072" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy">
+          </div>
+          <p class="feat-caption"><strong>Por Que os Imóveis Mais Caros do Mundo São Menores.</strong> Em Monaco, €1 milhão compra menos de 20m². O que o mercado global já entendeu sobre valor e densidade urbana.</p>
         </a>
-        <div class="bp-featured-body">
-          <span id="bpFeatCat" class="bp-cat">Bem Estar</span>
-          <h3 id="bpFeatTitle" class="bp-featured-title">O Que Acontece com Sua Obra Quando Chove.</h3>
-          <p id="bpFeatExcerpt" class="bp-featured-excerpt">60% das patologias em edificações têm origem na água. Não é azar — é decisão de projeto.</p>
-          <a id="bpFeatLinkBot" href="artigo-impermeabilizacao.html" class="bp-read">Ler artigo →</a>
-        </div>
-      </article>
-
-      <!-- Lista lateral -->
-      <div class="bp-sidebar">
-
-        <a class="bp-item r" href="artigo-metros.html">
-          <div class="bp-item-body">
-            <span class="bp-cat">Mercado</span>
-            <h4 class="bp-item-title">Por Que os Imóveis Mais Caros do Mundo São Menores.</h4>
-            <p class="bp-item-desc">Em Monaco, €1 milhão compra menos de 20m². O que o mercado global já entendeu sobre valor.</p>
+        <a class="feat-card" href="artigo-giverny.html">
+          <div class="feat-media">
+            <span class="obra-pill">Jardins e Paisagismo</span>
+            <img src="https://res.cloudinary.com/dovqcebdt/image/upload/c_fill,g_auto,w_1300,h_1072,f_auto,q_auto:best/v1779388716/the_japanese_footbridge_1992.9.1_gaozko.jpg" srcset="https://res.cloudinary.com/dovqcebdt/image/upload/c_fill,g_auto,w_800,h_660,f_auto,q_auto:best/v1779388716/the_japanese_footbridge_1992.9.1_gaozko.jpg 800w, https://res.cloudinary.com/dovqcebdt/image/upload/c_fill,g_auto,w_1300,h_1072,f_auto,q_auto:best/v1779388716/the_japanese_footbridge_1992.9.1_gaozko.jpg 1300w, https://res.cloudinary.com/dovqcebdt/image/upload/c_fill,g_auto,w_1800,h_1484,f_auto,q_auto:best/v1779388716/the_japanese_footbridge_1992.9.1_gaozko.jpg 1800w" sizes="(max-width:640px) 86vw, (max-width:1100px) 68vw, 48vw" alt="O Jardim Que Ele Construiu Antes de Pintar" width="1300" height="1072" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy">
           </div>
-          <div class="bp-item-thumb">
-            <img src="https://res.cloudinary.com/dovqcebdt/image/upload/w_280,f_auto,q_auto/v1779300854/15__Tuca_Rein%C3%A9s_trvbmq.jpg" alt="Por Que os Imóveis Mais Caros do Mundo São Menores" width="280" height="187" loading="lazy">
-          </div>
+          <p class="feat-caption"><strong>O Jardim Que Ele Construiu Antes de Pintar.</strong> Monet levou 43 anos construindo Giverny. A obra mais importante que ele criou nunca apareceu em uma moldura.</p>
         </a>
-
-        <a class="bp-item r" href="artigo-luz.html">
-          <div class="bp-item-body">
-            <span class="bp-cat">Processo</span>
-            <h4 class="bp-item-title">Sua Casa Sabe Que Horas São?</h4>
-            <p class="bp-item-desc">A orientação solar de um dormitório afeta seu sono mais do que qualquer colchão.</p>
+        <a class="feat-card" href="artigo-impermeabilizacao.html">
+          <div class="feat-media">
+            <span class="obra-pill">Bem Estar</span>
+            <img src="https://res.cloudinary.com/dovqcebdt/image/upload/c_fill,g_auto,w_1300,h_1072,f_auto,q_auto:best/v1779288159/3e1011226538547.68375be87851c_tknnxq.webp" srcset="https://res.cloudinary.com/dovqcebdt/image/upload/c_fill,g_auto,w_800,h_660,f_auto,q_auto:best/v1779288159/3e1011226538547.68375be87851c_tknnxq.webp 800w, https://res.cloudinary.com/dovqcebdt/image/upload/c_fill,g_auto,w_1300,h_1072,f_auto,q_auto:best/v1779288159/3e1011226538547.68375be87851c_tknnxq.webp 1300w, https://res.cloudinary.com/dovqcebdt/image/upload/c_fill,g_auto,w_1800,h_1484,f_auto,q_auto:best/v1779288159/3e1011226538547.68375be87851c_tknnxq.webp 1800w" sizes="(max-width:640px) 86vw, (max-width:1100px) 68vw, 48vw" alt="O Que Acontece com Sua Obra Quando Chove" width="1300" height="1072" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy">
           </div>
-          <div class="bp-item-thumb">
-            <img src="https://res.cloudinary.com/dovqcebdt/image/upload/w_280,f_auto,q_auto/v1779288889/6f1ff9236946593.68f6bff40df3d_o11lwi.webp" alt="Sua Casa Sabe Que Horas São?" width="280" height="187" loading="lazy">
-          </div>
+          <p class="feat-caption"><strong>O Que Acontece com Sua Obra Quando Chove.</strong> 60% das patologias em edificações têm origem na água. Não é azar — é decisão de projeto.</p>
         </a>
-
-        <a class="bp-item r" href="artigo-cozinha.html">
-          <div class="bp-item-body">
-            <span class="bp-cat">Processo</span>
-            <h4 class="bp-item-title">A Cozinha Virou Outra Coisa.</h4>
-            <p class="bp-item-desc">De laboratório de eficiência a centro arquitetônico — e o que essa virada exige da obra.</p>
+        <a class="feat-card" href="artigo-neuroarquitetura.html">
+          <div class="feat-media">
+            <span class="obra-pill">Arquitetura</span>
+            <img src="https://res.cloudinary.com/dovqcebdt/image/upload/c_fill,g_auto,w_1300,h_1072,f_auto,q_auto:best/v1785502647/24d414247699217.69e0bf4ad144b_p3pnii.webp" srcset="https://res.cloudinary.com/dovqcebdt/image/upload/c_fill,g_auto,w_800,h_660,f_auto,q_auto:best/v1785502647/24d414247699217.69e0bf4ad144b_p3pnii.webp 800w, https://res.cloudinary.com/dovqcebdt/image/upload/c_fill,g_auto,w_1300,h_1072,f_auto,q_auto:best/v1785502647/24d414247699217.69e0bf4ad144b_p3pnii.webp 1300w, https://res.cloudinary.com/dovqcebdt/image/upload/c_fill,g_auto,w_1800,h_1484,f_auto,q_auto:best/v1785502647/24d414247699217.69e0bf4ad144b_p3pnii.webp 1800w" sizes="(max-width:640px) 86vw, (max-width:1100px) 68vw, 48vw" alt="O Prédio Pensa Por Você" width="1300" height="1072" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy">
           </div>
-          <div class="bp-item-thumb">
-            <img src="https://res.cloudinary.com/dovqcebdt/image/upload/w_280,f_auto,q_auto/v1779293264/dbaf04248279303.69ee25a666e7d_e46wsc.webp" alt="A Cozinha Virou Outra Coisa" width="280" height="187" loading="lazy">
-          </div>
+          <p class="feat-caption"><strong>O Prédio Pensa Por Você.</strong> Jonas Salk encontrou a cura da poliomielite num mosteiro, não no laboratório — a ciência que estuda por que isso aconteceu está redefinindo o que significa construir bem.</p>
         </a>
-
-        <a class="bp-item r" href="artigo-impermeabilizacao.html">
-          <div class="bp-item-body">
-            <span class="bp-cat">Processo</span>
-            <h4 class="bp-item-title">O Que Acontece com Sua Obra Quando Chove.</h4>
-            <p class="bp-item-desc">60% das patologias em edificações têm origem na água. Não é azar — é decisão de projeto.</p>
-          </div>
-          <div class="bp-item-thumb">
-            <img src="https://res.cloudinary.com/dovqcebdt/image/upload/w_280,f_auto,q_auto/v1779288159/3e1011226538547.68375be87851c_tknnxq.webp" alt="O Que Acontece com Sua Obra Quando Chove" width="280" height="187" loading="lazy">
-          </div>
-        </a>
-
       </div>
     </div>
+    <nav class="feat-nav" aria-label="Navegar entre artigos">
+      <button type="button" class="feat-arrow" id="featPrev" aria-label="Artigo anterior" disabled>
+        <svg width="9" height="15" viewBox="0 0 9 15" fill="none" aria-hidden="true"><path d="M7.5 1.5L1.5 7.5L7.5 13.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <button type="button" class="feat-arrow" id="featNext" aria-label="Próximo artigo">
+        <svg width="9" height="15" viewBox="0 0 9 15" fill="none" aria-hidden="true"><path d="M1.5 1.5L7.5 7.5L1.5 13.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </nav>
   </section>
 
   <!-- STATS -->

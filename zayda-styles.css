@@ -881,7 +881,10 @@ section.block {
    é o que cria a sensação de "tem mais, deslize/clique").
 ============================================================ */
 .feat-carousel { padding: clamp(80px, 10vw, 160px) 0; border-bottom: 1px solid var(--line); }
-.feat-head { padding: 0 var(--pad); margin-bottom: clamp(40px, 5vw, 64px); max-width: var(--maxw); margin-inline: auto; }
+.feat-head {
+  display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: 16px;
+  padding: 0 var(--pad); margin-bottom: clamp(40px, 5vw, 64px); max-width: var(--maxw); margin-inline: auto;
+}
 .feat-head .label { display: block; margin-bottom: 20px; }
 
 .feat-track-wrap {
@@ -918,11 +921,14 @@ section.block {
 @media (min-width: 1100px) { .feat-card { flex-basis: clamp(460px, 48vw, 780px); } }
 
 .feat-media {
-  aspect-ratio: 16 / 10;
+  /* proporção pedida: 569.26 × 469.4 */
+  aspect-ratio: 569.26 / 469.4;
+  position: relative;
   overflow: hidden;
   border-radius: 20px;
   background: var(--bg-2);
 }
+.feat-media .obra-pill { z-index: 1; }
 .feat-media img { transition: transform 900ms var(--ease); }
 .feat-card:hover .feat-media img { transform: scale(1.035); }
 @media (prefers-reduced-motion: reduce) { .feat-media img { transition: none; } .feat-card:hover .feat-media img { transform: none; } }
