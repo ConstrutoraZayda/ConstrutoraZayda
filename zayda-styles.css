@@ -1688,6 +1688,21 @@ html.no-reveal .r { opacity: 1; transform: none; transition: none; }
   font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
   backdrop-filter: blur(6px);
 }
+.emp-hero-top-right { display: flex; align-items: center; gap: 10px; }
+/* Compartilhar (Web Share API / clipboard) — mesmo acabamento do status pill */
+.emp-share-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 34px; height: 34px; flex: none;
+  color: #fff;
+  background: rgba(15,15,14,0.6);
+  border: 1px solid rgba(255,255,255,0.32);
+  border-radius: 999px;
+  backdrop-filter: blur(6px);
+  transition: background 220ms var(--ease), color 220ms var(--ease), transform 180ms var(--ease);
+  -webkit-tap-highlight-color: transparent;
+}
+.emp-share-btn:hover { background: #fff; color: var(--ink); }
+.emp-share-btn:active { transform: scale(0.92); }
 .emp-hero-title { align-self: end; }
 .emp-hero-title .label { color: rgba(255,255,255,0.75); display: inline-block; margin-bottom: 16px; }
 .emp-name {
@@ -1810,6 +1825,41 @@ html.no-reveal .r { opacity: 1; transform: none; transition: none; }
   display: inline-flex; align-items: center; gap: 8px;
 }
 .emp-map-pin .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent-bright); box-shadow: 0 0 0 3px rgba(115,224,70,0.32); }
+
+/* Como chegar (deep link Google Maps) + Agendar visita (calendário nativo) */
+.emp-loc-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+.emp-action-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 11px 20px;
+  border: 1px solid var(--ink);
+  border-radius: 999px;
+  font-size: 13px; letter-spacing: 0.01em;
+  color: var(--ink);
+  transition: background 220ms var(--ease), color 220ms var(--ease), transform 180ms var(--ease);
+  -webkit-tap-highlight-color: transparent;
+}
+.emp-action-btn svg { flex: none; }
+.emp-action-btn:hover { background: var(--ink); color: var(--bg); }
+.emp-action-btn:active { transform: scale(0.96); }
+
+/* Toast — feedback rápido (ex.: "Link copiado!") pras ações que não abrem
+   um app nativo (share sem Web Share API, agendar visita). */
+.zy-toast {
+  position: fixed;
+  left: 50%; bottom: calc(28px + env(safe-area-inset-bottom, 0px));
+  transform: translateX(-50%) translateY(12px);
+  background: var(--ink); color: var(--bg);
+  padding: 12px 22px;
+  border-radius: 999px;
+  font-size: 13px;
+  max-width: calc(100vw - 40px);
+  text-align: center;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 200;
+  transition: opacity 220ms var(--ease), transform 220ms var(--ease);
+}
+.zy-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 .emp-poi { list-style: none; border-top: 1px solid var(--line); }
 .emp-poi li {
   display: grid; grid-template-columns: 80px 1fr;

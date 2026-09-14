@@ -1626,3 +1626,129 @@ document.addEventListener('click', e => {
   audio.addEventListener('pause', onStop);
   audio.addEventListener('ended', () => { audio.currentTime = 0; onStop(); });
 })();
+
+/* ============================================================
+   AÇÕES DO EMPREENDIMENTO — Compartilhar / Como chegar / Agendar visita
+   Lê nome, endereço e tag direto do DOM da própria página, então os
+   três botões funcionam em qualquer página de empreendimento sem
+   precisar de dado extra por página (data-attribute, etc.).
+============================================================ */
+(function () {
+  const CIDADE = 'Barra de São João - RJ';
+
+  function empName() {
+    return document.querySelector('.emp-name')?.textContent.trim() || document.title;
+  }
+  /* Endereço vem do pin do mapa (.emp-map-pin) — remove o <span class="dot">
+     antes de ler o texto, senão sobra espaço em branco no lugar dele. */
+  function empAddress() {
+    const pin = document.querySelector('.emp-map-pin');
+    if (!pin) return '';
+    const clone = pin.cloneNode(true);
+    clone.querySelector('.dot')?.remove();
+    return clone.textContent.trim();
+  }
+  function empUrl() {
+    return document.querySelector('link[rel="canonical"]')?.href || location.href;
+  }
+
+  /* --- Compartilhar: folha nativa do sistema (iOS/Android); nos demais
+     navegadores, copia o link e avisa por toast --- */
+  async function shareEmp() {
+    const title = empName();
+    const tag = document.querySelector('.emp-tag')?.textContent.trim();
+    const url = empUrl();
+    const shareData = { title: `${title} — Zayda Construtora`, text: tag || `Conheça o ${title}, da Zayda Construtora.`, url };
+
+    if (navigator.share) {
+      try { await navigator.share(shareData); } catch (err) { /* usuário cancelou a folha — ignora */ }
+      return;
+    }
+    try {
+      await navigator.clipboard.writeText(url);
+      showToast('Link copiado!');
+    } catch (err) {
+      window.prompt('Copie o link:', url);
+    }
+  }
+
+  /* --- Como chegar: deep link universal do Google Maps — abre o app
+     nativo se estiver instalado (Android/iOS), senão cai no navegador --- */
+  function openMaps() {
+    const address = empAddress();
+    if (!address) return;
+    const query = encodeURIComponent(`${address}, ${CIDADE}`);
+    window.open(`https://www.google.com/maps/search/?api=1&query=${query}`, '_blank', 'noopener');
+  }
+
+  /* --- Agendar visita: sem integração de agenda real, então gera um
+     lembrete de 1h pra amanhã às 10h — o cliente reagenda no próprio
+     app de calendário. iOS: navegar para uma data URI text/calendar
+     abre direto a folha nativa "Novo Evento". Android/demais: o link
+     do Google Agenda pré-preenchido é mais confiável que .ics, que
+     nesses navegadores geralmente só cai como download na pasta. */
+  function pad(n) { return String(n).padStart(2, '0'); }
+  function icsDate(d) {
+    return `${d.getUTCFullYear()}${pad(d.getUTCMonth() + 1)}${pad(d.getUTCDate())}T${pad(d.getUTCHours())}${pad(d.getUTCMinutes())}00Z`;
+  }
+  function scheduleVisit() {
+    const name = empName();
+    const address = empAddress();
+    const url = empUrl();
+    const details = `Lembrete de visita ao ${name} (Zayda Construtora). Confirme o horário pelo WhatsApp (22) 99862-1100.\n${url}`;
+
+    const start = new Date();
+    start.setDate(start.getDate() + 1);
+    start.setHours(10, 0, 0, 0);
+    const end = new Date(start.getTime() + 60 * 60 * 1000);
+
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+      (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+
+    if (isIOS) {
+      const ics = [
+        'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Zayda Construtora//Visita//PT-BR', 'BEGIN:VEVENT',
+        `UID:${Date.now()}@zaydaconstrutora.com.br`,
+        `DTSTAMP:${icsDate(new Date())}`,
+        `DTSTART:${icsDate(start)}`,
+        `DTEND:${icsDate(end)}`,
+        `SUMMARY:Visita — ${name}`,
+        `LOCATION:${address}`,
+        `DESCRIPTION:${details.replace(/\n/g, '\\n')}`,
+        'END:VEVENT', 'END:VCALENDAR'
+      ].join('\r\n');
+      location.href = 'data:text/calendar;charset=utf-8,' + encodeURIComponent(ics);
+    } else {
+      const gcalUrl = new URL('https://calendar.google.com/calendar/render');
+      gcalUrl.searchParams.set('action', 'TEMPLATE');
+      gcalUrl.searchParams.set('text', `Visita — ${name}`);
+      gcalUrl.searchParams.set('dates', `${icsDate(start)}/${icsDate(end)}`);
+      gcalUrl.searchParams.set('details', details);
+      gcalUrl.searchParams.set('location', address);
+      window.open(gcalUrl.toString(), '_blank', 'noopener');
+    }
+    showToast('Sugestão: amanhã às 10h — ajuste o horário no seu calendário.');
+  }
+
+  /* --- Toast simples e reutilizável --- */
+  let toastTimer;
+  function showToast(msg) {
+    let el = document.getElementById('zyToast');
+    if (!el) {
+      el = document.createElement('div');
+      el.id = 'zyToast';
+      el.className = 'zy-toast';
+      document.body.appendChild(el);
+    }
+    el.textContent = msg;
+    el.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => el.classList.remove('show'), 3200);
+  }
+
+  document.addEventListener('click', e => {
+    if (e.target.closest('.emp-share-btn')) { shareEmp(); return; }
+    if (e.target.closest('.emp-maps-btn')) { openMaps(); return; }
+    if (e.target.closest('.emp-visit-btn')) { scheduleVisit(); return; }
+  });
+})();
