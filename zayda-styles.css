@@ -921,12 +921,9 @@ section.block {
 @media (min-width: 1100px) { .feat-card { flex-basis: clamp(460px, 48vw, 780px); } }
 
 .feat-media {
-  /* retrato 2:3 — a mesma proporção que o destaque do blog (.bp-featured-img-wrap,
-     587x881) e as capas da listagem (740x1110) já usam. É isso que resolve de vez
-     a sensação de "retângulo": em qualquer largura de tela, retrato sempre lê como
-     alto — a landscape (ex.: 569.26:469.4, usada antes) some ou aparece dependendo
-     da largura relativa do card, retrato não tem essa ambiguidade. */
-  aspect-ratio: 2 / 3;
+  /* retrato 4:5 — 2:3 (mesma proporção do destaque do blog) passou do ponto.
+     4:5 é mais comedido, mas ainda claramente retrato em qualquer largura. */
+  aspect-ratio: 4 / 5;
   position: relative;
   overflow: hidden;
   border-radius: 20px;
