@@ -1752,3 +1752,56 @@ document.addEventListener('click', e => {
     if (e.target.closest('.emp-visit-btn')) { scheduleVisit(); return; }
   });
 })();
+
+/* ============================================================
+   FEAT CAROUSEL — carrossel de diferenciais da home (cards estilo
+   Apple). Mesmo mecanismo do carrossel de empreendimentos (scroll-
+   snap + setas + estado disabled nas pontas), mas o "step" é sempre
+   recalculado a partir da largura real do card — que muda por media
+   query no CSS — em vez de fixo, pra continuar certo em qualquer
+   breakpoint sem duplicar a lógica de responsividade aqui.
+============================================================ */
+(function () {
+  const wrap = document.getElementById('featTrack');
+  const prevBtn = document.getElementById('featPrev');
+  const nextBtn = document.getElementById('featNext');
+  if (!wrap || !prevBtn || !nextBtn) return;
+
+  function cardStep() {
+    const card = wrap.querySelector('.feat-card');
+    if (!card) return 0;
+    const track = card.parentElement;
+    const gap = parseFloat(getComputedStyle(track).columnGap || getComputedStyle(track).gap) || 0;
+    return card.getBoundingClientRect().width + gap;
+  }
+
+  function updateArrows() {
+    const max = wrap.scrollWidth - wrap.clientWidth;
+    prevBtn.disabled = wrap.scrollLeft <= 2;
+    nextBtn.disabled = wrap.scrollLeft >= max - 2;
+  }
+
+  prevBtn.addEventListener('click', () => wrap.scrollBy({ left: -cardStep(), behavior: 'smooth' }));
+  nextBtn.addEventListener('click', () => wrap.scrollBy({ left: cardStep(), behavior: 'smooth' }));
+
+  let ticking = false;
+  wrap.addEventListener('scroll', () => {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => { updateArrows(); ticking = false; });
+  }, { passive: true });
+
+  let resizeT = null;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeT);
+    resizeT = setTimeout(updateArrows, 150);
+  }, { passive: true });
+
+  /* Recalcula de novo depois do load e da troca de fonte: o cálculo do
+     card (clamp com vw) depende do layout já estar assentado, e nem
+     sempre está no primeiro parse do script — sem isso, a seta "próximo"
+     pode nascer com o estado errado até o usuário rolar ou redimensionar. */
+  updateArrows();
+  window.addEventListener('load', updateArrows);
+  document.fonts?.ready?.then(updateArrows).catch(() => {});
+})();

@@ -385,6 +385,43 @@ html.skip-intro .transition-veil{transform:translateY(0);transition:none}
     </div>
   </section>
 
+  <!-- DIFERENCIAIS — carrossel de cards estilo Apple (imagem + legenda,
+       scroll-snap com espiada do próximo card, setas circulares) -->
+  <section class="feat-carousel" aria-label="Diferenciais Zayda">
+    <div class="feat-head">
+      <span class="label">(Por que a Zayda)</span>
+      <h2 class="section">O que muda,<br/>quando é <span class="italic serif">feito por perto</span>.</h2>
+    </div>
+    <div class="feat-track-wrap" id="featTrack">
+      <div class="feat-track">
+        <div class="feat-card">
+          <div class="feat-media"><img src="https://res.cloudinary.com/dovqcebdt/image/upload/w_1300,f_auto,q_auto:best/v1779202203/5-IMG_6841_db4c60.jpg" srcset="https://res.cloudinary.com/dovqcebdt/image/upload/w_800,f_auto,q_auto:best/v1779202203/5-IMG_6841_db4c60.jpg 800w, https://res.cloudinary.com/dovqcebdt/image/upload/w_1300,f_auto,q_auto:best/v1779202203/5-IMG_6841_db4c60.jpg 1300w, https://res.cloudinary.com/dovqcebdt/image/upload/w_1800,f_auto,q_auto:best/v1779202203/5-IMG_6841_db4c60.jpg 1800w" sizes="(max-width:640px) 86vw, (max-width:1100px) 68vw, 48vw" alt="Vista aérea entre a lagoa e o mar, Barra de São João" width="1300" height="813" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy"></div>
+          <p class="feat-caption"><strong>Entre a lagoa e o mar.</strong> Todos os empreendimentos da Zayda ficam em Barra de São João — entre a Lagoa de Iriry e o Atlântico.</p>
+        </div>
+        <div class="feat-card">
+          <div class="feat-media"><img src="https://res.cloudinary.com/dovqcebdt/image/upload/w_1300,f_auto,q_auto:best/v1779214464/1-dji_fly_20250818_103402_69_1755526869376_photo_1_qihmg0.jpg" srcset="https://res.cloudinary.com/dovqcebdt/image/upload/w_800,f_auto,q_auto:best/v1779214464/1-dji_fly_20250818_103402_69_1755526869376_photo_1_qihmg0.jpg 800w, https://res.cloudinary.com/dovqcebdt/image/upload/w_1300,f_auto,q_auto:best/v1779214464/1-dji_fly_20250818_103402_69_1755526869376_photo_1_qihmg0.jpg 1300w, https://res.cloudinary.com/dovqcebdt/image/upload/w_1800,f_auto,q_auto:best/v1779214464/1-dji_fly_20250818_103402_69_1755526869376_photo_1_qihmg0.jpg 1800w" sizes="(max-width:640px) 86vw, (max-width:1100px) 68vw, 48vw" alt="Vila do Sol vista do alto" width="1300" height="813" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy"></div>
+          <p class="feat-caption"><strong>Desde 2014, construindo por aqui.</strong> Mais de uma década entregando obras na Barra de São João — no prazo combinado.</p>
+        </div>
+        <div class="feat-card">
+          <div class="feat-media"><img src="https://res.cloudinary.com/dovqcebdt/image/upload/w_1300,f_auto,q_auto:best/v1779813007/pexels-aimbere-elorza-1176843138-29257464_geu4f1.jpg" srcset="https://res.cloudinary.com/dovqcebdt/image/upload/w_800,f_auto,q_auto:best/v1779813007/pexels-aimbere-elorza-1176843138-29257464_geu4f1.jpg 800w, https://res.cloudinary.com/dovqcebdt/image/upload/w_1300,f_auto,q_auto:best/v1779813007/pexels-aimbere-elorza-1176843138-29257464_geu4f1.jpg 1300w, https://res.cloudinary.com/dovqcebdt/image/upload/w_1800,f_auto,q_auto:best/v1779813007/pexels-aimbere-elorza-1176843138-29257464_geu4f1.jpg 1800w" sizes="(max-width:640px) 86vw, (max-width:1100px) 68vw, 48vw" alt="Margem de rio reflorestada" width="1300" height="813" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy"></div>
+          <p class="feat-caption"><strong>340 mudas plantadas.</strong> Um programa próprio de reflorestamento das margens dos rios da região, antes de erguer qualquer parede.</p>
+        </div>
+        <div class="feat-card">
+          <div class="feat-media"><img src="https://res.cloudinary.com/dovqcebdt/image/upload/w_1300,f_auto,q_auto:best/v1788533748/23-IMG_5032_zmwqpt.jpg" srcset="https://res.cloudinary.com/dovqcebdt/image/upload/w_800,f_auto,q_auto:best/v1788533748/23-IMG_5032_zmwqpt.jpg 800w, https://res.cloudinary.com/dovqcebdt/image/upload/w_1300,f_auto,q_auto:best/v1788533748/23-IMG_5032_zmwqpt.jpg 1300w, https://res.cloudinary.com/dovqcebdt/image/upload/w_1800,f_auto,q_auto:best/v1788533748/23-IMG_5032_zmwqpt.jpg 1800w" sizes="(max-width:640px) 86vw, (max-width:1100px) 68vw, 48vw" alt="Sala integrada à cozinha, Recanto do Sol" width="1300" height="813" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy"></div>
+          <p class="feat-caption"><strong>Prédios pequenos, qualidade de grande.</strong> Uma construtora de bairro — cada empreendimento pensado no detalhe, não em escala.</p>
+        </div>
+      </div>
+    </div>
+    <nav class="feat-nav" aria-label="Navegar entre diferenciais">
+      <button type="button" class="feat-arrow" id="featPrev" aria-label="Diferencial anterior" disabled>
+        <svg width="9" height="15" viewBox="0 0 9 15" fill="none" aria-hidden="true"><path d="M7.5 1.5L1.5 7.5L7.5 13.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <button type="button" class="feat-arrow" id="featNext" aria-label="Próximo diferencial">
+        <svg width="9" height="15" viewBox="0 0 9 15" fill="none" aria-hidden="true"><path d="M1.5 1.5L7.5 7.5L1.5 13.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </nav>
+  </section>
+
   <!-- BLOG PREVIEW — Zayda Journal -->
   <section class="blog-preview">
     <div class="blog-preview-head">
