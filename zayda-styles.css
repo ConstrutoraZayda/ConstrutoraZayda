@@ -918,19 +918,21 @@ section.block {
   width: max-content;
 }
 .feat-card {
-  flex: 0 0 clamp(260px, 86vw, 420px);
+  flex: 0 0 clamp(280px, 88vw, 460px);
   scroll-snap-align: start;
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
-@media (min-width: 640px)  { .feat-card { flex-basis: clamp(380px, 68vw, 620px); } }
-@media (min-width: 1100px) { .feat-card { flex-basis: clamp(460px, 48vw, 780px); } }
+@media (min-width: 640px)  { .feat-card { flex-basis: clamp(420px, 72vw, 700px); } }
+@media (min-width: 1100px) { .feat-card { flex-basis: clamp(500px, 52vw, 900px); } }
 
 .feat-media {
-  /* retrato 5:6 — mais lateral que o 4:5 anterior, ainda claramente mais
-     alto que largo. */
-  aspect-ratio: 5 / 6;
+  /* retrato 9:10 — mais largo que o 5:6 anterior. A largura do card
+     aumentou (clamps acima); pra altura não crescer junto (pedido:
+     "altura está boa, só aumentar a largura"), a proporção ficou menos
+     alta na mesma medida — resultado é altura ~parecida, card mais largo. */
+  aspect-ratio: 9 / 10;
   position: relative;
   overflow: hidden;
   border-radius: 20px;
