@@ -880,24 +880,31 @@ section.block {
    Trilho é full-bleed (quebra o container central de propósito —
    é o que cria a sensação de "tem mais, deslize/clique").
 ============================================================ */
-.feat-carousel { padding: clamp(80px, 10vw, 160px) 0; border-bottom: 1px solid var(--line); }
+.feat-carousel {
+  padding: clamp(80px, 10vw, 160px) 0;
+  border-bottom: 1px solid var(--line);
+  /* respiro extra além do --pad padrão do site, só nesta seção — título e
+     trilho começam um pouco mais à direita que o restante do conteúdo */
+  --feat-shift: clamp(16px, 3vw, 44px);
+}
 .feat-head {
   display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: 16px;
-  padding: 0 var(--pad); margin-bottom: clamp(40px, 5vw, 64px); max-width: var(--maxw); margin-inline: auto;
+  padding: 0 var(--pad) 0 calc(var(--pad) + var(--feat-shift));
+  margin-bottom: clamp(40px, 5vw, 64px); max-width: var(--maxw); margin-inline: auto;
 }
 .feat-head .label { display: block; margin-bottom: 20px; }
 
 .feat-track-wrap {
   /* Sangra só pela direita: a borda esquerda acompanha a mesma régua do
-     título (var(--pad) até --maxw, depois centralizado como o resto do
-     conteúdo); a direita vai livre até a borda do viewport — é essa
-     assimetria que cria o efeito "espiando pra fora da tela" da Apple,
-     sem descolar o carrossel do alinhamento do resto da página. */
-  padding-left: max(var(--pad), calc((100vw - var(--maxw)) / 2));
+     título (var(--pad) + --feat-shift até --maxw, depois centralizado como
+     o resto do conteúdo); a direita vai livre até a borda do viewport — é
+     essa assimetria que cria o efeito "espiando pra fora da tela" da
+     Apple, sem descolar o carrossel do alinhamento do título acima. */
+  padding-left: calc(max(var(--pad), calc((100vw - var(--maxw)) / 2)) + var(--feat-shift));
   overflow-x: auto;
   overscroll-behavior-x: contain;
   scroll-snap-type: x mandatory;
-  scroll-padding-inline-start: max(var(--pad), calc((100vw - var(--maxw)) / 2));
+  scroll-padding-inline-start: calc(max(var(--pad), calc((100vw - var(--maxw)) / 2)) + var(--feat-shift));
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
 }
@@ -921,9 +928,9 @@ section.block {
 @media (min-width: 1100px) { .feat-card { flex-basis: clamp(460px, 48vw, 780px); } }
 
 .feat-media {
-  /* retrato 4:5 — 2:3 (mesma proporção do destaque do blog) passou do ponto.
-     4:5 é mais comedido, mas ainda claramente retrato em qualquer largura. */
-  aspect-ratio: 4 / 5;
+  /* retrato 5:6 — mais lateral que o 4:5 anterior, ainda claramente mais
+     alto que largo. */
+  aspect-ratio: 5 / 6;
   position: relative;
   overflow: hidden;
   border-radius: 20px;
