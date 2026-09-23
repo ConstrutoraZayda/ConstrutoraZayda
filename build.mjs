@@ -48,6 +48,7 @@ const HTML_FILES = [
   'artigo-autoria-colonial.html',
   'artigo-neuroarquitetura.html',
   'artigo-alegria-carioca.html',
+  'artigo-novo-post.html',
 ];
 /* ── Pretty URLs — slugs conhecidos (todas as páginas exceto a home) ── */
 const KNOWN_SLUGS = new Set(HTML_FILES.map(f => f.replace(/\.html$/, '')).filter(s => s !== 'index'));

@@ -232,10 +232,23 @@ h3.title {
 .nav-cta .menu {
   display: none;
   padding: 15px 14px; /* área de toque >= 44px (guideline mobile) */
-  border: 1px solid currentColor;
+  border: none;
   border-radius: 999px;
   line-height: 0; /* remove espaço extra ao redor do SVG */
+  background: transparent;
+  transition: background 200ms var(--ease);
 }
+.nav-cta .menu:hover,
+.nav-cta .menu:focus-visible {
+  background: color-mix(in srgb, currentColor 12%, transparent);
+}
+.menu-line {
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform 320ms var(--ease), opacity 320ms var(--ease);
+}
+.nav-cta .menu.is-open .menu-line--top { transform: translateY(5px) rotate(45deg); }
+.nav-cta .menu.is-open .menu-line--bottom { transform: translateY(-5px) rotate(-45deg); }
 @media (max-width: 820px) {
   .nav-links { display: none; }
   .nav-cta .pill { display: none; }

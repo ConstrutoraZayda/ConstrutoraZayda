@@ -315,8 +315,17 @@ navPanels.forEach(panel => {
    MOBILE MENU
 ============================================================ */
 const menuOverlay = document.getElementById('menuOverlay');
-document.getElementById('openMenu')?.addEventListener('click', () => menuOverlay?.classList.add('open'));
-function closeMenu() { menuOverlay?.classList.remove('open'); }
+const openMenuBtn = document.getElementById('openMenu');
+openMenuBtn?.addEventListener('click', () => {
+  menuOverlay?.classList.add('open');
+  openMenuBtn.classList.add('is-open');
+  openMenuBtn.setAttribute('aria-expanded', 'true');
+});
+function closeMenu() {
+  menuOverlay?.classList.remove('open');
+  openMenuBtn?.classList.remove('is-open');
+  openMenuBtn?.setAttribute('aria-expanded', 'false');
+}
 document.getElementById('closeMenu')?.addEventListener('click', closeMenu);
 
 /* ============================================================

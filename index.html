@@ -215,10 +215,10 @@ html.skip-intro .transition-veil{transform:translateY(0);transition:none}
   </nav>
   <div class="nav-cta">
     <button class="pill" id="openContact">Quero meu imóvel →</button>
-    <button class="menu" id="openMenu" aria-label="Menu">
+    <button class="menu" id="openMenu" aria-label="Menu" aria-expanded="false">
       <svg width="22" height="14" viewBox="0 0 22 14" fill="none" aria-hidden="true">
-        <line x1="0" y1="2" x2="22" y2="2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-        <line x1="0" y1="12" x2="22" y2="12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        <line class="menu-line menu-line--top" x1="0" y1="2" x2="22" y2="2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        <line class="menu-line menu-line--bottom" x1="0" y1="12" x2="22" y2="12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
       </svg>
     </button>
   </div>
@@ -385,6 +385,63 @@ html.skip-intro .transition-veil{transform:translateY(0);transition:none}
     </div>
   </section>
 
+  <!-- WORKS -->
+  <section class="works" id="works">
+    <div class="works-head">
+      <div class="left">
+        <span class="label">(Em destaque)</span>
+        <h2 class="r">Obras</h2>
+      </div>
+      <div class="meta">
+        <span class="idx">(06)</span>
+        <span>Obras assinadas</span>
+      </div>
+    </div>
+
+    <div class="works-list">
+      <a class="work-item" data-img="" data-work-img="https://res.cloudinary.com/dovqcebdt/image/upload/w_600,f_auto,q_auto:best/v1779202203/5-IMG_6841_db4c60.jpg" href="praia-da-lagoa.html">
+        <span class="idx">(00)</span>
+        <span class="name">Praia da Lagoa</span>
+        <span class="year">2026</span>
+        <span class="status">Lançamento</span>
+      </a>
+      <a class="work-item" data-img="" data-work-img="https://res.cloudinary.com/dovqcebdt/image/upload/w_600,f_auto,q_auto:best/v1779291728/IMG_0178_bfqhf9.jpg" href="rua-lambari-celia.html">
+        <span class="idx">(01)</span>
+        <span class="name">Rua Lambari — Célia</span>
+        <span class="year">2025</span>
+        <span class="status">Entregue</span>
+      </a>
+      <a class="work-item" data-img="" data-work-img="https://res.cloudinary.com/dovqcebdt/image/upload/w_600,f_auto,q_auto:best/v1779214464/2-IMG_3614_3_ksrlxs.jpg" href="vila-do-sol.html">
+        <span class="idx">(02)</span>
+        <span class="name">Vila do Sol</span>
+        <span class="year">2024</span>
+        <span class="status">Entregue</span>
+      </a>
+      <a class="work-item" data-img="" data-work-img="https://res.cloudinary.com/dovqcebdt/image/upload/w_600,f_auto,q_auto:best/v1779218012/2-IMG_4479_pzasyb.jpg" href="rua-lambari.html">
+        <span class="idx">(03)</span>
+        <span class="name">Rua Lambari</span>
+        <span class="year">2025</span>
+        <span class="status">Entregue</span>
+      </a>
+      <a class="work-item" data-img="" data-work-img="https://res.cloudinary.com/dovqcebdt/image/upload/w_600,f_auto,q_auto:best/v1779294999/IMG_1850_1_qmpqlz.jpg" href="rua-lambari-andreia.html">
+        <span class="idx">(04)</span>
+        <span class="name">Rua Lambari — Andréia</span>
+        <span class="year">2025</span>
+        <span class="status">Entregue</span>
+      </a>
+      <a class="work-item" data-img="" data-work-img="https://res.cloudinary.com/dovqcebdt/image/upload/w_600,f_auto,q_auto:best/v1779303194/IMG_4221_qzoreg.jpg" href="rua-lambari-carla.html">
+        <span class="idx">(05)</span>
+        <span class="name">Rua Lambari — Carla</span>
+        <span class="year">2025</span>
+        <span class="status">Entregue</span>
+      </a>
+    </div>
+
+    <div class="works-footer">
+      <a class="link" href="empreendimentos.html">Todos os empreendimentos <span>→</span></a>
+    </div>
+  </section>
+
   <!-- ZAYDA JOURNAL — carrossel de cards estilo Apple (imagem + legenda,
        scroll-snap com espiada do próximo card, setas circulares).
        Substitui a antiga seção .blog-preview só aqui na home — o
@@ -481,62 +538,6 @@ html.skip-intro .transition-veil{transform:translateY(0);transition:none}
     </div>
   </section>
 
-  <!-- WORKS -->
-  <section class="works" id="works">
-    <div class="works-head">
-      <div class="left">
-        <span class="label">(Em destaque)</span>
-        <h2 class="r">Obras</h2>
-      </div>
-      <div class="meta">
-        <span class="idx">(06)</span>
-        <span>Obras assinadas</span>
-      </div>
-    </div>
-
-    <div class="works-list">
-      <a class="work-item" data-img="" data-work-img="https://res.cloudinary.com/dovqcebdt/image/upload/w_600,f_auto,q_auto:best/v1779202203/5-IMG_6841_db4c60.jpg" href="praia-da-lagoa.html">
-        <span class="idx">(00)</span>
-        <span class="name">Praia da Lagoa</span>
-        <span class="year">2026</span>
-        <span class="status">Lançamento</span>
-      </a>
-      <a class="work-item" data-img="" data-work-img="https://res.cloudinary.com/dovqcebdt/image/upload/w_600,f_auto,q_auto:best/v1779291728/IMG_0178_bfqhf9.jpg" href="rua-lambari-celia.html">
-        <span class="idx">(01)</span>
-        <span class="name">Rua Lambari — Célia</span>
-        <span class="year">2025</span>
-        <span class="status">Entregue</span>
-      </a>
-      <a class="work-item" data-img="" data-work-img="https://res.cloudinary.com/dovqcebdt/image/upload/w_600,f_auto,q_auto:best/v1779214464/2-IMG_3614_3_ksrlxs.jpg" href="vila-do-sol.html">
-        <span class="idx">(02)</span>
-        <span class="name">Vila do Sol</span>
-        <span class="year">2024</span>
-        <span class="status">Entregue</span>
-      </a>
-      <a class="work-item" data-img="" data-work-img="https://res.cloudinary.com/dovqcebdt/image/upload/w_600,f_auto,q_auto:best/v1779218012/2-IMG_4479_pzasyb.jpg" href="rua-lambari.html">
-        <span class="idx">(03)</span>
-        <span class="name">Rua Lambari</span>
-        <span class="year">2025</span>
-        <span class="status">Entregue</span>
-      </a>
-      <a class="work-item" data-img="" data-work-img="https://res.cloudinary.com/dovqcebdt/image/upload/w_600,f_auto,q_auto:best/v1779294999/IMG_1850_1_qmpqlz.jpg" href="rua-lambari-andreia.html">
-        <span class="idx">(04)</span>
-        <span class="name">Rua Lambari — Andréia</span>
-        <span class="year">2025</span>
-        <span class="status">Entregue</span>
-      </a>
-      <a class="work-item" data-img="" data-work-img="https://res.cloudinary.com/dovqcebdt/image/upload/w_600,f_auto,q_auto:best/v1779303194/IMG_4221_qzoreg.jpg" href="rua-lambari-carla.html">
-        <span class="idx">(05)</span>
-        <span class="name">Rua Lambari — Carla</span>
-        <span class="year">2025</span>
-        <span class="status">Entregue</span>
-      </a>
-    </div>
-
-    <div class="works-footer">
-      <a class="link" href="empreendimentos.html">Todos os empreendimentos <span>→</span></a>
-    </div>
-  </section>
 
   <!-- PROCESS TEASER -->
   <section class="process">
