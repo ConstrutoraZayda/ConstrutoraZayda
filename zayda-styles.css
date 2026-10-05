@@ -922,6 +922,13 @@ section.block {
   scrollbar-width: none;
 }
 .feat-track-wrap::-webkit-scrollbar { display: none; }
+/* Arraste com mouse (ver FEAT CAROUSEL no zayda-app.js): o snap sai do
+   caminho enquanto o card segue o cursor e volta quando ele assenta. */
+@media (hover: hover) and (pointer: fine) {
+  .feat-track-wrap { cursor: grab; }
+  .feat-track-wrap.is-dragging { cursor: grabbing; scroll-snap-type: none; scroll-behavior: auto; user-select: none; }
+  .feat-track-wrap.is-dragging .feat-card { pointer-events: none; }
+}
 @media (prefers-reduced-motion: reduce) { .feat-track-wrap { scroll-behavior: auto; } }
 
 .feat-track {

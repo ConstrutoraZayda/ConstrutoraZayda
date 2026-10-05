@@ -818,7 +818,23 @@ if (!IS_SPA) {
       entry.isIntersecting ? v.play().catch(() => {}) : v.pause();
     });
   }, { threshold: 0.1 });
-  document.querySelectorAll('video.lazy-video').forEach(v => pauseObserver.observe(v));
+  document.querySelectorAll('video.lazy-video').forEach(v => {
+    if (!v.closest('.feat-carousel')) pauseObserver.observe(v);
+  });
+
+  /* Carrossel do Zayda Journal: o vídeo continua tocando quando o card
+     desliza pra fora pelo lado — quem decide pausar é a seção inteira
+     sair da tela na vertical, não o card. Assim quem volta pro card
+     encontra o vídeo seguindo, e a economia de bateria continua valendo
+     quando o usuário rola a página pra longe do carrossel. */
+  document.querySelectorAll('.feat-carousel').forEach(section => {
+    new IntersectionObserver(([entry]) => {
+      section.querySelectorAll('video.lazy-video').forEach(v => {
+        if (!v.getAttribute('src')) return;
+        entry.isIntersecting ? v.play().catch(() => {}) : v.pause();
+      });
+    }, { threshold: 0.1 }).observe(section);
+  });
 
   /* Vídeos injetados dinamicamente (blog, galeria, etc.) */
   new MutationObserver(mutations => {
@@ -1805,6 +1821,82 @@ document.addEventListener('click', e => {
     clearTimeout(resizeT);
     resizeT = setTimeout(updateArrows, 150);
   }, { passive: true });
+
+  /* Arrastar com o mouse. No toque o scroll nativo já resolve (é por isso
+     que só tratamos pointerType "mouse"); no desktop, o scroll-snap fica
+     desligado durante o arraste (.is-dragging) pra o card seguir o cursor
+     1:1, e no fim a gente projeta a inércia do gesto e assenta no card
+     mais próximo com scroll suave — só então o snap volta, já alinhado,
+     sem o "pulo" que aconteceria se ele religasse no meio do caminho. */
+  const DRAG_THRESHOLD = 6;
+  let drag = null;
+  let suppressClick = false;
+  let settleT = null;
+
+  function endSettle() {
+    clearTimeout(settleT);
+    wrap.classList.remove('is-dragging');
+    wrap.removeEventListener('scrollend', endSettle);
+  }
+
+  wrap.addEventListener('pointerdown', (e) => {
+    if (e.pointerType !== 'mouse' || e.button !== 0) return;
+    endSettle();
+    drag = { x: e.clientX, left: wrap.scrollLeft, moved: false, lastX: e.clientX, lastT: e.timeStamp, v: 0 };
+    suppressClick = false;
+  });
+
+  wrap.addEventListener('pointermove', (e) => {
+    if (!drag) return;
+    const dx = e.clientX - drag.x;
+    if (!drag.moved) {
+      if (Math.abs(dx) < DRAG_THRESHOLD) return;
+      drag.moved = true;
+      wrap.setPointerCapture(e.pointerId);
+      wrap.classList.add('is-dragging');
+    }
+    const dt = e.timeStamp - drag.lastT;
+    if (dt > 0) drag.v = 0.8 * ((e.clientX - drag.lastX) / dt) + 0.2 * drag.v;
+    drag.lastX = e.clientX;
+    drag.lastT = e.timeStamp;
+    wrap.scrollLeft = drag.left - dx;
+  });
+
+  function releaseDrag(e) {
+    if (!drag) return;
+    const d = drag;
+    drag = null;
+    if (!d.moved) return;
+    if (wrap.hasPointerCapture?.(e.pointerId)) wrap.releasePointerCapture(e.pointerId);
+    /* O click (se vier) chega logo após o pointerup; depois disso libera,
+       pra não engolir um clique legítimo (ou Enter no teclado) mais tarde. */
+    suppressClick = true;
+    setTimeout(() => { suppressClick = false; }, 0);
+
+    const step = cardStep();
+    const max = wrap.scrollWidth - wrap.clientWidth;
+    /* Gesto parado há mais de 100ms antes de soltar = sem inércia. */
+    const v = e.timeStamp - d.lastT > 100 ? 0 : d.v;
+    const projected = wrap.scrollLeft - v * 220;
+    const target = step ? Math.round(projected / step) * step : projected;
+    wrap.scrollTo({ left: Math.max(0, Math.min(max, target)), behavior: 'smooth' });
+
+    wrap.addEventListener('scrollend', endSettle, { once: true });
+    settleT = setTimeout(endSettle, 700); // navegadores sem "scrollend"
+  }
+  wrap.addEventListener('pointerup', releaseDrag);
+  wrap.addEventListener('pointercancel', releaseDrag);
+
+  /* Um arraste que termina em cima de um card não pode virar clique no link. */
+  wrap.addEventListener('click', (e) => {
+    if (!suppressClick) return;
+    suppressClick = false;
+    e.preventDefault();
+    e.stopPropagation();
+  }, true);
+
+  /* Impede o "fantasma" nativo de arrastar link/imagem, que roubaria o gesto. */
+  wrap.addEventListener('dragstart', (e) => e.preventDefault());
 
   /* Recalcula de novo depois do load e da troca de fonte: o cálculo do
      card (clamp com vw) depende do layout já estar assentado, e nem
