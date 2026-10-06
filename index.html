@@ -443,6 +443,46 @@ html.skip-intro .transition-veil{transform:translateY(0);transition:none}
     </div>
   </section>
 
+  <!-- NOSSA CIDADE — três vídeos em leque (referência: seção iPadOS da
+       apple.com/ipad-pro). As laterais entram uma única vez, de fora pra
+       dentro, quando o palco aparece (ver CITY FAN no zayda-app.js). A
+       barra .city-bar é sticky no fim da seção: nasce como bolinha, se
+       expande pros lados e assenta abaixo do texto.
+       Vídeos: festa de 167 anos de Casimiro de Abreu (originais em stories,
+       1080×1920, ~90-100s). Cada quadro usa um trecho de 12s (so_ = início,
+       du_ = duração), recortado em 3:4 e sem áudio (ac_none) pelo Cloudinary. -->
+  <section class="city" id="city" aria-label="Barra de São João, nossa cidade">
+    <div class="city-head">
+      <span class="label">(Nossa cidade)</span>
+      <h2 class="section">Barra de São João,<br><span class="italic serif">em festa</span>.</h2>
+    </div>
+
+    <div class="city-stage" id="cityStage" aria-hidden="true">
+      <div class="city-frame city-frame--left">
+        <video class="lazy-video" poster="https://res.cloudinary.com/dovqcebdt/video/upload/so_18,c_fill,w_540,h_720,f_auto,q_auto/v1791308557/Video_by_prefeituradecasimirodeabreu_DdU0gKUSYWM_vr2lyx.jpg" data-src="https://res.cloudinary.com/dovqcebdt/video/upload/so_18,du_12,c_fill,w_540,h_720,ac_none,f_auto,q_auto/v1791308557/Video_by_prefeituradecasimirodeabreu_DdU0gKUSYWM_vr2lyx.mp4" muted loop playsinline preload="none"></video>
+      </div>
+      <div class="city-frame city-frame--right">
+        <video class="lazy-video" poster="https://res.cloudinary.com/dovqcebdt/video/upload/so_72,c_fill,w_540,h_720,f_auto,q_auto/v1791308567/Video_by_prefeituradecasimirodeabreu_DdZxQqAyp1b_dznnp3.jpg" data-src="https://res.cloudinary.com/dovqcebdt/video/upload/so_72,du_12,c_fill,w_540,h_720,ac_none,f_auto,q_auto/v1791308567/Video_by_prefeituradecasimirodeabreu_DdZxQqAyp1b_dznnp3.mp4" muted loop playsinline preload="none"></video>
+      </div>
+      <div class="city-frame city-frame--center">
+        <video class="lazy-video" poster="https://res.cloudinary.com/dovqcebdt/video/upload/so_22,c_fill,w_720,h_960,f_auto,q_auto/v1791308567/Video_by_prefeituradecasimirodeabreu_DdZxQqAyp1b_dznnp3.jpg" data-src="https://res.cloudinary.com/dovqcebdt/video/upload/so_22,du_12,c_fill,w_720,h_960,ac_none,f_auto,q_auto/v1791308567/Video_by_prefeituradecasimirodeabreu_DdZxQqAyp1b_dznnp3.mp4" muted loop playsinline preload="none"></video>
+      </div>
+    </div>
+
+    <p class="city-copy">
+      Entre o rio São João e o mar, a cidade onde construímos há quinze anos <strong>vive de encontros</strong>. É aqui que a praça se enche, que <strong>a música desce até a orla</strong> e que vizinho vira família. Construir em Barra de São João é fazer parte disso — <strong>e é por isso que fazemos com tanto cuidado</strong>.
+    </p>
+
+    <div class="city-bar-wrap">
+      <a class="city-bar" id="cityBar" href="artigo-barra-sao-joao.html" tabindex="-1">
+        <span class="city-bar-label"><span>Conheça Barra de São João</span></span>
+        <span class="city-bar-icon" aria-hidden="true">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1.5v11M1.5 7h11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </span>
+      </a>
+    </div>
+  </section>
+
   <!-- ZAYDA JOURNAL — carrossel de cards estilo Apple (imagem + legenda,
        scroll-snap com espiada do próximo card, setas circulares).
        Substitui a antiga seção .blog-preview só aqui na home — o

@@ -1906,3 +1906,60 @@ document.addEventListener('click', e => {
   window.addEventListener('load', updateArrows);
   document.fonts?.ready?.then(updateArrows).catch(() => {});
 })();
+
+/* ============================================================
+   CITY FAN — seção "Nossa cidade" da home (leque de três vídeos,
+   ref. seção iPadOS da apple.com/ipad-pro).
+   · Quando ~35% do palco entra na tela, a seção ganha .is-in e as
+     laterais deslizam de fora pra dentro (transição no CSS). Uma
+     única vez: o observer se desliga logo depois.
+   · A barra flutuante (.city-bar) só aparece depois que a cena se
+     formou e enquanto o usuário está no meio da seção; some quando
+     a seção já ficou pra trás (ou volta pra cima dela).
+============================================================ */
+(function () {
+  const section = document.getElementById('city');
+  const stage   = document.getElementById('cityStage');
+  const bar     = document.getElementById('cityBar');
+  if (!section || !stage) return;
+
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let formed = false;   /* cena montada (fim da entrada das laterais) */
+  let near   = false;   /* seção perto da tela — só aí ouvimos o scroll */
+  let ticking = false;
+
+  /* Arma o estado inicial (laterais fora) — ver comentário no CSS. */
+  section.classList.add('is-armed');
+
+  new IntersectionObserver(([entry], obs) => {
+    if (!entry.isIntersecting) return;
+    section.classList.add('is-in');
+    obs.disconnect();
+    setTimeout(() => { formed = true; update(); }, reduced ? 0 : 1100);
+  }, { threshold: 0.35 }).observe(stage);
+
+  function update() {
+    ticking = false;
+    if (!bar) return;
+    const vh = window.innerHeight;
+    const r  = stage.getBoundingClientRect();
+    const s  = section.getBoundingClientRect();
+    const on = formed && r.top + r.height / 2 < vh * 0.6 && s.bottom > vh * 0.35;
+    bar.classList.toggle('is-shown', on);
+    bar.tabIndex = on ? 0 : -1;
+  }
+
+  function onScroll() {
+    if (!near || ticking) return;
+    ticking = true;
+    requestAnimationFrame(update);
+  }
+
+  new IntersectionObserver(([entry]) => {
+    near = entry.isIntersecting;
+    if (near) onScroll(); else if (bar) { bar.classList.remove('is-shown'); bar.tabIndex = -1; }
+  }, { rootMargin: '200px 0px' }).observe(section);
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll, { passive: true });
+})();
