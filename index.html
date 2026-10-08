@@ -76,7 +76,7 @@ html.skip-intro .transition-veil{transform:translateY(0);transition:none}
 @media(max-width:640px){.hero-headline-sans{font-size:clamp(22px,7.5vw,34px)}.hero-tagline-serif{font-size:clamp(15px,4.5vw,20px)}}
 /* Previne CLS: estes elementos são position:fixed em zayda-styles.css mas precisam disso
    antes do stylesheet carregar — sem isso eles ficam no fluxo normal e empurram o hero para baixo */
-.hw-stack,.nav-dropdown,.ndcp,.nav-backdrop,.cursor-dot{position:fixed;opacity:0;pointer-events:none}
+.nav-dropdown,.ndcp,.nav-backdrop,.cursor-dot{position:fixed;opacity:0;pointer-events:none}
 .menu-overlay{position:fixed;transform:translateY(-100%)}
 /* Previne flash de transição: .modal e #side-drawer têm transition em transform/right
    que dispara se o valor computado mudar de "sem regra" (unstyled) para o estado
@@ -151,55 +151,6 @@ html.skip-intro .transition-veil{transform:translateY(0);transition:none}
     </div>
   </div>
   <p class="intro-counter" id="introCounter">00</p>
-</div>
-
-<!-- ====== HERO WIDGETS (bottom-left) ====== -->
-<div id="heroWidgets" class="hw-stack">
-  <div class="hw-deck" id="hwDeck" role="button" aria-expanded="false" aria-label="Abrir destaques">
-
-    <!-- Card 1 — frente do deck (sempre totalmente visível) -->
-    <div class="hw-card" id="hwBlog">
-      <a class="hw-inner" href="artigo-metros.html">
-        <div class="hw-thumb">
-          <img src="https://res.cloudinary.com/dovqcebdt/image/upload/w_156,h_156,c_fill,f_auto,q_auto:best/v1779300854/15__Tuca_Rein%C3%A9s_trvbmq.jpg" alt="Por Que os Imóveis Mais Caros do Mundo São Menores" width="156" height="156" loading="lazy">
-        </div>
-        <div class="hw-body">
-          <span class="hw-label">Zayda Journal · Novo</span>
-          <h4 class="hw-title">Por Que os Imóveis Mais Caros do Mundo São Menores.</h4>
-          <span class="hw-cta">Ler artigo →</span>
-        </div>
-      </a>
-    </div>
-
-    <!-- Card 2 — meio, borda superior acima do card 1 -->
-    <div class="hw-card" id="hwVagas">
-      <a class="hw-inner" href="carreira.html">
-        <div class="hw-thumb hw-thumb--dark">
-          <span class="hw-pulse"></span>
-        </div>
-        <div class="hw-body">
-          <span class="hw-label">Carreiras · Trabalhe conosco</span>
-          <h4 class="hw-title">Sempre de olho em gente boa pra obra.</h4>
-          <span class="hw-cta">Ver carreiras →</span>
-        </div>
-      </a>
-    </div>
-
-    <!-- Card 3 — fundo, borda superior acima do card 2 -->
-    <div class="hw-card" id="hwProject">
-      <a class="hw-inner" href="praia-da-lagoa.html">
-        <div class="hw-thumb">
-          <img src="https://res.cloudinary.com/dovqcebdt/image/upload/w_156,h_156,c_fill,f_auto,q_auto:best/v1779202203/5-IMG_6841_db4c60.jpg" alt="Praia da Lagoa" width="156" height="156" loading="lazy">
-        </div>
-        <div class="hw-body">
-          <span class="hw-label">Em destaque · Lançamento 2026</span>
-          <h4 class="hw-title">Praia da Lagoa — à beira do Atlântico.</h4>
-          <span class="hw-cta">Ver empreendimento →</span>
-        </div>
-      </a>
-    </div>
-
-  </div>
 </div>
 
 <!-- ====== CUSTOM CURSOR ====== -->

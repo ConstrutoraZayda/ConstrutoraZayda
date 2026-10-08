@@ -858,68 +858,6 @@ if (!IS_SPA) {
 })();
 
 /* ============================================================
-   HERO WIDGETS — deck empilhado
-   · Aparece apenas enquanto a hero (.hero-viewport) está visível
-   · Clique no deck → abre/fecha o card de baixo
-   · Clique num link dentro do card aberto → navega normalmente
-   · Aparece após a intro screen terminar
-============================================================ */
-(function () {
-  const stack = document.getElementById('heroWidgets');
-  const deck  = document.getElementById('hwDeck');
-  const hero  = document.querySelector('.hero-viewport');
-  if (!stack || !deck) return;
-
-  /* Pré-cacheia a altura do card da frente — ResizeObserver evita offsetHeight no click */
-  let _frontCardH = 88;
-  const frontCard = deck.querySelector('.hw-card:nth-child(1)');
-  if (frontCard) {
-    new ResizeObserver(([e]) => { _frontCardH = e.contentRect.height; }).observe(frontCard);
-  }
-
-  /* Toggle do deck ao clicar (ignora cliques em links filhos) */
-  deck.addEventListener('click', e => {
-    if (e.target.closest('a')) return;
-    const isOpen = !deck.classList.contains('open');
-    if (isOpen) deck.style.setProperty('--card-h', _frontCardH + 'px');
-    deck.classList.toggle('open', isOpen);
-    deck.setAttribute('aria-expanded', String(isOpen));
-  });
-
-  /* Visibilidade: só mostra enquanto a hero está na viewport */
-  function setVisible(show) {
-    stack.classList.toggle('visible', show);
-    if (!show) {
-      deck.classList.remove('open');
-      deck.setAttribute('aria-expanded', 'false');
-    }
-  }
-
-  if (hero) {
-    const obs = new IntersectionObserver(
-      ([entry]) => setVisible(entry.isIntersecting),
-      { threshold: 0.15 } /* some quando 85% da hero saiu de cena */
-    );
-    obs.observe(hero);
-  }
-
-  /* Aparece após a intro screen ser removida do DOM — IntersectionObserver já controla visibilidade */
-  function revealWidgets() { setTimeout(() => setVisible(true), 400); }
-
-  const introEl = document.getElementById('introScreen');
-  if (introEl) {
-    new MutationObserver((_, obs) => {
-      if (!document.getElementById('introScreen')) {
-        obs.disconnect();
-        revealWidgets();
-      }
-    }).observe(document.body, { childList: true });
-  } else {
-    revealWidgets();
-  }
-})();
-
-/* ============================================================
    NAV TRANSPARENTE NA HERO — torna sólida ao rolar
    Transparente apenas na home (inicio) enquanto o hero estiver
    visível. Em qualquer outra página fica sempre sólida.
