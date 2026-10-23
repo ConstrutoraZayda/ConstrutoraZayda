@@ -804,11 +804,14 @@ section.block {
   background: var(--bg-2);
 }
 .feat-media .obra-pill { z-index: 1; }
-.feat-media img, .feat-media video { transition: transform 900ms var(--ease); }
-.feat-card:hover .feat-media img, .feat-card:hover .feat-media video { transform: scale(1.035); }
+/* Zoom no hover só nas imagens: escalar um <video> em reprodução faz o
+   navegador re-rasterizar cada quadro na nova escala, e o resultado
+   treme/borra durante a transição — no card de vídeo fica sem zoom. */
+.feat-media img { transition: transform 900ms var(--ease); }
+.feat-card:hover .feat-media img { transform: scale(1.035); }
 @media (prefers-reduced-motion: reduce) {
-  .feat-media img, .feat-media video { transition: none; }
-  .feat-card:hover .feat-media img, .feat-card:hover .feat-media video { transform: none; }
+  .feat-media img { transition: none; }
+  .feat-card:hover .feat-media img { transform: none; }
 }
 
 .feat-caption { font-size: clamp(14px, 1.1vw, 16px); line-height: 1.5; color: var(--ink-2); max-width: 38ch; }
