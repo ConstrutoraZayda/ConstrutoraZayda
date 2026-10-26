@@ -11,8 +11,8 @@ const nav = readFileSync('_nav.html', 'utf8');
 const FILES = [
   'rua-lambari.html','praia-da-lagoa.html','rua-lambari-celia.html',
   'rua-lambari-andreia.html','rua-lambari-carla.html','vila-do-sol.html',
-  'costa-verde.html','ipanema-do-norte.html','rua-corvina.html','epitacio-pessoa.html','mares.html','aldeia.html',
-  'atoba.html','manguezal.html','recanto-do-sol.html','restinga.html','empreendimentos.html','blog.html',
+  'costa-verde.html','ipanema-do-norte.html','rua-corvina.html','epitacio-pessoa.html',
+  'recanto-do-sol.html','restinga.html','empreendimentos.html','blog.html',
   'expertise.html','carreira.html','atendimento.html',
   'artigo-materiais.html','artigo-bem-estar.html','artigo-concreto.html',
   'artigo-impermeabilizacao.html','artigo-luz.html','artigo-cozinha.html',
