@@ -603,7 +603,12 @@ html.entering .transition-veil { transform: translateY(0); transition: none; }
   height: 100vh;
   height: 100svh;
   min-height: 580px;
-  background-image: radial-gradient(ellipse 65% 42% at 50% 50%,rgba(0,0,0,.32),rgba(0,0,0,0) 72%),linear-gradient(rgba(0,0,0,.30),rgba(0,0,0,.50)), image-set(url('https://res.cloudinary.com/dovqcebdt/image/upload/c_crop,x_1000,y_0,w_5000,h_3368/f_avif,q_auto:best,w_1600/v1779812069/pexels-muhammed-ballan-117690444-10322305_zddg4w.avif') type('image/avif') 1x,url('https://res.cloudinary.com/dovqcebdt/image/upload/c_crop,x_1000,y_0,w_5000,h_3368/f_avif,q_auto:best,w_2400/v1779812069/pexels-muhammed-ballan-117690444-10322305_zddg4w.avif') type('image/avif') 2x,url('https://res.cloudinary.com/dovqcebdt/image/upload/c_crop,x_1000,y_0,w_5000,h_3368/f_auto,q_auto:best,w_1600/v1779812069/pexels-muhammed-ballan-117690444-10322305_zddg4w.jpg') type('image/jpeg') 1x,url('https://res.cloudinary.com/dovqcebdt/image/upload/c_crop,x_1000,y_0,w_5000,h_3368/f_auto,q_auto:best,w_2400/v1779812069/pexels-muhammed-ballan-117690444-10322305_zddg4w.jpg') type('image/jpeg') 2x);
+  background-image:
+    linear-gradient(rgba(0,0,0,0.30), rgba(0,0,0,0.50)),
+    image-set(
+      url('https://res.cloudinary.com/dovqcebdt/image/upload/f_avif,q_auto,w_1200,c_scale/v1779376505/the_bridge_at_argenteuil_1983.1.24_rpbfni.avif') type('image/avif'),
+      url('https://res.cloudinary.com/dovqcebdt/image/upload/f_auto,q_auto,w_1200,c_scale/v1779376505/the_bridge_at_argenteuil_1983.1.24_rpbfni.jpg')
+    );
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -613,12 +618,10 @@ html.entering .transition-veil { transform: translateY(0); transition: none; }
   overflow: hidden;
 }
 @supports not (background-image: image-set(url('a.avif') type('image/avif'))) {
-  .hero-viewport { background-image: radial-gradient(ellipse 65% 42% at 50% 50%,rgba(0,0,0,.32),rgba(0,0,0,0) 72%),linear-gradient(rgba(0,0,0,.30),rgba(0,0,0,.50)), url('https://res.cloudinary.com/dovqcebdt/image/upload/c_crop,x_1000,y_0,w_5000,h_3368/f_auto,q_auto:best,w_1600/v1779812069/pexels-muhammed-ballan-117690444-10322305_zddg4w.jpg'); }
-}
-@media (max-width: 768px) {
-  .hero-viewport { background-image: radial-gradient(ellipse 65% 42% at 50% 50%,rgba(0,0,0,.32),rgba(0,0,0,0) 72%),linear-gradient(rgba(0,0,0,.30),rgba(0,0,0,.50)), image-set(url('https://res.cloudinary.com/dovqcebdt/image/upload/c_crop,x_1000,y_0,w_5000,h_3368/c_fill,g_center,w_640,h_1280/f_avif,q_auto:best/v1779812069/pexels-muhammed-ballan-117690444-10322305_zddg4w.avif') type('image/avif') 1x,url('https://res.cloudinary.com/dovqcebdt/image/upload/c_crop,x_1000,y_0,w_5000,h_3368/c_fill,g_center,w_1170,h_2340/f_avif,q_auto:best/v1779812069/pexels-muhammed-ballan-117690444-10322305_zddg4w.avif') type('image/avif') 2x,url('https://res.cloudinary.com/dovqcebdt/image/upload/c_crop,x_1000,y_0,w_5000,h_3368/c_fill,g_center,w_640,h_1280/f_auto,q_auto:best/v1779812069/pexels-muhammed-ballan-117690444-10322305_zddg4w.jpg') type('image/jpeg') 1x,url('https://res.cloudinary.com/dovqcebdt/image/upload/c_crop,x_1000,y_0,w_5000,h_3368/c_fill,g_center,w_1170,h_2340/f_auto,q_auto:best/v1779812069/pexels-muhammed-ballan-117690444-10322305_zddg4w.jpg') type('image/jpeg') 2x); }
-  @supports not (background-image: image-set(url('a.avif') type('image/avif'))) {
-    .hero-viewport { background-image: radial-gradient(ellipse 65% 42% at 50% 50%,rgba(0,0,0,.32),rgba(0,0,0,0) 72%),linear-gradient(rgba(0,0,0,.30),rgba(0,0,0,.50)), url('https://res.cloudinary.com/dovqcebdt/image/upload/c_crop,x_1000,y_0,w_5000,h_3368/c_fill,g_center,w_640,h_1280/f_auto,q_auto:best/v1779812069/pexels-muhammed-ballan-117690444-10322305_zddg4w.jpg'); }
+  .hero-viewport {
+    background-image:
+      linear-gradient(rgba(0,0,0,0.30), rgba(0,0,0,0.50)),
+      url('https://res.cloudinary.com/dovqcebdt/image/upload/f_auto,q_auto,w_1200,c_scale/v1779376505/the_bridge_at_argenteuil_1983.1.24_rpbfni.jpg');
   }
 }
 
